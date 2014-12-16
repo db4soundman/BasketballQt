@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/images">
+        <file alias="Scoreboard.png">images/Scoreboard.png</file>
+        <file alias="ppBar.png">images/PPBar.png</file>
+        <file alias="statbar.png">images/StatBar.png</file>
+        <file alias="M.png">images/M.png</file>
+        <file alias="LowerThird.png">images/StatsGraphic.png</file>
+    </qresource>
+    <qresource prefix="/resources"/>
+</RCC>
