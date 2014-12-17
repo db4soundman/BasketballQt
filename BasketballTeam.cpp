@@ -26,66 +26,203 @@ BasketballTeam::addPlayer(BasketballPlayer* player) {
     roster.append(player);
 }
 
-void
-BasketballTeam::addPkFail() {
-    pkopp++;
-    pkoppToday++;
+
+int BasketballTeam::getFgm() const
+{
+    return fgm;
 }
 
-BasketballPlayer* BasketballTeam::getGoalie()
+void BasketballTeam::setFgm(int value)
 {
-    return goalie;
+    fgm = value;
+}
+int BasketballTeam::getFga() const
+{
+    return fga;
 }
 
-void BasketballTeam::setGoalie(int index)
+void BasketballTeam::setFga(int value)
 {
-    if (index >= roster.size()) {
-        playerInGoal = false;
-    }
-    else {
-        goalie = getPlayer(index);
-        playerInGoal = true;
-    }
+    fga = value;
 }
-bool BasketballTeam::getPlayerInGoal() const
+int BasketballTeam::getFgm3() const
 {
-    return playerInGoal;
+    return fgm3;
 }
 
-void BasketballTeam::setGoalies(QString goalies)
+void BasketballTeam::setFgm3(int value)
 {
-    QString list = goalies;
-    int number;
-    QString strNum;
-    while (list.contains(" ")) {
-        strNum = list.left(list.indexOf(" "));
-        list = list.mid(list.indexOf(" ")+1);
-        number = strNum.toInt();
-        for (int i = 0; i < roster.size(); i++) {
-            if (number == getPlayer(i)->getUni().toInt()) {
-                getPlayer(i)->setGaavg("Goalie");
-                break;
-            }
-        }
-    }
-    number = list.toInt();
-    for (int i = 0; i < roster.size(); i++) {
-        if (number == getPlayer(i)->getUni().toInt()) {
-            getPlayer(i)->setGaavg("Goalie");
-            break;
-        }
-    }
+    fgm3 = value;
+}
+int BasketballTeam::getFga3() const
+{
+    return fga3;
 }
 
-double BasketballTeam::getPkPct() const
+void BasketballTeam::setFga3(int value)
 {
-    return (double) pk/pkopp * 100;
+    fga3 = value;
+}
+int BasketballTeam::getFtm() const
+{
+    return ftm;
 }
 
-void BasketballTeam::setPkPct(double value)
+void BasketballTeam::setFtm(int value)
 {
-    pkPct = value;
+    ftm = value;
 }
+int BasketballTeam::getFta() const
+{
+    return fta;
+}
+
+void BasketballTeam::setFta(int value)
+{
+    fta = value;
+}
+int BasketballTeam::getPts() const
+{
+    return pts;
+}
+
+void BasketballTeam::setPts(int value)
+{
+    pts = value;
+}
+int BasketballTeam::getBlk() const
+{
+    return blk;
+}
+
+void BasketballTeam::setBlk(int value)
+{
+    blk = value;
+}
+int BasketballTeam::getStl() const
+{
+    return stl;
+}
+
+void BasketballTeam::setStl(int value)
+{
+    stl = value;
+}
+int BasketballTeam::getAst() const
+{
+    return ast;
+}
+
+void BasketballTeam::setAst(int value)
+{
+    ast = value;
+}
+int BasketballTeam::getOreb() const
+{
+    return oreb;
+}
+
+void BasketballTeam::setOreb(int value)
+{
+    oreb = value;
+}
+int BasketballTeam::getDreb() const
+{
+    return dreb;
+}
+
+void BasketballTeam::setDreb(int value)
+{
+    dreb = value;
+}
+int BasketballTeam::getTreb() const
+{
+    return treb;
+}
+
+void BasketballTeam::setTreb(int value)
+{
+    treb = value;
+}
+int BasketballTeam::getTo() const
+{
+    return to;
+}
+
+void BasketballTeam::setTo(int value)
+{
+    to = value;
+}
+int BasketballTeam::getPtsTo() const
+{
+    return ptsTo;
+}
+
+void BasketballTeam::setPtsTo(int value)
+{
+    ptsTo = value;
+}
+int BasketballTeam::getPtsCh2() const
+{
+    return ptsCh2;
+}
+
+void BasketballTeam::setPtsCh2(int value)
+{
+    ptsCh2 = value;
+}
+int BasketballTeam::getPtsBench() const
+{
+    return ptsBench;
+}
+
+void BasketballTeam::setPtsBench(int value)
+{
+    ptsBench = value;
+}
+int BasketballTeam::getTies() const
+{
+    return ties;
+}
+
+void BasketballTeam::setTies(int value)
+{
+    ties = value;
+}
+int BasketballTeam::getLeads() const
+{
+    return leads;
+}
+
+void BasketballTeam::setLeads(int value)
+{
+    leads = value;
+}
+int BasketballTeam::getLargestLead() const
+{
+    return largestLead;
+}
+
+void BasketballTeam::setLargestLead(int value)
+{
+    largestLead = value;
+}
+
+double BasketballTeam::getFgPct()
+{
+    return fga != 0 ? (double)fgm / fga * 100 : 0.0;
+}
+
+double BasketballTeam::getFtPct()
+{
+    return fta != 0 ? (double)ftm / fta * 100 : 0.;
+}
+
+double BasketballTeam::getFg3Pct()
+{
+    return fga3 != 0 ? (double)fgm3 / fga3 * 100 : 0.;
+}
+
 
 QList<QString> BasketballTeam::getGuiNames()
 {
@@ -98,115 +235,3 @@ QList<QString> BasketballTeam::getGuiNames()
     return names;
 }
 
-double BasketballTeam::getPpPct() const
-{
-    return (double)ppg/ppopp * 100;
-}
-
-void BasketballTeam::setPpPct(double value)
-{
-    ppPct = value;
-}
-
-int BasketballTeam::getPkoppToday() const
-{
-    return pkoppToday;
-}
-
-void BasketballTeam::setPkoppToday(int value)
-{
-    pkoppToday = value;
-}
-
-int BasketballTeam::getPkToday() const
-{
-    return pkToday;
-}
-
-void BasketballTeam::setPkToday(int value)
-{
-    pkToday = value;
-}
-
-int BasketballTeam::getPpoppToday() const
-{
-    return ppoppToday;
-}
-
-void BasketballTeam::setPpoppToday(int value)
-{
-    ppoppToday = value;
-}
-
-int BasketballTeam::getPpgToday() const
-{
-    return ppgToday;
-}
-
-void BasketballTeam::setPpgToday(int value)
-{
-    ppgToday = value;
-}
-
-int BasketballTeam::getPkopp() const
-{
-    return pkopp;
-}
-
-void BasketballTeam::setPkopp(int value)
-{
-    pkopp = value;
-}
-
-int BasketballTeam::getPk() const
-{
-    return pk;
-}
-
-void BasketballTeam::setPk(int value)
-{
-    pk = value;
-}
-
-int BasketballTeam::getPpopp() const
-{
-    return ppopp;
-}
-
-void BasketballTeam::setPpopp(int value)
-{
-    ppopp = value;
-}
-
-int BasketballTeam::getPpg() const
-{
-    return ppg;
-}
-
-void BasketballTeam::setPpg(int value)
-{
-    ppg = value;
-}
-
-
-void
-BasketballTeam::addPkStop() {
-    pk++;
-    pkopp++;
-    pkToday++;
-    pkoppToday++;
-}
-
-void
-BasketballTeam::addPpFail() {
-    ppopp++;
-    ppoppToday++;
-}
-
-void
-BasketballTeam::addPpg() {
-    ppg++;
-    ppopp++;
-    ppgToday++;
-    ppoppToday++;
-}
