@@ -44,7 +44,6 @@ SOURCES += main.cpp\
     GUI/SogControl.cpp \
     GUI/StatDisplayControls.cpp \
     GUI/VisitingGameStatControl.cpp \
-    Wizard/AwayTeamInfo.cpp \
     Wizard/SetupPage.cpp \
     Wizard/SetupWizard.cpp \
     BasketballTeam.cpp \
@@ -75,7 +74,6 @@ HEADERS  += MainWindow.h \
     GUI/SogControl.h \
     GUI/StatDisplayControls.h \
     GUI/VisitingGameStatControl.h \
-    Wizard/AwayTeamInfo.h \
     Wizard/SetupPage.h \
     Wizard/SetupWizard.h \
     MiamiAllAccessBasketball.h \

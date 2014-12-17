@@ -25,7 +25,10 @@ Scoreboard::Scoreboard(QColor awayCol, QColor homeCol, QString awayTeam, QString
 
     defaultSponsorText = sponsorFont;
     show = false;
-    setPixmap(QPixmap(":/images/Scoreboard.png"));
+
+    // setPixmap(QPixmap(":/images/Scoreboard.png"));
+
+
     ppBar = new QPixmap(":/images/ppBar.png");
     topBar = new QPixmap(":/images/statbar.png");
     networkLogo = new QPixmap(":/images/M.png");
@@ -46,11 +49,7 @@ Scoreboard::Scoreboard(QColor awayCol, QColor homeCol, QString awayTeam, QString
     homeGradient.setFinalStop(0,43);
     awayGradient.setFinalStop(0,43);
     prepareColor();
-    // penalty gradient
-    penaltyGradient.setStart(0, 54);
-    penaltyGradient.setFinalStop(0, 92);
-    penaltyGradient.setColorAt(0, QColor(255, 255, 0));
-    penaltyGradient.setColorAt(1, QColor(188, 188, 0));
+
 
     QFont rankFont("Arial", 20, QFont::Bold);
     awayRank = new QGraphicsTextItem(pAwayRank);
@@ -92,7 +91,7 @@ Scoreboard::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         if (showPdAndClock) {
             painter->drawText(838, 3, 247, 50, Qt::AlignVCenter, period);
             painter->drawText(833, 3, 242, 50, Qt::AlignRight | Qt::AlignVCenter,
-                              showClock? clock->toString() : "INT");
+                              showClock? clock->toString() : "HALFTIME");
         }
         else {
             painter->drawText(833, 3, 247, 50, Qt::AlignCenter, centeredTimeText);
@@ -139,20 +138,6 @@ Scoreboard::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                 painter->drawText(474, 52, 345, 38, Qt::AlignLeft | Qt::AlignVCenter, ppDescription);
                 painter->drawText(474, 52, 331, 38, Qt::AlignRight | Qt::AlignVCenter, ppClock->toStringPP());
             }
-            //Neutral
-            else if (neutralPP){
-                painter->drawPixmap(833,54,247,38, *ppBar );
-                painter->drawText(841, 54, 247, 38, Qt::AlignLeft | Qt::AlignVCenter, ppDescription);
-                painter->drawText(833, 54, 239, 38, Qt::AlignRight | Qt::AlignVCenter, ppClock->toStringPP());
-            }
-        }
-
-        if (penalty) {
-            // Penalty Indicator
-            painter->fillRect(833, 52, 247, 38, penaltyGradient);
-            painter->setPen(QColor(0,0,0));
-            painter->setFont(defaultSponsorText);
-            painter->drawText(833,54,247,38, Qt::AlignCenter, "PENALTY");
         }
 
     }
@@ -197,11 +182,6 @@ void Scoreboard::prepareAwayName()
     }
 }
 
-void
-Scoreboard::togglePenalty() {
-    penalty = !penalty;
-    scene()->update();
-}
 
 void
 Scoreboard::updateClock() {
@@ -212,33 +192,6 @@ Scoreboard::updateClock() {
     else if (homePP) {
         scene()->update(this->x() + 474, this->y() + 54, 350, 38);
     }
-    else if (neutralPP) {
-        scene()->update(this->x() + 833, this->y() + 54, 247, 38);
-    }
-}
-
-void
-Scoreboard::preparePowerplayClock(int pos, Clock *clock, QString description) {
-    // Clear off current board.
-    awayPP = false;
-    homePP = false;
-    neutralPP = false;
-    ppClock = clock;
-    switch (pos) {
-    case AWAY_PP:
-        awayPP = true;
-        break;
-    case HOME_PP:
-        homePP = true;
-        break;
-    case NEUTRAL:
-        neutralPP = true;
-        break;
-    default:
-        break;
-    }
-    ppDescription = description;
-        scene()->update();
 }
 
 void
@@ -265,15 +218,8 @@ Scoreboard::updatePeriod(int pd) {
         period = "2nd";
         break;
     case 3:
-        period = "3rd";
-        break;
-    case 4:
         period = "OT";
         showPdAndClock = true;
-        break;
-    case 5:
-        centeredTimeText = "SHOOTOUT";
-        showPdAndClock = false;
         break;
     default:
         period = "";

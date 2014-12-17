@@ -38,9 +38,8 @@ MiamiAllAccessBasketball::exec() {
     scene = new QGraphicsScene();
 
     QString awayName, homeName, awayRank, homeRank, homeFile, awayFile, sponsor, announcer,
-            goalies, statcrewName;
+            statcrewName;
     QColor awayColor, homeColor,  bg;
-    int pk, pkopp, ppg, ppopp;
 
     homeColor.setRgb(226, 24, 54);
     bg.setRgb(0,120,0);
@@ -49,14 +48,12 @@ MiamiAllAccessBasketball::exec() {
     homeName = "MIAMI";
     QDesktopWidget desktop;
     QRect graphicsScreen = desktop.screenGeometry(1);
-    SetupWizard wizard(&awayName, &homeName, &awayFile, &homeFile, &sponsor,
-                       &announcer, &awayRank, &homeRank, &awayColor, &homeColor,
-                       &bg, &pk, &pkopp, &ppg, &ppopp, &goalies, &statcrewName);
+    SetupWizard wizard(&awayName, &homeName, &sponsor,&announcer, &awayRank, &homeRank,
+                       &awayColor, &homeColor, &bg, &statcrewName);
     wizard.exec();
     game = new BasketballGame(awayName, homeName, awayColor, homeColor,
                           awayFile, homeFile, sponsor, announcer, awayRank,
                           homeRank, graphicsScreen.width() + 1);
-    BasketballTeam* team = game->getAwayTeam();
 
 
     scene->addItem(game->getSb());

@@ -29,7 +29,6 @@ ClockControls::ClockControls(BasketballGame* game, CommercialGraphic* comGraphic
     connect(game, SIGNAL(clockIsRunning(bool)),
             this, SLOT(updateClockButton(bool)));
     connect(&set, SIGNAL(clicked()), this, SLOT(showClockDialog()));
-    connect(&penalty, SIGNAL(clicked()), game->getSb(), SLOT(togglePenalty()));
     connect(&nextPd, SIGNAL(clicked()), game, SLOT(advancePeriod()));
     connect(&prevPd, SIGNAL(clicked()), game, SLOT(rewindPeriod()));
     connect(&reset, SIGNAL(clicked()), game->getGameClock(), SLOT(resetClock()));

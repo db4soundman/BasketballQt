@@ -4,20 +4,15 @@
 #include <QFileDialog>
 #include <QColorDialog>
 
-SetupPage::SetupPage(QString* pAwayName, QString* pHomeName, QString* pAwayFile,
-                     QString* pHomeFile, QString* pSponsor, QString* pAnnouncer,
+SetupPage::SetupPage(QString* pAwayName, QString* pHomeName, QString* pSponsor, QString* pAnnouncer,
                      QString* pAwayRank, QString* pHomeRank, QColor* pAwayColor,
                      QColor* pHomeColor, QColor* pBg, QString* pStatCrew) {
-    browseAway.setText("File");
-    browseHome.setText("File");
     chooseAColor.setText("Color");
     chooseHColor.setText("Color");
     chooseBg.setText("Background Color");
     browseStatCrew.setText("File");
     awayName = pAwayName;
     homeName = pHomeName;
-    awayFile = pAwayFile;
-    homeFile = (pHomeFile);
     sponsor = (pSponsor);
     announcer = (pAnnouncer);
     awayRank = (pAwayRank);
@@ -30,12 +25,10 @@ SetupPage::SetupPage(QString* pAwayName, QString* pHomeName, QString* pAwayFile,
     mainLayout->addWidget(new QLabel("Away Team:"), 0, 0);
     mainLayout->addWidget(&awayNameLine, 0, 1);
     mainLayout->addWidget(&chooseAColor, 0, 2);
-    mainLayout->addWidget(&browseAway, 0, 3);
 
     mainLayout->addWidget(new QLabel("Home Team:"), 1, 0);
     mainLayout->addWidget(&homeNameLine, 1, 1);
     mainLayout->addWidget(&chooseHColor, 1, 2);
-    mainLayout->addWidget(&browseHome, 1, 3);
 
     mainLayout->addWidget(new QLabel("Away Team Rank:"), 2, 0);
     mainLayout->addWidget(&awayRankLine, 2, 1);
@@ -52,8 +45,6 @@ SetupPage::SetupPage(QString* pAwayName, QString* pHomeName, QString* pAwayFile,
 
     setLayout(mainLayout);
 
-    connect(&browseAway, SIGNAL(clicked()), this, SLOT(awayBrowse()));
-    connect(&browseHome, SIGNAL(clicked()), this, SLOT(homeBrowse()));
     connect(&chooseAColor, SIGNAL(clicked()), this, SLOT(awayColorDiag()));
     connect(&chooseHColor, SIGNAL(clicked()), this, SLOT(homeColorDiag()));
     connect(&chooseBg, SIGNAL(clicked()), this, SLOT(bgDiag()));
@@ -73,20 +64,6 @@ bool SetupPage::validatePage()
     *awayName = awayNameLine.text().toUpper();
     *homeName = homeNameLine.text().toUpper();
     return true;
-}
-
-void SetupPage::homeBrowse()
-{
-    QString file = QFileDialog::getOpenFileName(0, "Home File");
-    if (!file.isEmpty())
-        *homeFile = file;
-}
-
-void SetupPage::awayBrowse()
-{
-    QString file = QFileDialog::getOpenFileName(0, "Away File");
-    if (!file.isEmpty())
-        *awayFile = file;
 }
 
 void SetupPage::statCrewBrowse()

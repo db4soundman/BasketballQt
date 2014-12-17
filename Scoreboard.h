@@ -22,10 +22,8 @@ public:
 signals:
 
 public slots:
-     void togglePenalty();
      void showPd();
      void final();
-     void preparePowerplayClock(int pos, Clock* clock = NULL, QString description = "");
      void updateHomeScore(int score);
      void updateAwayScore(int score);
      void updatePeriod(int pd);
