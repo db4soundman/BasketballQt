@@ -28,18 +28,11 @@ PlayerEditor::PlayerEditor(BasketballGame* game, bool homeTeam) {
 }
 
 void PlayerEditor::updateSpinBoxes() {
-    goalsToday.setValue(player->getGoalsToday());
-    astToday.setValue(player->getAssistsToday());
-    penaltiesToday.setValue(player->getPenaltiesToday());
-    pimToday.setValue(player->getPimToday());
+
 }
 
 void PlayerEditor::applyStats() {
-    player->setGoalsToday(goalsToday.value());
-    player->setAssistsToday(astToday.value());
-    player->setPenaltiesToday(penaltiesToday.value());
-    player->setPimToday(pimToday.value());
-    player->setPtsToday(goalsToday.value() +  astToday.value());
+
 
 }
 

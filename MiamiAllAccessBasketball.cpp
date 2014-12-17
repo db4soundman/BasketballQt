@@ -57,11 +57,7 @@ MiamiAllAccessBasketball::exec() {
                           awayFile, homeFile, sponsor, announcer, awayRank,
                           homeRank, graphicsScreen.width() + 1);
     BasketballTeam* team = game->getAwayTeam();
-    team->setPk(pk);
-    team->setPkopp(pkopp);
-    team->setPpg(ppg);
-    team->setPpopp(ppopp);
-    team->setGoalies(goalies);
+
 
     scene->addItem(game->getSb());
 

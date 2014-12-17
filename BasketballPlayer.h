@@ -7,8 +7,6 @@ class BasketballPlayer : public QObject {
     Q_OBJECT
 public:
     BasketballPlayer();
-    BasketballPlayer(const BasketballPlayer& p);
-    //BasketballPlayer& operator = (const BasketballPlayer&);
 
     QString getName() const;
     void setName(const QString& value);
@@ -16,89 +14,55 @@ public:
     QString getUni() const;
     void setUni(const QString& value);
 
-    QString getYear() const;
-    void setYear(const QString& value);
+    int getFgm() const;
+    void setFgm(int value);
 
-    QString getPlusMinus() const;
-    void setPlusMinus(const QString& value);
+    int getFga() const;
+    void setFga(int value);
 
-    int getGp() const;
-    void setGp(int value);
+    int getFgm3() const;
+    void setFgm3(int value);
 
-    int getGoals() const;
-    void setGoals(int value);
+    int getFga3() const;
+    void setFga3(int value);
 
-    int getAssists() const;
-    void setAssists(int value);
+    int getFtm() const;
+    void setFtm(int value);
+
+    int getFta() const;
+    void setFta(int value);
 
     int getPts() const;
     void setPts(int value);
 
-    int getPenalties() const;
-    void setPenalties(int value);
+    int getBlk() const;
+    void setBlk(int value);
 
-    int getPim() const;
-    void setPim(int value);
+    int getStl() const;
+    void setStl(int value);
 
-    int getGa() const;
-    void setGa(int value);
+    int getAst() const;
+    void setAst(int value);
 
-    int getSaves() const;
-    void setSaves(int value);
+    int getOreb() const;
+    void setOreb(int value);
 
-    int getShotsFaced() const;
-    void setShotsFaced(int value);
+    int getDreb() const;
+    void setDreb(int value);
 
-    int getWins() const;
-    void setWins(int value);
+    int getTreb() const;
+    void setTreb(int value);
 
-    int getLosses() const;
-    void setLosses(int value);
+    int getTo() const;
+    void setTo(int value);
 
-    int getGoalsToday() const;
-    void setGoalsToday(int value);
-
-    int getAssistsToday() const;
-    void setAssistsToday(int value);
-
-    int getPtsToday() const;
-    void setPtsToday(int value);
-
-    int getPenaltiesToday() const;
-    void setPenaltiesToday(int value);
-
-    int getPimToday() const;
-    void setPimToday(int value);
-
-    int getGaToday() const;
-    void setGaToday(int value);
-
-    int getSavesToday() const;
-    void setSavesToday(int value);
-
-    int getShotsFacedToday() const;
-    void setShotsFacedToday(int value);
-
-    QString getGaavg() const;
-    void setGaavg(const QString& value);
-
-    void addSave();
-    void minusSave();
-    void addGa();
-    void minusGa();
-
-    double getSvPct() const;
-    void calcSvPct();
+    double getFgPct();
+    double getFtPct();
+    double getFg3Pct();
 
 private:
-    QString name, uni, year, plusMinus, gaavg;
-    int gp, goals, assists, pts, penalties, pim;
-    // Goalie stats
-    int ga, saves, shotsFaced, wins, losses;
-
-    int goalsToday, assistsToday, ptsToday, penaltiesToday,
-    pimToday, gaToday, savesToday, shotsFacedToday;
-    double svPct;
+    QString name, uni;
+    int fgm, fga, fgm3, fga3, ftm, fta, pts, blk, stl, ast, oreb, dreb, treb, to;
 };
 
 #endif // HOCKEYPLAYER_H

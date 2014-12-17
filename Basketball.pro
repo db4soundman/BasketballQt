@@ -26,7 +26,6 @@ SOURCES += main.cpp\
     LowerThirdCreator.cpp \
     MiamiAllAccessBasketball.cpp \
     Scoreboard.cpp \
-    SeasonXMLHandler.cpp \
     StatCrewScanner.cpp \
     GameStatEditors/PlayerEditor.cpp \
     GameStatEditors/TeamEditor.cpp \
@@ -58,7 +57,6 @@ HEADERS  += MainWindow.h \
     LowerThird.h \
     LowerThirdCreator.h \
     Scoreboard.h \
-    SeasonXMLHandler.h \
     StatCrewScanner.h \
     GameStatEditors/PlayerEditor.h \
     GameStatEditors/TeamEditor.h \

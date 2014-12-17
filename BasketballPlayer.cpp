@@ -1,31 +1,9 @@
 #include "BasketballPlayer.h"
 
 BasketballPlayer::BasketballPlayer() {
-    goalsToday = assistsToday = ptsToday = penaltiesToday =
-            pimToday = gaToday = savesToday = shotsFacedToday = 0;
+
 }
 
-BasketballPlayer::BasketballPlayer(const BasketballPlayer& p) {
-    goalsToday = assistsToday = ptsToday = penaltiesToday =
-            pimToday = gaToday = savesToday = shotsFacedToday = 0;
-
-    name = p.getName();
-    uni = p.getUni();
-    year = p.getYear();
-    plusMinus = p.getPlusMinus();
-    gaavg = p.getGaavg();
-    gp = p.getGp();
-    goals = p.getGoals();
-    assists = p.getAssists();
-    pts = p.getPts();
-    penalties = p.getPenalties();
-    pim = p.getPim();
-    ga = p.getGa();
-    saves = p.getSaves();
-    wins = p.getWins();
-    losses = p.getLosses();
-    shotsFaced = p.getShotsFaced();
-}
 
 QString BasketballPlayer::getName() const {
     return name;
@@ -33,6 +11,13 @@ QString BasketballPlayer::getName() const {
 
 void BasketballPlayer::setName(const QString& value) {
     name = value;
+
+    if (!name.contains(",")) {
+        name = name.toUpper();
+    }
+    QString goodName = (name.mid(name.indexOf(",")) + " " +
+                        name.left(name.indexOf(",")));
+    name = goodName.toUpper().trimmed();
 }
 QString BasketballPlayer::getUni() const {
     return uni;
@@ -41,205 +26,145 @@ QString BasketballPlayer::getUni() const {
 void BasketballPlayer::setUni(const QString& value) {
     uni = value;
 }
-QString BasketballPlayer::getYear() const {
-    return year;
-}
-
-void BasketballPlayer::setYear(const QString& value) {
-    year = value;
-}
-
-QString BasketballPlayer::getPlusMinus() const {
-    return plusMinus;
-}
-
-void BasketballPlayer::setPlusMinus(const QString& value) {
-    plusMinus = value;
-}
-
-int BasketballPlayer::getGp() const {
-    return gp;
-}
-
-void BasketballPlayer::setGp(int value)
+int BasketballPlayer::getFgm() const
 {
-    gp = value;
+    return fgm;
 }
 
-int BasketballPlayer::getGoals() const {
-    return goals;
+void BasketballPlayer::setFgm(int value)
+{
+    fgm = value;
+}
+int BasketballPlayer::getFga() const
+{
+    return fga;
 }
 
-void BasketballPlayer::setGoals(int value) {
-    goals = value;
+void BasketballPlayer::setFga(int value)
+{
+    fga = value;
 }
-int BasketballPlayer::getAssists() const {
-    return assists;
-}
-
-void BasketballPlayer::setAssists(int value) {
-    assists = value;
+int BasketballPlayer::getFgm3() const
+{
+    return fgm3;
 }
 
-int BasketballPlayer::getPts() const {
+void BasketballPlayer::setFgm3(int value)
+{
+    fgm3 = value;
+}
+int BasketballPlayer::getFga3() const
+{
+    return fga3;
+}
+
+void BasketballPlayer::setFga3(int value)
+{
+    fga3 = value;
+}
+int BasketballPlayer::getFtm() const
+{
+    return ftm;
+}
+
+void BasketballPlayer::setFtm(int value)
+{
+    ftm = value;
+}
+int BasketballPlayer::getFta() const
+{
+    return fta;
+}
+
+void BasketballPlayer::setFta(int value)
+{
+    fta = value;
+}
+int BasketballPlayer::getPts() const
+{
     return pts;
 }
 
-void BasketballPlayer::setPts(int value) {
+void BasketballPlayer::setPts(int value)
+{
     pts = value;
 }
 
-int BasketballPlayer::getPenalties() const {
-    return penalties;
-}
-
-void BasketballPlayer::setPenalties(int value) {
-    penalties = value;
-}
-
-int BasketballPlayer::getPim() const {
-    return pim;
-}
-
-void BasketballPlayer::setPim(int value) {
-    pim = value;
-}
-
-int BasketballPlayer::getGa() const {
-    return ga;
-}
-
-void BasketballPlayer::setGa(int value) {
-    ga = value;
-}
-
-int BasketballPlayer::getSaves() const {
-    return saves;
-}
-
-void BasketballPlayer::setSaves(int value) {
-    saves = value;
-}
-int BasketballPlayer::getShotsFaced() const {
-    return shotsFaced;
-}
-
-void BasketballPlayer::setShotsFaced(int value) {
-    shotsFaced = value;
-}
-int BasketballPlayer::getWins() const {
-    return wins;
-}
-
-void BasketballPlayer::setWins(int value) {
-    wins = value;
-}
-int BasketballPlayer::getLosses() const {
-    return losses;
-}
-
-void BasketballPlayer::setLosses(int value) {
-    losses = value;
-}
-int BasketballPlayer::getGoalsToday() const {
-    return goalsToday;
-}
-
-void BasketballPlayer::setGoalsToday(int value) {
-    goalsToday = value;
-}
-int BasketballPlayer::getAssistsToday() const {
-    return assistsToday;
-}
-
-void BasketballPlayer::setAssistsToday(int value) {
-    assistsToday = value;
-}
-int BasketballPlayer::getPtsToday() const {
-    return ptsToday;
-}
-
-void BasketballPlayer::setPtsToday(int value) {
-    ptsToday = value;
-}
-int BasketballPlayer::getPenaltiesToday() const {
-    return penaltiesToday;
-}
-
-void BasketballPlayer::setPenaltiesToday(int value) {
-    penaltiesToday = value;
-}
-int BasketballPlayer::getPimToday() const {
-    return pimToday;
-}
-
-void BasketballPlayer::setPimToday(int value) {
-    pimToday = value;
-}
-int BasketballPlayer::getGaToday() const {
-    return gaToday;
-}
-
-void BasketballPlayer::setGaToday(int value) {
-    gaToday = value;
-}
-int BasketballPlayer::getSavesToday() const {
-    return savesToday;
-}
-
-void BasketballPlayer::setSavesToday(int value) {
-    savesToday = value;
-}
-int BasketballPlayer::getShotsFacedToday() const {
-    return shotsFacedToday;
-}
-
-void BasketballPlayer::setShotsFacedToday(int value) {
-    shotsFacedToday = value;
-}
-
-QString BasketballPlayer::getGaavg() const
+int BasketballPlayer::getBlk() const
 {
-    return gaavg;
+    return blk;
 }
 
-void BasketballPlayer::setGaavg(const QString& value)
+void BasketballPlayer::setBlk(int value)
 {
-    gaavg = value;
+    blk = value;
 }
-
-void BasketballPlayer::addSave()
+int BasketballPlayer::getStl() const
 {
-    savesToday++;
-    shotsFacedToday++;
+    return stl;
 }
 
-void BasketballPlayer::minusSave()
+void BasketballPlayer::setStl(int value)
 {
-    savesToday--;
-    shotsFacedToday--;
+    stl = value;
 }
-
-void BasketballPlayer::addGa()
+int BasketballPlayer::getAst() const
 {
-    gaToday++;
-    shotsFacedToday++;
+    return ast;
 }
 
-void BasketballPlayer::minusGa()
+void BasketballPlayer::setAst(int value)
 {
-    gaToday--;
-    shotsFacedToday--;
+    ast = value;
 }
-double BasketballPlayer::getSvPct() const
+int BasketballPlayer::getOreb() const
 {
-    return svPct;
+    return oreb;
 }
 
-void BasketballPlayer::calcSvPct()
+void BasketballPlayer::setOreb(int value)
 {
-    shotsFaced = ga + saves;
-    svPct = ((double)saves / shotsFaced) * 100;
+    oreb = value;
+}
+int BasketballPlayer::getDreb() const
+{
+    return dreb;
 }
 
+void BasketballPlayer::setDreb(int value)
+{
+    dreb = value;
+}
+int BasketballPlayer::getTreb() const
+{
+    return treb;
+}
 
+void BasketballPlayer::setTreb(int value)
+{
+    treb = value;
+}
+int BasketballPlayer::getTo() const
+{
+    return to;
+}
+
+void BasketballPlayer::setTo(int value)
+{
+    to = value;
+}
+
+double BasketballPlayer::getFgPct()
+{
+    return fga != 0 ? (double)fgm / fga * 100 : 0.0;
+}
+
+double BasketballPlayer::getFtPct()
+{
+    return fta != 0 ? (double)ftm / fta * 100 : 0.;
+}
+
+double BasketballPlayer::getFg3Pct()
+{
+    return fga3 != 0 ? (double)fgm3 / fga3 * 100 : 0.;
+}

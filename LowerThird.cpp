@@ -52,7 +52,7 @@ LowerThird::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         painter->setPen(QColor(255,255,255));
         painter->drawText(-370, 0, NAME_WIDTH, 120, Qt::AlignVCenter, firstName + "\n" + lastName);
         painter->drawText(-60, 0, 60, 60, Qt::AlignCenter, number);
-        painter->drawText(-60, 60, 60, 60, Qt::AlignCenter, year);
+        //painter->drawText(-60, 60, 60, 60, Qt::AlignCenter, year);
         painter->setFont(statFont);
 
         int rectWidth = 800/statistics.size();
@@ -106,14 +106,13 @@ LowerThird::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 }
 
 void
-LowerThird::prepareForDisplay(QString name, QString number, QString year,
+LowerThird::prepareForDisplay(QString name, QString number,
                               QList<QString> statLabels,
                               QList<QString> statValues, bool homeTeam) {
     this->name = name;
     firstName = name.left(name.indexOf(" "));
     QStringRef substr(&name, name.indexOf(" ") + 1, name.length() - (name.indexOf(" ")+1));
     lastName = substr.toString();
-    this->year = year;
     this->number = number;
     statNames = statLabels;
     statistics = statValues;
@@ -126,7 +125,7 @@ LowerThird::prepareForDisplay(QString name, QString number, QString year,
     showLt();
 }
 
-void LowerThird::prepareForCustomLt(QString name, QString number, QString year,
+void LowerThird::prepareForCustomLt(QString name, QString number,
                                     QList<QString> statLabels,
                                     QList<QString> statValues, bool homeTeam)
 {
@@ -135,7 +134,6 @@ void LowerThird::prepareForCustomLt(QString name, QString number, QString year,
     firstName = name.left(name.indexOf(" "));
     QStringRef substr(&name, name.indexOf(" ") + 1, name.length() - (name.indexOf(" ")+1));
     lastName = substr.toString();
-    this->year = year;
     this->number = number;
     statNames = statLabels;
     statistics = statValues;

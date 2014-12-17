@@ -1,7 +1,7 @@
 #include "BasketballTeam.h"
 
 BasketballTeam::BasketballTeam() {
-    ppgToday = ppoppToday = pkToday = pkoppToday = 0;
+
 
 }
 
