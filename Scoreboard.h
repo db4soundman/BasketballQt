@@ -35,6 +35,8 @@ public slots:
      void intermission();
      void displayClock();
      void displaySponsor();
+     void updateHomeTOL(int tol);
+     void updateAwayTOL(int tol);
 
 private:
      QPixmap* ppBar;
@@ -58,7 +60,7 @@ private:
      Clock* clock;
      Clock* ppClock;
      QFont defaultSponsorText;
-     int homeRankOffset, awayRankOffset;
+     int homeRankOffset, awayRankOffset, awayTOL, homeTOL;
 
 };
 

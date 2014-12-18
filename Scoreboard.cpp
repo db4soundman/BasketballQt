@@ -23,6 +23,8 @@ Scoreboard::Scoreboard(QColor awayCol, QColor homeCol, QString awayTeam, QString
     sponsorFont.setPointSize(28);
     #endif
 
+    homeTOL = awayTOL = 5;
+
     defaultSponsorText = sponsorFont;
     show = false;
     showShotClock = true;
@@ -145,6 +147,14 @@ Scoreboard::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
             painter->setPen(QColor(255, 255, 255));
             painter->setFont(topBarText->font());
             painter->drawText(0, -28, 790, 28, Qt::AlignCenter, topBarText->toPlainText());
+        }
+
+        for (int i = 0; i < awayTOL; i++) {
+            painter->fillRect(266 - (40 * i) - 5, 62, 40, 5, QColor(255,255,0));
+        }
+
+        for (int i = 0; i < homeTOL; i++) {
+            painter->fillRect(489 + (40 * i) + 5, 62, 40, 5, QColor(255,255,0));
         }
 
         if (showPP) {
@@ -309,6 +319,18 @@ Scoreboard::displaySponsor() {
         QFontMetrics temp(topBarText->font());
         fontSize = temp;
     }
+    scene()->update();
+}
+
+void Scoreboard::updateHomeTOL(int tol)
+{
+    homeTOL = tol;
+    scene()->update();
+}
+
+void Scoreboard::updateAwayTOL(int tol)
+{
+    awayTOL = tol;
     scene()->update();
 }
 
