@@ -150,11 +150,11 @@ Scoreboard::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         }
 
         for (int i = 0; i < awayTOL; i++) {
-            painter->fillRect(266 - (40 * i) - 5, 62, 40, 5, QColor(255,255,0));
+            painter->fillRect(261 - (45 * i), 62, 40, 5, QColor(255,255,0));
         }
 
         for (int i = 0; i < homeTOL; i++) {
-            painter->fillRect(489 + (40 * i) + 5, 62, 40, 5, QColor(255,255,0));
+            painter->fillRect(489 + (45 * i), 62, 40, 5, QColor(255,255,0));
         }
 
         if (showPP) {
