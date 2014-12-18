@@ -8,7 +8,7 @@
 #define AWAY_PP 1
 #define HOME_PP 2
 #define NEUTRAL 3
-#define TEAM_NAME_WIDTH 260
+#define TEAM_NAME_WIDTH 220
 #define RANK_WIDTH 50
 #define TEAM_BOX_Y 6
 
@@ -16,7 +16,7 @@ Scoreboard::Scoreboard(QColor awayCol, QColor homeCol, QString awayTeam, QString
                        QString sponsorText, Clock* clock, QString pAwayRank, QString pHomeRank,
                        QGraphicsItem *parent) :
     QGraphicsPixmapItem(parent), homeColor(homeCol), awayColor(awayCol) {
-    QFont font("Arial", 34, QFont::Bold);
+    QFont font("Arial", 36, QFont::Bold);
     QFont sponsorFont("Arial", 24, QFont::Bold);
 #ifdef Q_OS_OSX
     font.setPointSize(40);
@@ -25,6 +25,7 @@ Scoreboard::Scoreboard(QColor awayCol, QColor homeCol, QString awayTeam, QString
 
     defaultSponsorText = sponsorFont;
     show = false;
+    showShotClock = true;
 
     // setPixmap(QPixmap(":/images/Scoreboard.png"));
 
@@ -46,8 +47,16 @@ Scoreboard::Scoreboard(QColor awayCol, QColor homeCol, QString awayTeam, QString
 
     homeGradient.setStart(0, TEAM_BOX_Y);
     awayGradient.setStart(0, TEAM_BOX_Y);
-    homeGradient.setFinalStop(0,43);
-    awayGradient.setFinalStop(0,43);
+    homeGradient.setFinalStop(0,56);
+    awayGradient.setFinalStop(0,56);
+
+    mainGradient.setStart(0,0);
+    mainGradient.setFinalStop(0, 74);
+    clockGradient.setStart(0,6);
+    clockGradient.setFinalStop(0, 38);
+    shotClockGradient.setStart(0,6);
+    shotClockGradient.setFinalStop(0, 38);
+
     prepareColor();
 
 
@@ -83,39 +92,54 @@ Scoreboard::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     Q_UNUSED(option);
     Q_UNUSED(widget);
     if (show) {
-        painter->drawPixmap(0,-49, *topBar);
-        painter->drawPixmap(0, 0, this->pixmap());
-        painter->drawPixmap(34, 4, 66, 50, *networkLogo);
+        painter->drawPixmap(0,-49, 700, 49, *topBar);
+        painter->fillRect(0,0, 700, 74, mainGradient);
+        painter->fillRect(290, 6, 68, 32, clockGradient);
+        //shot clock..., maybe some if stat
+        painter->fillRect(358, 6, 68, 32, showShotClock ? shotClockGradient : clockGradient);
+        painter->drawPixmap(290, 38, 136, 32, *ppBar);
+        //painter->drawPixmap(34, 4, 66, 50, *networkLogo);
         //Clock - Game time...draw clock first since default color is black
-        painter->setFont(homeName->font());
+       painter->setFont(defaultSponsorText);
         if (showPdAndClock) {
+            /*
             painter->drawText(838, 3, 247, 50, Qt::AlignVCenter, period);
             painter->drawText(833, 3, 242, 50, Qt::AlignRight | Qt::AlignVCenter,
                               showClock? clock->toString() : "HALFTIME");
+                              */
+            painter->drawText(290, 6, 68, 32, Qt::AlignCenter,
+                              showClock? clock->toString() : "HALFTIME");
+            painter->drawText(358, 6, 68, 32, Qt::AlignCenter,"35");
+            painter->setPen(QColor(255,255,255));
+            painter->drawText(290, 38, 136, 32, Qt::AlignCenter, period);
         }
         else {
+            painter->setPen(QColor(255,255,255));
             painter->drawText(833, 3, 247, 50, Qt::AlignCenter, centeredTimeText);
         }
+         painter->setFont(homeName->font());
         // Away text
-        painter->fillRect(115, TEAM_BOX_Y, TEAM_NAME_WIDTH, 42, awayGradient );
+        painter->fillRect(6, TEAM_BOX_Y, 60 + TEAM_NAME_WIDTH, 50, awayGradient );
         painter->setFont(awayRank->font());
         painter->setPen(QColor(255, 255, 255));
-        painter->drawText(115, TEAM_BOX_Y, awayRankOffset, 42, Qt::AlignCenter,  awayRank->toPlainText());
+        //painter->drawText(66, TEAM_BOX_Y, awayRankOffset, 42, Qt::AlignCenter,  awayRank->toPlainText());
         painter->setFont(awayName->font());
-        painter->drawText(118 + awayRankOffset, TEAM_BOX_Y, TEAM_NAME_WIDTH, 42, Qt::AlignVCenter, awayName->toPlainText());
+        painter->drawText(66, TEAM_BOX_Y, TEAM_NAME_WIDTH, 50, Qt::AlignVCenter | Qt::AlignRight, awayName->toPlainText());
         // Away Score
+        painter->fillRect(6, TEAM_BOX_Y, 60, 50, QColor(0,0,0, 150));
         painter->setFont(awayScore->font());
-        painter->drawText(374, TEAM_BOX_Y, 78, 44, Qt::AlignCenter, awayScore->toPlainText());
+        painter->drawText(6, TEAM_BOX_Y, 60, 50, Qt::AlignCenter, awayScore->toPlainText());
 
         // Home Text
-        painter->fillRect(470, TEAM_BOX_Y, TEAM_NAME_WIDTH, 42, homeGradient);
+        painter->fillRect(430, TEAM_BOX_Y, 60 + TEAM_NAME_WIDTH, 50, homeGradient);
         painter->setFont(homeRank->font());
-        painter->drawText(470, TEAM_BOX_Y, homeRankOffset, 42, Qt::AlignCenter, homeRank->toPlainText());
+        //painter->drawText(470, TEAM_BOX_Y, homeRankOffset, 42, Qt::AlignCenter, homeRank->toPlainText());
         painter->setFont(homeName->font());
-        painter->drawText(475 + homeRankOffset, TEAM_BOX_Y, TEAM_NAME_WIDTH, 42, Qt::AlignVCenter, homeName->toPlainText());
+        painter->drawText(430, TEAM_BOX_Y, TEAM_NAME_WIDTH, 50, Qt::AlignLeft | Qt::AlignVCenter, homeName->toPlainText());
         // Home Score
+        painter->fillRect(430 + TEAM_NAME_WIDTH, TEAM_BOX_Y, 60, 50, QColor(0,0,0, 150));
         painter->setFont(homeScore->font());
-        painter->drawText(728, TEAM_BOX_Y, 78, 44, Qt::AlignCenter, homeScore->toPlainText());
+        painter->drawText(430 + TEAM_NAME_WIDTH, TEAM_BOX_Y, 60, 50, Qt::AlignCenter, homeScore->toPlainText());
         if (sponsor) {
             //StatBarText
             painter->setPen(QColor(255, 255, 255));
@@ -165,6 +189,19 @@ Scoreboard::prepareColor() {
     awayGradient.setColorAt(1, end2);
     awayGradient.setColorAt(0, end2);
 
+    mainGradient.setColorAt(0, QColor(0,0,0));
+    mainGradient.setColorAt(1, QColor(0,0,0));
+    mainGradient.setColorAt(.4, QColor(156,0,0));
+    mainGradient.setColorAt(.6, QColor(156,0,0));
+
+    clockGradient.setColorAt(0, QColor(255,255,255));
+    clockGradient.setColorAt(1, QColor(255,255,255));
+    clockGradient.setColorAt(.5, QColor(180,180,180));
+
+    shotClockGradient.setColorAt(0, QColor(100,100,100));
+    shotClockGradient.setColorAt(1, QColor(100,100,100));
+    shotClockGradient.setColorAt(.5, QColor(180,180,180));
+
 }
 
 void Scoreboard::prepareAwayName()
@@ -212,10 +249,10 @@ void
 Scoreboard::updatePeriod(int pd) {
     switch (pd) {
     case 1:
-        period = "1st";
+        period = "1st HALF";
         break;
     case 2:
-        period = "2nd";
+        period = "2nd HALF";
         break;
     case 3:
         period = "OT";
@@ -247,7 +284,7 @@ Scoreboard::changeTopBarText(QString text) {
     int subtraction = 1;
     topBarText->setFont(QFont("Arial", 34, QFont::Bold));
     QFontMetrics fontSize(topBarText->font());
-    while (fontSize.width(text) > 1092) {
+    while (fontSize.width(text) > 700) {
         QFont tempFont("Arial", defaultSponsorText.pointSize() - subtraction, QFont::Bold);
         subtraction++;
         topBarText->setFont(tempFont);
@@ -263,7 +300,7 @@ Scoreboard::displaySponsor() {
     int subtraction = 1;
     topBarText->setFont(defaultSponsorText);
     QFontMetrics fontSize(topBarText->font());
-    while (fontSize.width(sponsorText) > 1092) {
+    while (fontSize.width(sponsorText) > 700) {
         QFont tempFont("Arial", defaultSponsorText.pointSize() - subtraction, QFont::Bold);
         //topBarText->font().setPointSize(defaultSponsorText.pointSize()-subtraction);
         subtraction++;

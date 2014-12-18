@@ -49,9 +49,9 @@ private:
      QGraphicsTextItem* awayRank;
      QGraphicsTextItem* homeRank;
      QString ppDescription, period, centeredTimeText, sponsorText;
-     QLinearGradient homeGradient, awayGradient, penaltyGradient;
+     QLinearGradient mainGradient, homeGradient, awayGradient, penaltyGradient, clockGradient, shotClockGradient;
      bool awayPP, homePP, neutralPP, penalty, sponsor,
-     scoreText, showPP, show, showPdAndClock, showClock;
+     scoreText, showPP, show, showPdAndClock, showClock, showShotClock;
 
      void prepareColor();
      void prepareAwayName();
