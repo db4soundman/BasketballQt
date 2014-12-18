@@ -25,6 +25,8 @@ Scoreboard::Scoreboard(QColor awayCol, QColor homeCol, QString awayTeam, QString
 
     homeTOL = awayTOL = 5;
 
+    homeBonus = homeDblBonus = awayBonus = awayDblBonus = false;
+
     defaultSponsorText = sponsorFont;
     show = false;
     showShotClock = true;
@@ -157,23 +159,19 @@ Scoreboard::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
             painter->fillRect(489 + (45 * i), 62, 40, 5, QColor(255,255,0));
         }
 
-        if (showPP) {
-            painter->setPen(QColor(255, 255, 255));
-            painter->setFont(defaultSponsorText);
-            // Away ppbar
-            if(awayPP) {
-                painter->drawPixmap(112,52, *ppBar);
-                painter->drawText(120, 52, 345, 38, Qt::AlignLeft | Qt::AlignVCenter, ppDescription);
-                painter->drawText(120, 52, 331, 38, Qt::AlignRight | Qt::AlignVCenter, ppClock->toStringPP());
-            }
-            //Home ppbar
-            else if (homePP) {
-                painter->drawPixmap(466,52, *ppBar);
-                painter->drawText(474, 52, 345, 38, Qt::AlignLeft | Qt::AlignVCenter, ppDescription);
-                painter->drawText(474, 52, 331, 38, Qt::AlignRight | Qt::AlignVCenter, ppClock->toStringPP());
-            }
+        if (homeBonus || homeDblBonus) {
+            painter->drawPixmap(489, 74, TEAM_NAME_WIDTH + 75, 28, *ppBar);
+            painter->setFont(QFont("Arial", 20, QFont::Bold));
+            painter->setPen(QColor(255,255,255));
+            painter->drawText(489, 74, TEAM_NAME_WIDTH + 75, 28, Qt::AlignCenter, homeBonus ? "BONUS" : "DOUBLE BONUS");
         }
 
+        if (awayBonus || awayDblBonus) {
+            painter->drawPixmap(6, 74, TEAM_NAME_WIDTH + 75, 28, *ppBar);
+            painter->setFont(QFont("Arial", 20, QFont::Bold));
+            painter->setPen(QColor(255,255,255));
+            painter->drawText(6, 74, TEAM_NAME_WIDTH + 75, 28, Qt::AlignCenter, awayBonus ? "BONUS" : "DOUBLE BONUS");
+        }
     }
 }
 
@@ -331,6 +329,42 @@ void Scoreboard::updateHomeTOL(int tol)
 void Scoreboard::updateAwayTOL(int tol)
 {
     awayTOL = tol;
+    scene()->update();
+}
+
+void Scoreboard::checkAwayFouls(int fouls)
+{
+    if (fouls >= 10) {
+        homeDblBonus = true;
+        homeBonus = false;
+    }
+    else if (fouls > 6) {
+        homeDblBonus = false;
+        homeBonus = true;
+    }
+
+    else {
+        homeDblBonus = false;
+        homeBonus = false;
+    }
+    scene()->update();
+}
+
+void Scoreboard::checkHomeFouls(int fouls)
+{
+    if (fouls >= 10) {
+        awayDblBonus = true;
+        awayBonus = false;
+    }
+    else if (fouls > 6) {
+        awayDblBonus = false;
+        awayBonus = true;
+    }
+
+    else {
+        awayDblBonus = false;
+        awayBonus = false;
+    }
     scene()->update();
 }
 

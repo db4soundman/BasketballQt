@@ -37,6 +37,8 @@ public slots:
      void displaySponsor();
      void updateHomeTOL(int tol);
      void updateAwayTOL(int tol);
+     void checkHomeFouls(int fouls);
+     void checkAwayFouls(int fouls);
 
 private:
      QPixmap* ppBar;
@@ -52,7 +54,7 @@ private:
      QGraphicsTextItem* homeRank;
      QString ppDescription, period, centeredTimeText, sponsorText;
      QLinearGradient mainGradient, homeGradient, awayGradient, penaltyGradient, clockGradient, shotClockGradient;
-     bool awayPP, homePP, neutralPP, penalty, sponsor,
+     bool awayPP, homePP, neutralPP, penalty, sponsor, homeBonus, homeDblBonus, awayBonus, awayDblBonus,
      scoreText, showPP, show, showPdAndClock, showClock, showShotClock;
 
      void prepareColor();
