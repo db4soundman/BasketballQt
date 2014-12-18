@@ -34,10 +34,8 @@ SOURCES += main.cpp\
     GUI/ControlPanel.cpp \
     GUI/DisplayControls.cpp \
     GUI/GameInfo.cpp \
-    GUI/HomeStatControl.cpp \
     GUI/PowerPlayUpdaters.cpp \
     GUI/StatDisplayControls.cpp \
-    GUI/VisitingGameStatControl.cpp \
     Wizard/SetupPage.cpp \
     Wizard/SetupWizard.cpp \
     BasketballTeam.cpp \
@@ -45,7 +43,8 @@ SOURCES += main.cpp\
     BasketballGame.cpp \
     GUI/TimeoutControl.cpp \
     GUI/ScoreControl.cpp \
-    GUI/FoulControl.cpp
+    GUI/FoulControl.cpp \
+    GUI/PlayerStatControl.cpp
 
 HEADERS  += MainWindow.h \
     Clock.h \
@@ -61,10 +60,8 @@ HEADERS  += MainWindow.h \
     GUI/ControlPanel.h \
     GUI/DisplayControls.h \
     GUI/GameInfo.h \
-    GUI/HomeStatControl.h \
     GUI/PowerPlayUpdaters.h \
     GUI/StatDisplayControls.h \
-    GUI/VisitingGameStatControl.h \
     Wizard/SetupPage.h \
     Wizard/SetupWizard.h \
     MiamiAllAccessBasketball.h \
@@ -73,7 +70,8 @@ HEADERS  += MainWindow.h \
     BasketballGame.h \
     GUI/TimeoutControl.h \
     GUI/ScoreControl.h \
-    GUI/FoulControl.h
+    GUI/FoulControl.h \
+    GUI/PlayerStatControl.h
 
 RESOURCES += \
     graphics.qrc

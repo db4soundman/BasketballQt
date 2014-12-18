@@ -114,7 +114,7 @@ BasketballGame::showAnnouncers() {
 }
 
 
-void BasketballGame::gatherHomeStatsLt(int index)
+void BasketballGame::gatherSummaryLt(bool home, int index)
 {
     BasketballPlayer* player = getHomeTeam()->getPlayer(index);
     QList<QString> labels, numbers;
@@ -123,7 +123,7 @@ void BasketballGame::gatherHomeStatsLt(int index)
     lt.prepareForDisplay(player->getName(), player->getUni(), labels, numbers, true);
 }
 
-void BasketballGame::gatherAwayStatsLt(int index)
+void BasketballGame::gatherShootingLt(bool home, int index)
 {
     BasketballPlayer* player = getAwayTeam()->getPlayer(index);
     QList<QString> labels, numbers;
@@ -132,20 +132,16 @@ void BasketballGame::gatherAwayStatsLt(int index)
                          labels, numbers, false);
 }
 
-void BasketballGame::gatherHomeGameStatsSb(int index)
+void BasketballGame::gatherFreethrowLt(bool home, int index)
 {
     BasketballPlayer* player = getHomeTeam()->getPlayer(index);
-    QString text = player->getName() + " (" + getHomeName()+"): ";
-
-    sb.changeTopBarText(text);
+    QList<QString> labels, numbers;
 }
 
-void BasketballGame::gatherAwayGameStatsSb(int index)
+void BasketballGame::gatherFgFoulLt(bool home, int index)
 {
     BasketballPlayer* player = getAwayTeam()->getPlayer(index);
-    QString text = player->getName() + " (" + getAwayName()+"): ";
-
-    sb.changeTopBarText(text);
+    QList<QString> labels, numbers;
 }
 
 Clock* BasketballGame::getGameClock()

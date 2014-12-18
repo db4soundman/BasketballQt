@@ -1,7 +1,7 @@
 #include "StatDisplayControls.h"
 
 StatDisplayControls::StatDisplayControls(BasketballGame* game) :
-    homeStats(game), awayStats(game) {
+    homeStats(true, game), awayStats(false, game) {
     addTab(&awayStats, game->getAwayName() + " Stats");
     addTab(&homeStats, game->getHomeName() + " Stats");
 

@@ -91,10 +91,10 @@ public slots:
     void subHomeTOL();
     void subAwayTOL();
     void showAnnouncers();
-    void gatherHomeStatsLt(int index);
-    void gatherAwayStatsLt(int index);
-    void gatherHomeGameStatsSb(int index);
-    void gatherAwayGameStatsSb(int index);
+    void gatherSummaryLt(bool home, int index);
+    void gatherShootingLt(bool home,int index);
+    void gatherFreethrowLt(bool home,int index);
+    void gatherFgFoulLt(bool home,int index);
     void makeFinal();
     void flipPossArrow();
 
