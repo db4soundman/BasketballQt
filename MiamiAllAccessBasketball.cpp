@@ -63,8 +63,8 @@ MiamiAllAccessBasketball::exec() {
     scene->addItem(commercial);
     game->getLt()->setX((graphicsScreen.width() / 2) - 214);
     game->getLt()->setY(graphicsScreen.height() - 160);
-    game->getSb()->setY(graphicsScreen.height() - 80);
-    game->getSb()->setX((graphicsScreen.width() / 2) - 551);
+    game->getSb()->setY(graphicsScreen.height() - 80 - 74);
+    game->getSb()->setX((graphicsScreen.width() / 2) - (790/2));
     commercial->setY(graphicsScreen.height() - 230);
     //commercial->setX(460);
     tv = new QGraphicsView(scene);

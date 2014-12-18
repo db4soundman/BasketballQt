@@ -34,7 +34,7 @@ CommercialGraphic::CommercialGraphic(BasketballGame* game, int width, QGraphicsI
 
     descriptiveFont = sponsorFont;
     prepareGradients(game->getAwayColor(), game->getHomeColor());
-    maaText = "Miami All-Access on NCHC.tv";
+    maaText = "Miami All-Access";
     clockStatus = SHOW_CLOCK;
     connect(game->getGameClock(), SIGNAL(clockUpdated()), this, SLOT(updateClock()));
 }
