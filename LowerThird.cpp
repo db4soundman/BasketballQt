@@ -13,7 +13,7 @@ LowerThird::LowerThird(QColor awayColor, QColor homeColor, int screenWidth, QGra
 #ifdef Q_OS_OSX
     statFont.setPointSize(36);
     nameFont.setPointSize(36);
-    #endif
+#endif
     fontPointSize = nameFont.pointSize();
     setPixmap(QPixmap(":/images/LowerThird.png"));
     statFontPointSize = statFont.pointSize();
@@ -34,7 +34,7 @@ LowerThird::LowerThird(QColor awayColor, QColor homeColor, int screenWidth, QGra
     statNames.append("");
     this->centerPoint = screenWidth / 2;
     show = false;
-    showPp = false;
+    showComp = false;
 }
 
 void
@@ -70,39 +70,6 @@ LowerThird::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         }
 
     }
-    else if (showPp) {
-        int availableWidth = centerPoint - 772;
-        painter->drawPixmap(availableWidth / 2 - this->x() + 372, 0, 400, 120, this->pixmap());
-        painter->fillRect(availableWidth / 2 - this->x(), 0, 372, 120, awayNameGradient);
-        painter->fillRect(availableWidth / 2 - this->x() + 372, 47, 400, 72, awayStatGradient);
-        painter->fillRect(availableWidth / 2 - this->x() + 372, 47, 400, 72, QColor(0, 0, 0, 60));
-        painter->setFont(nameFont);
-        painter->setPen(QColor(255, 255, 255));
-        painter->drawText(availableWidth / 2 - this->x(), 0, 372, 120, Qt::AlignCenter, awayName);
-        QFont ppFont("Arial", 22, QFont::Bold);
-#ifdef Q_OS_OSX
-        ppFont.setPointSize(28);
-#endif
-        painter->setFont(ppFont);
-        painter->drawText(availableWidth / 2 - this->x() + 372, 47, 400, 72, Qt::AlignCenter, awayStat);
-        painter->setFont(statFont);
-        painter->setPen(QColor(0, 0, 0));
-        painter->drawText(availableWidth / 2 - this->x() + 372, 0, 400, 47, Qt::AlignCenter, awayLabel);
-
-// --------------------------Home graphic-----------------------------------------
-        painter->drawPixmap(availableWidth/2+ (centerPoint - this->x()), 0, 400, 120, this->pixmap());
-        painter->fillRect(availableWidth/2+(centerPoint - this->x())+400, 0, 372, 120, homeNameGradient);
-        painter->fillRect(availableWidth/2+(centerPoint - this->x()), 47, 400, 72, homeStatGradient);
-        painter->fillRect(availableWidth/2+(centerPoint - this->x()), 47, 400, 72, QColor(0, 0, 0, 60));
-        painter->setFont(nameFont);
-        painter->setPen(QColor(255, 255, 255));
-        painter->drawText(availableWidth/2+(centerPoint - this->x())+400, 0, 372, 120, Qt::AlignCenter, homeName);
-        painter->setFont(ppFont);
-        painter->drawText(availableWidth/2+(centerPoint - this->x()), 47, 400, 72, Qt::AlignCenter, homeStat);
-        painter->setFont(statFont);
-        painter->setPen(QColor(0, 0, 0));
-        painter->drawText(availableWidth/2+(centerPoint - this->x()), 0, 400, 47, Qt::AlignCenter, homeLabel);
-    }
 }
 
 void
@@ -110,9 +77,15 @@ LowerThird::prepareForDisplay(QString name, QString number,
                               QList<QString> statLabels,
                               QList<QString> statValues, bool homeTeam) {
     this->name = name;
-    firstName = name.left(name.indexOf(" "));
-    QStringRef substr(&name, name.indexOf(" ") + 1, name.length() - (name.indexOf(" ")+1));
-    lastName = substr.toString();
+    if (name.contains(" ")) {
+        firstName = name.left(name.indexOf(" "));
+        QStringRef substr(&name, name.indexOf(" ") + 1, name.length() - (name.indexOf(" ")+1));
+        lastName = substr.toString();
+    }
+    else {
+        firstName = name;
+        lastName = "";
+    }
     this->number = number;
     statNames = statLabels;
     statistics = statValues;
@@ -146,23 +119,6 @@ void LowerThird::prepareForCustomLt(QString name, QString number,
     showLt();
 }
 
-void LowerThird::prepareForPpComp(QString awayName, QString awayLabel, QString awayStat,
-                                  QString homeName, QString homeLabel, QString homeStat) {
-    statFont.setPointSize(statFontPointSize);
-    this->awayName = awayName;
-    this->awayLabel = awayLabel;
-    this->awayStat = awayStat;
-    this->homeName = homeName;
-    this->homeLabel = homeLabel;
-    this->homeStat = homeStat;
-    firstName = awayName;
-    lastName = "";
-    prepareFontSize();
-    showPpComp();
-
-}
-
-
 void LowerThird::prepareColors() {
     int red, green, blue;
     red = -1*homeTeamMain.red() *NAME_GRADIENT_LEVEL + homeTeamMain.red();
@@ -183,7 +139,7 @@ void LowerThird::prepareColors() {
     homeStatGradient.setColorAt(1, end);
     homeStatGradient.setColorAt(0, end);
 
-// -------------------------------------Away Team--------------------------------
+    // -------------------------------------Away Team--------------------------------
 
     red = -1*awayTeamMain.red() *NAME_GRADIENT_LEVEL + awayTeamMain.red();
     green = -1*awayTeamMain.green() *NAME_GRADIENT_LEVEL + awayTeamMain.green();
@@ -238,20 +194,14 @@ void LowerThird::adjustFont()
 void
 LowerThird::hideLt() {
     show = false;
-    showPp = false;
+    showComp = false;
     scene()->update();
 }
 
 void
 LowerThird::showLt() {
     show = true;
-    showPp = false;
+    showComp = false;
     scene()->update();
 }
 
-void LowerThird::showPpComp()
-{
-    showPp = true;
-    show = false;
-    scene()->update();
-}

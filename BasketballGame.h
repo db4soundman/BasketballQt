@@ -77,10 +77,8 @@ public:
     void setAwayTOL(int value);
 
 public slots:
-    void homeGoal();
-    void awayGoal();
-    void homeLoseGoal();
-    void awayLoseGoal();
+    void changeHomeScore(int value);
+    void changeAwayScore(int value);
     void advancePeriod();
     void rewindPeriod();
     void toggleClock();

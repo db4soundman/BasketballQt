@@ -5,8 +5,8 @@
 #include "BasketballGame.h"
 #include "DisplayControls.h"
 #include "PowerPlayUpdaters.h"
-#include "PenaltyControl.h"
-#include "SogControl.h"
+#include "TimeoutControl.h"
+#include "FoulControl.h"
 #include "ScoreControl.h"
 #include "GameInfo.h"
 #include "ClockControls.h"
@@ -22,9 +22,9 @@ public:
 private:
     DisplayControls dispControls;
     PowerPlayUpdaters ppus;
-    PenaltyControl penaltyControl;
-    SogControl sogs;
     ScoreControl scores;
+    FoulControl sogs;
+    TimeoutControl timeouts;
     GameInfo hud;
     ClockControls clockControls;
     StatDisplayControls stats;

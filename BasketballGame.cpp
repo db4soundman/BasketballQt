@@ -50,33 +50,20 @@ BasketballGame::BasketballGame(QString awayName, QString homeName, QColor awayCo
 }
 
 void
-BasketballGame::awayGoal() {
-    awayScore ++;
+BasketballGame::changeAwayScore(int value) {
+    awayScore+=value;
 
     emit awayScoreChanged(awayScore);
 
 }
 
 void
-BasketballGame::awayLoseGoal() {
-    awayScore --;
-    emit awayScoreChanged(awayScore);
-
-}
-
-void
-BasketballGame::homeGoal() {
-    homeScore ++;
+BasketballGame::changeHomeScore(int value) {
+    homeScore+= value;
 
     emit homeScoreChanged(homeScore);
 }
 
-void
-BasketballGame::homeLoseGoal() {
-    homeScore --;
-
-    emit homeFoulsChanged(homeFouls);
-}
 
 void
 BasketballGame::addAwayFOUL() {

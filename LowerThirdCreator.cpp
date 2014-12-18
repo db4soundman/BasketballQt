@@ -31,8 +31,8 @@ LowerThirdCreator::LowerThirdCreator(LowerThird* lt) {
 
     mainLayout->addLayout(buttons);
     setLayout(mainLayout);
-    connect(this, SIGNAL(makeCustomLt(QString,QString,QString,QList<QString>,QList<QString>,bool)),
-            lt, SLOT(prepareForCustomLt(QString,QString,QString,QList<QString>,QList<QString>,bool)));
+    connect(this, SIGNAL(makeCustomLt(QString,QString,QList<QString>,QList<QString>,bool)),
+            lt, SLOT(prepareForCustomLt(QString,QString,QList<QString>,QList<QString>,bool)));
 }
 
 void LowerThirdCreator::clearFields()
@@ -49,6 +49,6 @@ void LowerThirdCreator::submitLt()
     QList<QString> headerText, statText;
     headerText.append(header.text());
     statText.append(text.toPlainText());
-    emit makeCustomLt(name.text(), num.text(), yr.text(), headerText, statText,
+    emit makeCustomLt(name.text(), num.text(), headerText, statText,
                       home.isChecked());
 }

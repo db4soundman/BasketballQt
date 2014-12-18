@@ -34,21 +34,18 @@ SOURCES += main.cpp\
     GUI/ControlPanel.cpp \
     GUI/DisplayControls.cpp \
     GUI/GameInfo.cpp \
-    GUI/GoalDisplayWidget.cpp \
-    GUI/Goalies.cpp \
     GUI/HomeStatControl.cpp \
-    GUI/PenaltyControl.cpp \
-    GUI/PenaltyDisplay.cpp \
     GUI/PowerPlayUpdaters.cpp \
-    GUI/ScoreControl.cpp \
-    GUI/SogControl.cpp \
     GUI/StatDisplayControls.cpp \
     GUI/VisitingGameStatControl.cpp \
     Wizard/SetupPage.cpp \
     Wizard/SetupWizard.cpp \
     BasketballTeam.cpp \
     BasketballPlayer.cpp \
-    BasketballGame.cpp
+    BasketballGame.cpp \
+    GUI/TimeoutControl.cpp \
+    GUI/ScoreControl.cpp \
+    GUI/FoulControl.cpp
 
 HEADERS  += MainWindow.h \
     Clock.h \
@@ -64,14 +61,8 @@ HEADERS  += MainWindow.h \
     GUI/ControlPanel.h \
     GUI/DisplayControls.h \
     GUI/GameInfo.h \
-    GUI/GoalDisplayWidget.h \
-    GUI/Goalies.h \
     GUI/HomeStatControl.h \
-    GUI/PenaltyControl.h \
-    GUI/PenaltyDisplay.h \
     GUI/PowerPlayUpdaters.h \
-    GUI/ScoreControl.h \
-    GUI/SogControl.h \
     GUI/StatDisplayControls.h \
     GUI/VisitingGameStatControl.h \
     Wizard/SetupPage.h \
@@ -79,7 +70,10 @@ HEADERS  += MainWindow.h \
     MiamiAllAccessBasketball.h \
     BasketballTeam.h \
     BasketballPlayer.h \
-    BasketballGame.h
+    BasketballGame.h \
+    GUI/TimeoutControl.h \
+    GUI/ScoreControl.h \
+    GUI/FoulControl.h
 
 RESOURCES += \
     graphics.qrc

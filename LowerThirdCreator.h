@@ -16,7 +16,7 @@ public:
     LowerThirdCreator(LowerThird* lt);
 
 signals:
-    void makeCustomLt(QString name, QString number, QString year, QList<QString> header,
+    void makeCustomLt(QString name, QString number, QList<QString> header,
                       QList<QString> text, bool homeTeam);
 private slots:
     void clearFields();

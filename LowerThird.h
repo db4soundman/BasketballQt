@@ -23,13 +23,11 @@ public:
 public slots:
     void hideLt();
     void showLt();
-    void showPpComp();
     void prepareForDisplay(QString name, QString number, QList<QString> statLabels,
                            QList<QString> statValues, bool homeTeam);
     void prepareForCustomLt(QString name, QString number, QList<QString> statLabels,
                            QList<QString> statValues, bool homeTeam);
-    void prepareForPpComp(QString awayName, QString awayLabel, QString awayStat,
-                          QString homeName, QString homeLabel, QString homeStat);
+
 private:
     QList<QString> statNames;
     QList<QString> statistics;
@@ -44,7 +42,7 @@ private:
     void prepareFontSize();
     void adjustFont();
 
-    bool show, showPp;
+    bool show, showComp;
     int fontPointSize, statFontPointSize, centerPoint;
 };
 

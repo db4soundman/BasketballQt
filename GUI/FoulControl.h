@@ -1,23 +1,23 @@
-#ifndef SOGCONTROL_H
-#define SOGCONTROL_H
+#ifndef FOULCONTROL_H
+#define FOULCONTROL_H
 
 #include <QWidget>
 #include "BasketballGame.h"
 #include <QPushButton>
 #include <QLabel>
 
-class SogControl : public QWidget {
+class FoulControl : public QWidget {
     Q_OBJECT
 public:
-    SogControl(BasketballGame* game);
+    FoulControl(BasketballGame* game);
 
 signals:
-    void showSOG(QString sog);
+    void showFouls(QString fouls);
 
 public slots:
-    void updateHomeSog(int sog);
-    void updateAwaySog(int sog);
-    void callSogDisplay();
+    void updateHomeFouls(int fouls);
+    void updateAwayFouls(int fouls);
+    void callFoulDisplay();
 private:
     QLabel homeLabel, awayLabel;
     QString homeName, awayName;
