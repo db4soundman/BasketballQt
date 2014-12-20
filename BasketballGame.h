@@ -97,6 +97,7 @@ public slots:
     void gatherFgFoulLt(bool home,int index);
     void makeFinal();
     void flipPossArrow();
+    void showPossArrow();
 
 signals:
     void homeScoreChanged(int score);
@@ -107,6 +108,8 @@ signals:
     void homeFoulsChanged(int fouls);
     void homeTOLChanged(int tol);
     void awayTOLChanged(int tol);
+    void setStatBar(QString text);
+    void possArrowChanged(bool home);
 
 private slots:
 

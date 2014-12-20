@@ -60,9 +60,12 @@ public:
     double getFtPct();
     double getFg3Pct();
 
+    int getFouls() const;
+    void setFouls(int value);
+
 private:
     QString name, uni;
-    int fgm, fga, fgm3, fga3, ftm, fta, pts, blk, stl, ast, oreb, dreb, treb, to;
+    int fgm, fga, fgm3, fga3, ftm, fta, pts, blk, stl, ast, oreb, dreb, treb, to, fouls;
 };
 
 #endif // HOCKEYPLAYER_H

@@ -27,13 +27,13 @@ BasketballGame::BasketballGame(QString awayName, QString homeName, QColor awayCo
     connect(this, SIGNAL(periodChanged(int)), &sb, SLOT(updatePeriod(int)));
     connect(this, SIGNAL(awayScoreChanged(int)), &sb, SLOT(updateAwayScore(int)));
     connect(this, SIGNAL(homeScoreChanged(int)), &sb, SLOT(updateHomeScore(int)));
+    connect(this, SIGNAL(setStatBar(QString)), &sb, SLOT(changeTopBarText(QString)));
 
     // Jump Ball switcher
-    connect(this, SIGNAL(penaltyChanged(int,Clock*,QString)), &sb, SLOT(preparePowerplayClock(int,Clock*,QString)));
+    possArrow = false;
 
 
-
-    connect(this, SIGNAL(checkScoreboardPp()), this, SLOT(determinePpClockForScoreboard()));
+    //connect(this, SIGNAL(checkScoreboardPp()), this, SLOT(determinePpClockForScoreboard()));
     // Make teams...
     homeTeam = new BasketballTeam();
     awayTeam = new BasketballTeam();
@@ -116,32 +116,82 @@ BasketballGame::showAnnouncers() {
 
 void BasketballGame::gatherSummaryLt(bool home, int index)
 {
-    BasketballPlayer* player = getHomeTeam()->getPlayer(index);
+    BasketballPlayer* player = home ? getHomeTeam()->getPlayer(index) :
+                                      getAwayTeam()->getPlayer(index);
     QList<QString> labels, numbers;
 
+    labels.append("PTS");
+    labels.append("AST");
+    labels.append("REB");
+    labels.append("STL");
+    labels.append("BLK");
+    labels.append("TO");
 
-    lt.prepareForDisplay(player->getName(), player->getUni(), labels, numbers, true);
+    numbers.append(QString::number(player->getPts()));
+    numbers.append(QString::number(player->getAst()));
+    numbers.append(QString::number(player->getTreb()));
+    numbers.append(QString::number(player->getStl()));
+    numbers.append(QString::number(player->getBlk()));
+    numbers.append(QString::number(player->getTo()));
+
+    lt.prepareForDisplay(player->getName(), player->getUni(), labels, numbers, home);
 }
 
 void BasketballGame::gatherShootingLt(bool home, int index)
 {
-    BasketballPlayer* player = getAwayTeam()->getPlayer(index);
+    BasketballPlayer* player = home ? getHomeTeam()->getPlayer(index) :
+                                      getAwayTeam()->getPlayer(index);
     QList<QString> labels, numbers;
 
+    labels.append("FG");
+    labels.append("FG%");
+    labels.append("3PT");
+    labels.append("3PT%");
+    labels.append("PTS");
+
+    numbers.append(QString::number(player->getFgm()) + "-" + QString::number(player->getFga()));
+    numbers.append(QString::number(player->getFgPct(), 'g', 3) + "%");
+    numbers.append(QString::number(player->getFgm3()) + "-" + QString::number(player->getFga3()));
+    numbers.append(QString::number(player->getFg3Pct()));
+    numbers.append(QString::number(player->getPts()));
+
+
+
     lt.prepareForDisplay(player->getName(), player->getUni(),
-                         labels, numbers, false);
+                         labels, numbers, home);
 }
 
 void BasketballGame::gatherFreethrowLt(bool home, int index)
 {
     BasketballPlayer* player = getHomeTeam()->getPlayer(index);
     QList<QString> labels, numbers;
+    labels.append("FT");
+    labels.append("FT%");
+
+    numbers.append(QString::number(player->getFtm()) + "-" + QString::number(player->getFta()));
+    numbers.append(QString::number(player->getFtPct(),'g', 3) + "%");
+
+    lt.prepareForDisplay(player->getName(), player->getUni(),
+                         labels, numbers, home);
 }
 
 void BasketballGame::gatherFgFoulLt(bool home, int index)
 {
     BasketballPlayer* player = getAwayTeam()->getPlayer(index);
     QList<QString> labels, numbers;
+
+    labels.append("FG");
+    labels.append("FG%");
+    labels.append("PTS");
+    labels.append("FOULS");
+
+    numbers.append(QString::number(player->getFgm()) + "-" + QString::number(player->getFga()));
+    numbers.append(QString::number(player->getFgPct(), 'g', 3) + "%");
+    numbers.append(QString::number(player->getPts()));
+    numbers.append(QString::number(player->getFouls()));
+
+    lt.prepareForDisplay(player->getName(), player->getUni(),
+                         labels, numbers, home);
 }
 
 Clock* BasketballGame::getGameClock()
@@ -256,6 +306,13 @@ bool BasketballGame::getPossArrow() const
 void BasketballGame::flipPossArrow()
 {
     possArrow = !possArrow;
+    emit possArrowChanged(possArrow);
+}
+
+void BasketballGame::showPossArrow()
+{
+    QString text = "POSESSION ARROW: " + possArrow ? "MIAMI" : getAwayName();
+    emit setStatBar(text);
 }
 int BasketballGame::getAwayTOL() const
 {

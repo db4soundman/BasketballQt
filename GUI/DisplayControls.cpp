@@ -50,6 +50,8 @@ DisplayControls::DisplayControls(BasketballGame* game, CommercialGraphic* comGra
 
     connect(&sbButton, SIGNAL(clicked()),
             comGraphic, SLOT(hide()));
+    connect(&sbButton, SIGNAL(clicked()),
+            game->getLt(), SLOT(hideLt()));
 
     connect(&hideLT, SIGNAL(clicked()), game->getLt(), SLOT(hideLt()));
 

@@ -168,3 +168,13 @@ double BasketballPlayer::getFg3Pct()
 {
     return fga3 != 0 ? (double)fgm3 / fga3 * 100 : 0.;
 }
+int BasketballPlayer::getFouls() const
+{
+    return fouls;
+}
+
+void BasketballPlayer::setFouls(int value)
+{
+    fouls = value;
+}
+
