@@ -52,7 +52,7 @@ MiamiAllAccessBasketball::exec() {
                        &awayColor, &homeColor, &bg, &statcrewName);
     wizard.exec();
     game = new BasketballGame(awayName, homeName, awayColor, homeColor,
-                          awayFile, homeFile, sponsor, announcer, awayRank,
+                          statcrewName, sponsor, announcer, awayRank,
                           homeRank, graphicsScreen.width() + 1);
 
 

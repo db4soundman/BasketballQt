@@ -1,7 +1,7 @@
 #include "BasketballPlayer.h"
 
 BasketballPlayer::BasketballPlayer() {
-
+    fgm  = fga  = fgm3  = fga3  = ftm  = fta  = pts  = blk  = stl  = ast  = oreb  = dreb  = treb  = to  = fouls = 0;
 }
 
 

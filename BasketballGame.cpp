@@ -1,9 +1,9 @@
 #include "BasketballGame.h"
 #include "ClockDialog.h"
-
+#include "RosterXmlHandler.h"
 
 BasketballGame::BasketballGame(QString awayName, QString homeName, QColor awayColor, QColor homeColor,
-                       QString awayXML, QString homeXML, QString sponsor, QString announcers,
+                       QString xmlFile, QString sponsor, QString announcers,
                        QString awayRank, QString homeRank, int screenWidth) :
     awayName(awayName), homeName(homeName), sponsor(sponsor), announcers(announcers), awayColor(awayColor),
     homeColor(homeColor), awayRank(awayRank), homeRank(homeRank),
@@ -38,15 +38,16 @@ BasketballGame::BasketballGame(QString awayName, QString homeName, QColor awayCo
     homeTeam = new BasketballTeam();
     awayTeam = new BasketballTeam();
 
-    /*
 
-    GameXmlHandler roadHandler(awayTeam);
-    r.setContentHandler(&roadHandler);
-    r.setErrorHandler(&roadHandler);
-    QFile f2(awayXML);
+    RosterXmlHandler rosterHandler(this);
+    QXmlSimpleReader r;
+    r.setContentHandler(&rosterHandler);
+    r.setErrorHandler(&rosterHandler);
+    QFile f2(xmlFile);
     QXmlInputSource src2(&f2);
     r.parse(src2);
-    */
+    f2.reset();
+
 }
 
 void
@@ -311,7 +312,7 @@ void BasketballGame::flipPossArrow()
 
 void BasketballGame::showPossArrow()
 {
-    QString text = "POSESSION ARROW: " + possArrow ? "MIAMI" : getAwayName();
+    QString text = "POSESSION ARROW: " + (possArrow ? "MIAMI" : getAwayName());
     emit setStatBar(text);
 }
 int BasketballGame::getAwayTOL() const

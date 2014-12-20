@@ -14,7 +14,7 @@ class BasketballGame : public QObject {
     Q_OBJECT
 public:
     BasketballGame(QString awayName, QString homeName, QColor awayColor, QColor homeColor,
-               QString awayXML, QString homeXML, QString sponsor, QString announcers,
+               QString xmlFile, QString sponsor, QString announcers,
                QString awayRank, QString homeRank, int screenWidth);
 
     Scoreboard* getSb();

@@ -1,7 +1,8 @@
 #include "BasketballTeam.h"
 
 BasketballTeam::BasketballTeam() {
-
+    fgm  = fga  = fgm3  = fga3  = ftm  = fta  = pts  = blk  = stl  = ast
+            = oreb  = dreb  = treb  = to  = ptsTo = ptsCh2 = ptsBench = ties = leads = largestLead = 0;
 
 }
 

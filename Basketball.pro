@@ -44,7 +44,8 @@ SOURCES += main.cpp\
     GUI/TimeoutControl.cpp \
     GUI/ScoreControl.cpp \
     GUI/FoulControl.cpp \
-    GUI/PlayerStatControl.cpp
+    GUI/PlayerStatControl.cpp \
+    RosterXmlHandler.cpp
 
 HEADERS  += MainWindow.h \
     Clock.h \
@@ -71,7 +72,8 @@ HEADERS  += MainWindow.h \
     GUI/TimeoutControl.h \
     GUI/ScoreControl.h \
     GUI/FoulControl.h \
-    GUI/PlayerStatControl.h
+    GUI/PlayerStatControl.h \
+    RosterXmlHandler.h
 
 RESOURCES += \
     graphics.qrc
