@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <QTimer>
+#include <QFile>
+#include <QDateTime>
 #include "BasketballGame.h"
 class StatCrewScanner : public QObject
 {
@@ -21,6 +23,8 @@ private:
     //GameXmlUpdater* statCrew;
     QTimer* trigger;
     bool isActive;
+    QFile statFile;
+    QDateTime lastModified;
 };
 
 #endif // STATCREWSCANNER_H

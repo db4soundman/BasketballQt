@@ -3,6 +3,7 @@
 RosterXmlHandler::RosterXmlHandler(BasketballGame* g) {
     game = g;
     skipPlayer = false;
+    currPlayer = NULL;
 }
 
 bool RosterXmlHandler::startElement(const QString& namespaceURI,
@@ -36,7 +37,19 @@ bool RosterXmlHandler::endElement(const QString& namespaceURI, const QString& lo
     }
 
     else if (qName == "team") {
-        visitingTeam = false;
+        if (visitingTeam) {
+            BasketballPlayer* team = new BasketballPlayer();
+            team->setName(game->getAwayName());
+            game->getAwayTeam()->addPlayer(team);
+            visitingTeam = false;
+        }
+        else {
+            BasketballPlayer* team = new BasketballPlayer();
+            team->setName(game->getHomeName());
+            game->getHomeTeam()->addPlayer(team);
+            visitingTeam = false;
+        }
+
     }
 
     return true;

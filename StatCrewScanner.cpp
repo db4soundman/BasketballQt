@@ -1,5 +1,5 @@
 #include "StatCrewScanner.h"
-StatCrewScanner::StatCrewScanner(BasketballGame* game, QString fileName)
+StatCrewScanner::StatCrewScanner(BasketballGame* game, QString fileName) : statFile(fileName)
 {
     //statCrew = new GameXmlUpdater(game, game->getAwayTeam(), game->getHomeTeam(), fileName);
     trigger = new QTimer();
