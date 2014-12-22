@@ -6,6 +6,7 @@
 #include <QFile>
 #include <QDateTime>
 #include "BasketballGame.h"
+#include "InGameXml.h"
 class StatCrewScanner : public QObject
 {
     Q_OBJECT
@@ -20,7 +21,7 @@ private slots:
     void updateStats();
 
 private:
-    //GameXmlUpdater* statCrew;
+    InGameXml* statCrew;
     QTimer* trigger;
     bool isActive;
     QFile statFile;

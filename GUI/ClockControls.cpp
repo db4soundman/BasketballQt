@@ -40,6 +40,7 @@ ClockControls::ClockControls(BasketballGame* game, CommercialGraphic* comGraphic
     connect(&intermission, SIGNAL(clicked()), comGraphic, SLOT(intermissionTime()));
     connect(&final, SIGNAL(clicked()), game->getSb(), SLOT(final()));
     connect(&final, SIGNAL(clicked()), comGraphic, SLOT(finalTime()));
+    connect(&final, SIGNAL(clicked()), game, SLOT(makeFinal()));
     connect(&possArrow, SIGNAL(clicked()), game, SLOT(flipPossArrow()));
     connect(game, SIGNAL(possArrowChanged(bool)), this, SLOT(updatePossArrowButton(bool)));
     setLayout(main);
