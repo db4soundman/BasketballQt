@@ -34,7 +34,6 @@ SOURCES += main.cpp\
     GUI/ControlPanel.cpp \
     GUI/DisplayControls.cpp \
     GUI/GameInfo.cpp \
-    GUI/PowerPlayUpdaters.cpp \
     GUI/StatDisplayControls.cpp \
     Wizard/SetupPage.cpp \
     Wizard/SetupWizard.cpp \
@@ -62,7 +61,6 @@ HEADERS  += MainWindow.h \
     GUI/ControlPanel.h \
     GUI/DisplayControls.h \
     GUI/GameInfo.h \
-    GUI/PowerPlayUpdaters.h \
     GUI/StatDisplayControls.h \
     Wizard/SetupPage.h \
     Wizard/SetupWizard.h \

@@ -4,17 +4,16 @@
 #include <QGridLayout>
 
 ControlPanel::ControlPanel(BasketballGame* game, CommercialGraphic* comGraphic) :
-    dispControls(game, comGraphic), ppus(game), scores(game), sogs(game),
+    dispControls(game, comGraphic), scores(game), fouls(game),
     timeouts(game), hud(game), clockControls(game, comGraphic), stats(game) {
     QHBoxLayout* mainLayout = new QHBoxLayout();
 
     QVBoxLayout* leftColumn = new QVBoxLayout();
     leftColumn->addWidget(&dispControls);
     QGridLayout* grid = new QGridLayout();
-    //grid->addWidget(&ppus, 1, 0, Qt::AlignHCenter | Qt::AlignTop);
     grid->addWidget(&scores, 0, 1);
-    grid->addWidget(&sogs, 0, 0,Qt::AlignHCenter | Qt::AlignTop);
-    grid->addWidget(&timeouts, 0, 1, Qt::AlignHCenter | Qt::AlignTop );
+    grid->addWidget(&fouls, 0, 0,Qt::AlignHCenter | Qt::AlignTop);
+    grid->addWidget(&timeouts, 1, 1, Qt::AlignHCenter | Qt::AlignTop );
 
     leftColumn->addLayout(grid);
     leftColumn->addWidget(&stats);

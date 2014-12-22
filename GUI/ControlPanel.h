@@ -4,7 +4,6 @@
 #include <QWidget>
 #include "BasketballGame.h"
 #include "DisplayControls.h"
-#include "PowerPlayUpdaters.h"
 #include "TimeoutControl.h"
 #include "FoulControl.h"
 #include "ScoreControl.h"
@@ -21,9 +20,8 @@ public:
 
 private:
     DisplayControls dispControls;
-    PowerPlayUpdaters ppus;
     ScoreControl scores;
-    FoulControl sogs;
+    FoulControl fouls;
     TimeoutControl timeouts;
     GameInfo hud;
     ClockControls clockControls;

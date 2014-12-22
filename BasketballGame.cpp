@@ -28,6 +28,10 @@ BasketballGame::BasketballGame(QString awayName, QString homeName, QColor awayCo
     connect(this, SIGNAL(awayScoreChanged(int)), &sb, SLOT(updateAwayScore(int)));
     connect(this, SIGNAL(homeScoreChanged(int)), &sb, SLOT(updateHomeScore(int)));
     connect(this, SIGNAL(setStatBar(QString)), &sb, SLOT(changeTopBarText(QString)));
+    connect(this, SIGNAL(awayFoulsChanged(int)), &sb, SLOT(checkAwayFouls(int)));
+    connect(this, SIGNAL(awayTOLChanged(int)), &sb, SLOT(updateAwayTOL(int)));
+    connect(this, SIGNAL(homeFoulsChanged(int)),&sb, SLOT(checkHomeFouls(int)));
+    connect(this, SIGNAL(homeTOLChanged(int)), &sb, SLOT(updateHomeTOL(int)));
 
     // Jump Ball switcher
     possArrow = false;
