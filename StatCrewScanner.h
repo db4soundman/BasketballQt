@@ -24,7 +24,7 @@ private:
     InGameXml* statCrew;
     QTimer* trigger;
     bool isActive;
-    QFile statFile;
+    QFile* statFile;
     QDateTime lastModified;
 };
 

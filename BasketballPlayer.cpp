@@ -1,5 +1,5 @@
 #include "BasketballPlayer.h"
-
+#include <string>
 BasketballPlayer::BasketballPlayer() {
     fgm  = fga  = fgm3  = fga3  = ftm  = fta  = pts  = blk  = stl  = ast  = oreb  = dreb  = treb  = to  = fouls = 0;
 }
@@ -15,9 +15,12 @@ void BasketballPlayer::setName(const QString& value) {
     if (!name.contains(",")) {
         name = name.toUpper();
     }
-    QString goodName = (name.mid(name.indexOf(",")) + " " +
-                        name.left(name.indexOf(",")));
-    name = goodName.toUpper().trimmed();
+    else {
+        std::string goodName = name.toStdString();
+        QString firstName = QString::fromStdString(goodName.substr(goodName.find(" ") + 1, goodName.length()));
+        QString lastName = QString::fromStdString(goodName.substr(0, goodName.find(",")));
+        name = firstName.toUpper() + " " + lastName.toUpper();
+    }
 }
 QString BasketballPlayer::getUni() const {
     return uni;

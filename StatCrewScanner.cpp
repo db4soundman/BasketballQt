@@ -1,9 +1,11 @@
 #include "StatCrewScanner.h"
-StatCrewScanner::StatCrewScanner(BasketballGame* game, QString fileName) : statFile(fileName)
+#include <QMessageBox>
+StatCrewScanner::StatCrewScanner(BasketballGame* game, QString fileName)
 {
     statCrew = new InGameXml(game->getAwayTeam(), game->getHomeTeam());
+    statFile = new QFile(fileName);
     trigger = new QTimer();
-    trigger->setInterval(10000);
+    trigger->setInterval(1000 * 15);
     isActive = false;
     connect(trigger, SIGNAL(timeout()), this, SLOT(updateStats()));
     connect(game, SIGNAL(periodChanged(int)), this, SLOT(toggleScanner(int)));
@@ -34,8 +36,8 @@ void StatCrewScanner::updateStats() {
     QXmlSimpleReader r;
     r.setContentHandler(statCrew);
     r.setErrorHandler(statCrew);
-    QXmlInputSource src(&statFile);
+    QXmlInputSource src(statFile);
     r.parse(src);
-    statFile.reset();
+    statFile->reset();
 
 }

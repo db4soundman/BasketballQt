@@ -157,7 +157,7 @@ void BasketballGame::gatherShootingLt(bool home, int index)
     numbers.append(QString::number(player->getFgm()) + "-" + QString::number(player->getFga()));
     numbers.append(QString::number(player->getFgPct(), 'g', 3) + "%");
     numbers.append(QString::number(player->getFgm3()) + "-" + QString::number(player->getFga3()));
-    numbers.append(QString::number(player->getFg3Pct()));
+    numbers.append(QString::number(player->getFg3Pct(), 'g', 3) + "%");
     numbers.append(QString::number(player->getPts()));
 
 
@@ -168,7 +168,8 @@ void BasketballGame::gatherShootingLt(bool home, int index)
 
 void BasketballGame::gatherFreethrowLt(bool home, int index)
 {
-    BasketballPlayer* player = getHomeTeam()->getPlayer(index);
+    BasketballPlayer* player = home ? getHomeTeam()->getPlayer(index) :
+                                      getAwayTeam()->getPlayer(index);
     QList<QString> labels, numbers;
     labels.append("FT");
     labels.append("FT%");
@@ -182,7 +183,8 @@ void BasketballGame::gatherFreethrowLt(bool home, int index)
 
 void BasketballGame::gatherFgFoulLt(bool home, int index)
 {
-    BasketballPlayer* player = getAwayTeam()->getPlayer(index);
+    BasketballPlayer* player = home ? getHomeTeam()->getPlayer(index) :
+                                      getAwayTeam()->getPlayer(index);
     QList<QString> labels, numbers;
 
     labels.append("FG");

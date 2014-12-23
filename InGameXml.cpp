@@ -6,6 +6,7 @@ InGameXml::InGameXml(BasketballTeam* pAway, BasketballTeam* pHome)
     homeTeam = pHome;
     currPlayer = NULL;
     teamStats = false;
+    skipPlayer = false;
 }
 
 bool InGameXml::startElement(const QString& namespaceURI, const QString& localName,
@@ -67,8 +68,7 @@ bool InGameXml::startElement(const QString& namespaceURI, const QString& localNa
         skipPlayer = true;
     }
 
-    else if (qName == "stats" && !skipPlayer) {
-        currPlayer = visitingTeam ? awayTeam->getTeamPlayer() : homeTeam->getTeamPlayer();
+    else if (qName == "stats" && !skipPlayer && !teamStats) {
         currPlayer->setFgm(atts.value("fgm").toInt());
         currPlayer->setFga(atts.value("fga").toInt());
         currPlayer->setFgm3(atts.value("fgm3").toInt());
