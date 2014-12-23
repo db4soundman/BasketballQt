@@ -47,7 +47,7 @@ MiamiAllAccessBasketball::exec() {
     sponsor = "Miami IMG Sports Network";
     homeName = "MIAMI";
     QDesktopWidget desktop;
-    QRect graphicsScreen = desktop.screenGeometry(0);
+    QRect graphicsScreen = desktop.screenGeometry(1);
     SetupWizard wizard(&awayName, &homeName, &sponsor,&announcer, &awayRank, &homeRank,
                        &awayColor, &homeColor, &bg, &statcrewName);
     wizard.exec();
