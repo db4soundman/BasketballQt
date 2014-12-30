@@ -2,16 +2,22 @@
 #define STATCREWSCANNER_H
 
 #include <QObject>
+#include <QThread>
 #include <QTimer>
 #include <QFile>
 #include <QDateTime>
 #include "BasketballGame.h"
 #include "InGameXml.h"
-class StatCrewScanner : public QObject
+class StatCrewScanner : public QThread
 {
     Q_OBJECT
 public:
     StatCrewScanner(BasketballGame* game, QString fileName);
+
+    void run();
+
+signals:
+    void statCrewStatus(bool isActive);
 
 public slots:
     void toggleScanner(int pd);

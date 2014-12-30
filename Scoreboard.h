@@ -29,7 +29,6 @@ public slots:
      void updatePeriod(int pd);
      void changeTopBarText(QString text);
      void toggleShowBoard();
-     void togglePpClocks();
      void hideBoard();
      void updateClock();
      void intermission();

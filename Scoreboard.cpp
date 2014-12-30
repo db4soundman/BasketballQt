@@ -111,16 +111,23 @@ Scoreboard::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
             painter->drawText(833, 3, 242, 50, Qt::AlignRight | Qt::AlignVCenter,
                               showClock? clock->toString() : "HALFTIME");
                               */
-            painter->drawText(310, 6, 85, 32, Qt::AlignCenter,
-                              showClock? clock->toString() : "HALFTIME");
+            if (showShotClock) {
+            painter->drawText(310, 6, 85, 32, Qt::AlignCenter, clock->toString());
+
+            // SHOT CLOCK
             painter->drawText(395, 6, 85, 32, Qt::AlignCenter,"35");
-            painter->setPen(QColor(255,255,255));
-            painter->drawText(310, 38, 170, 32, Qt::AlignCenter, period);
+            }
+
+            else {
+                painter->drawText(310, 6, 170, 32, Qt::AlignCenter, clock->toString());
+            }
+
+//            painter->setPen(QColor(255,255,255));
+//            painter->drawText(310, 38, 170, 32, Qt::AlignCenter, period);
         }
-        else {
-            painter->setPen(QColor(255,255,255));
-            painter->drawText(310, 38, 170, 32, Qt::AlignCenter, centeredTimeText);
-        }
+        painter->setPen(QColor(255,255,255));
+        painter->drawText(310, 38, 170, 32, Qt::AlignCenter, showPdAndClock ? period : centeredTimeText);
+
          painter->setFont(homeName->font());
         // Away text
         painter->fillRect(6, TEAM_BOX_Y, 75 + TEAM_NAME_WIDTH, 50, awayGradient );
@@ -238,21 +245,27 @@ Scoreboard::updateClock() {
 //    else if (homePP) {
 //        scene()->update(this->x() + 474, this->y() + 54, 350, 38);
 //    }
-    scene()->update();
+    if (showPdAndClock && showShotClock) {
+        scene()->update(310, 6, 85, 32);
+    }
+    else if(showPdAndClock && !showShotClock) {
+        scene()->update(310, 6, 170, 32);
+    }
+
 }
 
 void
 Scoreboard::updateAwayScore(int score) {
     QString scoreText;
     awayScore->setPlainText(scoreText.setNum(score, 10));
-    scene()->update();
+    scene()->update(6, TEAM_BOX_Y, 75, 50);
 }
 
 void
 Scoreboard::updateHomeScore(int score) {
     QString str;
     homeScore->setPlainText(str.setNum(score, 10));
-    scene()->update();
+    scene()->update(489 + TEAM_NAME_WIDTH, TEAM_BOX_Y, 75, 50);
 }
 
 void
@@ -272,20 +285,20 @@ Scoreboard::updatePeriod(int pd) {
         period = "";
         break;
     }
-    scene()->update();
+    scene()->update(310, 38, 170, 32);
 }
 
 void
 Scoreboard::showPd() {
     showPdAndClock = true;
-    scene()->update();
+    scene()->update(310, 6, 170, 64);
 }
 
 void
 Scoreboard::final() {
     showPdAndClock = false;
     centeredTimeText = "FINAL";
-    scene()->update();
+    scene()->update(310, 6, 170, 64);
 }
 
 void
@@ -301,7 +314,7 @@ Scoreboard::changeTopBarText(QString text) {
         QFontMetrics temp(topBarText->font());
         fontSize = temp;
     }
-    scene()->update();
+    scene()->update(0,-28, 790, 28);
 }
 
 void
@@ -318,19 +331,19 @@ Scoreboard::displaySponsor() {
         QFontMetrics temp(topBarText->font());
         fontSize = temp;
     }
-    scene()->update();
+    scene()->update(0,-28, 790, 28);
 }
 
 void Scoreboard::updateHomeTOL(int tol)
 {
     homeTOL = tol;
-    scene()->update();
+    scene()->update(489, 62, 75 + TEAM_NAME_WIDTH, 5);
 }
 
 void Scoreboard::updateAwayTOL(int tol)
 {
     awayTOL = tol;
-    scene()->update();
+    scene()->update(6, 62, 75 + TEAM_NAME_WIDTH, 5);
 }
 
 void Scoreboard::checkAwayFouls(int fouls)
@@ -348,7 +361,7 @@ void Scoreboard::checkAwayFouls(int fouls)
         homeDblBonus = false;
         homeBonus = false;
     }
-    scene()->update();
+    scene()->update(489, 74, TEAM_NAME_WIDTH + 75, 28);
 }
 
 void Scoreboard::checkHomeFouls(int fouls)
@@ -366,18 +379,12 @@ void Scoreboard::checkHomeFouls(int fouls)
         awayDblBonus = false;
         awayBonus = false;
     }
-    scene()->update();
+    scene()->update(6, 74, TEAM_NAME_WIDTH + 75, 28);
 }
 
 void
 Scoreboard::toggleShowBoard() {
     show = !show;
-    scene()->update();
-}
-
-void Scoreboard::togglePpClocks()
-{
-    showPP = !showPP;
     scene()->update();
 }
 
@@ -392,12 +399,12 @@ Scoreboard::intermission() {
     showPdAndClock = false;
     showClock = false;
     centeredTimeText = "HALFTIME";
-    scene()->update();
+    scene()->update(310, 6, 170, 64);
 }
 
 void
 Scoreboard::displayClock() {
     showPdAndClock = true;
     showClock = true;
-    scene()->update();
+    scene()->update(310, 6, 170, 64);
 }
