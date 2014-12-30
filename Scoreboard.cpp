@@ -31,7 +31,7 @@ Scoreboard::Scoreboard(QColor awayCol, QColor homeCol, QString awayTeam, QString
     show = false;
     showShotClock = true;
 
-    // setPixmap(QPixmap(":/images/Scoreboard.png"));
+    setPixmap(QPixmap(":/images/Scoreboard.png"));
 
 
     ppBar = new QPixmap(":/images/ppBar.png");
