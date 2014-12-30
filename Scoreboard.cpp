@@ -246,10 +246,10 @@ Scoreboard::updateClock() {
 //        scene()->update(this->x() + 474, this->y() + 54, 350, 38);
 //    }
     if (showPdAndClock && showShotClock) {
-        scene()->update(310, 6, 85, 32);
+        scene()->update(this->x() + 310, this->y() + 6, 85, 32);
     }
     else if(showPdAndClock && !showShotClock) {
-        scene()->update(310, 6, 170, 32);
+        scene()->update(this->x() + 310, this->y() + 6, 170, 32);
     }
 
 }
@@ -258,14 +258,14 @@ void
 Scoreboard::updateAwayScore(int score) {
     QString scoreText;
     awayScore->setPlainText(scoreText.setNum(score, 10));
-    scene()->update(6, TEAM_BOX_Y, 75, 50);
+    scene()->update(this->x() + 6, this->y() + TEAM_BOX_Y, 75, 50);
 }
 
 void
 Scoreboard::updateHomeScore(int score) {
     QString str;
     homeScore->setPlainText(str.setNum(score, 10));
-    scene()->update(489 + TEAM_NAME_WIDTH, TEAM_BOX_Y, 75, 50);
+    scene()->update(this->x() + 489 + TEAM_NAME_WIDTH, this->y() + TEAM_BOX_Y, 75, 50);
 }
 
 void
@@ -285,20 +285,20 @@ Scoreboard::updatePeriod(int pd) {
         period = "";
         break;
     }
-    scene()->update(310, 38, 170, 32);
+    scene()->update(this->x() + 310, this->y() + 38, 170, 32);
 }
 
 void
 Scoreboard::showPd() {
     showPdAndClock = true;
-    scene()->update(310, 6, 170, 64);
+    scene()->update(this->x() + 310, this->y() + 6, 170, 64);
 }
 
 void
 Scoreboard::final() {
     showPdAndClock = false;
     centeredTimeText = "FINAL";
-    scene()->update(310, 6, 170, 64);
+    scene()->update(this->x() + 310, this->y() + 6, 170, 64);
 }
 
 void
@@ -314,7 +314,7 @@ Scoreboard::changeTopBarText(QString text) {
         QFontMetrics temp(topBarText->font());
         fontSize = temp;
     }
-    scene()->update(0,-28, 790, 28);
+    scene()->update(this->x() + 0, this->y() + -28, 790, 28);
 }
 
 void
@@ -331,19 +331,19 @@ Scoreboard::displaySponsor() {
         QFontMetrics temp(topBarText->font());
         fontSize = temp;
     }
-    scene()->update(0,-28, 790, 28);
+    scene()->update(this->x() + 0,this->y() + -28, 790, 28);
 }
 
 void Scoreboard::updateHomeTOL(int tol)
 {
     homeTOL = tol;
-    scene()->update(489, 62, 75 + TEAM_NAME_WIDTH, 5);
+    scene()->update(this->x() + 489, this->y() + 62, 75 + TEAM_NAME_WIDTH, 5);
 }
 
 void Scoreboard::updateAwayTOL(int tol)
 {
     awayTOL = tol;
-    scene()->update(6, 62, 75 + TEAM_NAME_WIDTH, 5);
+    scene()->update(this->x() + 6, this->y() + 62, 75 + TEAM_NAME_WIDTH, 5);
 }
 
 void Scoreboard::checkAwayFouls(int fouls)
@@ -361,7 +361,7 @@ void Scoreboard::checkAwayFouls(int fouls)
         homeDblBonus = false;
         homeBonus = false;
     }
-    scene()->update(489, 74, TEAM_NAME_WIDTH + 75, 28);
+    scene()->update(this->x() + 489, this->y() + 74, TEAM_NAME_WIDTH + 75, 28);
 }
 
 void Scoreboard::checkHomeFouls(int fouls)
@@ -379,7 +379,7 @@ void Scoreboard::checkHomeFouls(int fouls)
         awayDblBonus = false;
         awayBonus = false;
     }
-    scene()->update(6, 74, TEAM_NAME_WIDTH + 75, 28);
+    scene()->update(this->x() + 6, this->y() + 74, TEAM_NAME_WIDTH + 75, 28);
 }
 
 void
@@ -399,12 +399,12 @@ Scoreboard::intermission() {
     showPdAndClock = false;
     showClock = false;
     centeredTimeText = "HALFTIME";
-    scene()->update(310, 6, 170, 64);
+    scene()->update(this->x() + 310, this->y() + 6, 170, 64);
 }
 
 void
 Scoreboard::displayClock() {
     showPdAndClock = true;
     showClock = true;
-    scene()->update(310, 6, 170, 64);
+    scene()->update(this->x() + 310, this->y() + 6, 170, 64);
 }
