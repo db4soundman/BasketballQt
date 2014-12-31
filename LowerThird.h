@@ -23,17 +23,20 @@ public:
 public slots:
     void hideLt();
     void showLt();
+    void showCompLt();
     void prepareForDisplay(QString name, QString number, QList<QString> statLabels,
                            QList<QString> statValues, bool homeTeam);
     void prepareForCustomLt(QString name, QString number, QList<QString> statLabels,
                            QList<QString> statValues, bool homeTeam);
+    void prepareForCompLt(QString awayName, QString homeName, QList<QString> statLabels,
+                          QList<QString> statValues);
 
 private:
     QList<QString> statNames;
     QList<QString> statistics;
     QString name, number, firstName, lastName;
     QFont statFont, nameFont;
-    QLinearGradient gradient, statGradient, homeNameGradient, awayNameGradient, homeStatGradient, awayStatGradient;
+    QLinearGradient gradient, statGradient, homeNameGradient, awayNameGradient, homeStatGradient, awayStatGradient, labelGradient;
     QColor homeTeamMain, awayTeamMain;
 
     QString homeName, awayName, homeLabel, awayLabel, homeStat, awayStat;

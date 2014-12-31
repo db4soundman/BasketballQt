@@ -195,10 +195,131 @@ void BasketballGame::gatherFgFoulLt(bool home, int index)
     numbers.append(QString::number(player->getFgm()) + "-" + QString::number(player->getFga()));
     numbers.append(QString::number(player->getFgPct(), 'g', 3) + "%");
     numbers.append(QString::number(player->getPts()));
-    numbers.append(QString::number(player->getFouls()));
+    if (!player->getName().contains(" ")) {
+        numbers.append(home ? QString::number(homeFouls) : QString::number(awayFouls));
+    }
+    else numbers.append(QString::number(player->getFouls()));
 
     lt.prepareForDisplay(player->getName(), player->getUni(),
                          labels, numbers, home);
+}
+
+void BasketballGame::gatherFgComp()
+{
+    QList<QString> labels, numbers;
+    BasketballPlayer* away = awayTeam->getTeamPlayer();
+    BasketballPlayer* home = homeTeam->getTeamPlayer();
+
+    labels.append("FG");
+    labels.append("FG%");
+    labels.append("3PT");
+    labels.append("3PT%");
+
+    numbers.append(QString::number(away->getFgm()) + "-" + QString::number(away->getFga()));
+    numbers.append(QString::number(home->getFgm()) + "-" + QString::number(home->getFga()));
+    numbers.append(QString::number(away->getFgPct(), 'g', 3) + "%");
+    numbers.append(QString::number(home->getFgPct(), 'g', 3) + "%");
+    numbers.append(QString::number(away->getFgm3()) + "-" + QString::number(away->getFga3()));
+    numbers.append(QString::number(home->getFgm3()) + "-" + QString::number(home->getFga3()));
+    numbers.append(QString::number(away->getFg3Pct(), 'g', 3) + "%");
+    numbers.append(QString::number(home->getFg3Pct(), 'g', 3) + "%");
+
+    lt.prepareForCompLt(awayName, homeName, labels, numbers);
+}
+
+void BasketballGame::gatherAssistTurnoverComp()
+{
+    QList<QString> labels, numbers;
+    BasketballPlayer* away = awayTeam->getTeamPlayer();
+    BasketballPlayer* home = homeTeam->getTeamPlayer();
+
+    labels.append("AST");
+    labels.append("TO");
+    labels.append("PTS OFF TO");
+
+    numbers.append(QString::number(away->getAst()));
+    numbers.append(QString::number(home->getAst()));
+    numbers.append(QString::number(away->getTo()));
+    numbers.append(QString::number(home->getTo()));
+    numbers.append(QString::number(awayTeam->getPtsTo()));
+    numbers.append(QString::number(homeTeam->getPtsTo()));
+
+    lt.prepareForCompLt(awayName, homeName, labels, numbers);
+}
+
+void BasketballGame::gatherReboundComp()
+{
+    QList<QString> labels, numbers;
+    BasketballPlayer* away = awayTeam->getTeamPlayer();
+    BasketballPlayer* home = homeTeam->getTeamPlayer();
+
+    labels.append("O. REB");
+    labels.append("D. REB");
+    labels.append("REB");
+    labels.append("2-CH. PTS");
+
+    numbers.append(QString::number(away->getOreb()));
+    numbers.append(QString::number(home->getOreb()));
+    numbers.append(QString::number(away->getDreb()));
+    numbers.append(QString::number(home->getDreb()));
+    numbers.append(QString::number(away->getTreb()));
+    numbers.append(QString::number(home->getTreb()));
+    numbers.append(QString::number(awayTeam->getPtsCh2()));
+    numbers.append(QString::number(homeTeam->getPtsCh2()));
+
+    lt.prepareForCompLt(awayName, homeName, labels, numbers);
+}
+
+void BasketballGame::gatherFtComp()
+{
+    QList<QString> labels, numbers;
+    BasketballPlayer* away = awayTeam->getTeamPlayer();
+    BasketballPlayer* home = homeTeam->getTeamPlayer();
+
+    labels.append("FT");
+    labels.append("FT%");
+
+    numbers.append(QString::number(away->getFtm()) + "-" + QString::number(away->getFta()));
+    numbers.append(QString::number(home->getFtm()) + "-" + QString::number(home->getFta()));
+    numbers.append(QString::number(away->getFtPct(),'g', 3) + "%");
+    numbers.append(QString::number(home->getFtPct(),'g', 3) + "%");
+
+    lt.prepareForCompLt(awayName, homeName, labels, numbers);
+}
+
+void BasketballGame::gatherSpecialPtsComp()
+{
+    QList<QString> labels, numbers;
+
+    labels.append("PTS PAINT");
+    labels.append("PTS FAST BRK");
+    labels.append("PTS BENCH");
+
+    numbers.append(QString::number(awayTeam->getPtsPaint()));
+    numbers.append(QString::number(homeTeam->getPtsPaint()));
+    numbers.append(QString::number(awayTeam->getPtsFb()));
+    numbers.append(QString::number(homeTeam->getPtsFb()));
+    numbers.append(QString::number(awayTeam->getPtsBench()));
+    numbers.append(QString::number(homeTeam->getPtsBench()));
+
+    lt.prepareForCompLt(awayName, homeName, labels, numbers);
+
+
+}
+
+void BasketballGame::gatherLeadsTiesComp()
+{
+    QList<QString> labels, numbers;
+
+    labels.append("LEADS");
+    labels.append("TIES");
+
+    numbers.append(QString::number(awayTeam->getLeads()));
+    numbers.append(QString::number(homeTeam->getLeads()));
+    numbers.append(QString::number(awayTeam->getTies()));
+    numbers.append(QString::number(homeTeam->getTies()));
+
+    lt.prepareForCompLt(awayName, homeName, labels, numbers);
 }
 
 Clock* BasketballGame::getGameClock()

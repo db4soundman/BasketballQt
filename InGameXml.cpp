@@ -47,7 +47,9 @@ bool InGameXml::startElement(const QString& namespaceURI, const QString& localNa
             awayTeam->setPtsBench(atts.value("pts_bench").toInt());
             awayTeam->setTies(atts.value("ties").toInt());
             awayTeam->setLeads(atts.value("leads").toInt());
-            awayTeam->setLargestLead(atts.value("large_lead").toInt());
+            awayTeam->setPtsFb(atts.value("pts_fastb").toInt());
+            awayTeam->setPtsPaint(atts.value("pts_paint").toInt());
+            //awayTeam->setLargestLead(atts.value("large_lead").toInt());
         }
         else {
             homeTeam->setPtsTo(atts.value("pts_to").toInt());
@@ -55,7 +57,9 @@ bool InGameXml::startElement(const QString& namespaceURI, const QString& localNa
             homeTeam->setPtsBench(atts.value("pts_bench").toInt());
             homeTeam->setTies(atts.value("ties").toInt());
             homeTeam->setLeads(atts.value("leads").toInt());
-            homeTeam->setLargestLead(atts.value("large_lead").toInt());
+            homeTeam->setPtsFb(atts.value("pts_fastb").toInt());
+            homeTeam->setPtsPaint(atts.value("pts_paint").toInt());
+            //homeTeam->setLargestLead(atts.value("large_lead").toInt());
         }
     }
 

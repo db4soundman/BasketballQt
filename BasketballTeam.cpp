@@ -1,7 +1,7 @@
 #include "BasketballTeam.h"
 
 BasketballTeam::BasketballTeam() {
-    ptsTo = ptsCh2 = ptsBench = ties = leads = largestLead = 0;
+   ptsFb = ptsPaint = ptsTo = ptsCh2 = ptsBench = ties = leads = largestLead = 0;
 
 }
 
@@ -86,6 +86,26 @@ BasketballPlayer*BasketballTeam::getTeamPlayer()
 {
     return getPlayer(roster.size() - 1);
 }
+int BasketballTeam::getPtsFb() const
+{
+    return ptsFb;
+}
+
+void BasketballTeam::setPtsFb(int value)
+{
+    ptsFb = value;
+}
+int BasketballTeam::getPtsPaint() const
+{
+    return ptsPaint;
+}
+
+void BasketballTeam::setPtsPaint(int value)
+{
+    ptsPaint = value;
+}
+
+
 
 QList<QString> BasketballTeam::getGuiNames()
 {

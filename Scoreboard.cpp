@@ -211,7 +211,8 @@ Scoreboard::prepareColor() {
 
     clockGradient.setColorAt(0, QColor(255,255,255));
     clockGradient.setColorAt(1, QColor(255,255,255));
-    clockGradient.setColorAt(.5, QColor(180,180,180));
+    clockGradient.setColorAt(.45, QColor(180,180,180));
+    clockGradient.setColorAt(.55, QColor(180,180,180));
 
     shotClockGradient.setColorAt(0, QColor(100,100,100));
     shotClockGradient.setColorAt(1, QColor(100,100,100));

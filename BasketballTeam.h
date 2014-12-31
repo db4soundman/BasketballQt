@@ -36,6 +36,12 @@ public:
 
     BasketballPlayer* getTeamPlayer();
 
+    int getPtsFb() const;
+    void setPtsFb(int value);
+
+    int getPtsPaint() const;
+    void setPtsPaint(int value);
+
 signals:
 
 
@@ -43,7 +49,7 @@ public slots:
 
 private:
     QList<BasketballPlayer*> roster;
-    int ptsTo, ptsCh2, ptsBench, ties, leads, largestLead;
+    int ptsTo, ptsCh2, ptsBench, ties, leads, largestLead, ptsFb, ptsPaint;
 
 
 };

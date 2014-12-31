@@ -29,6 +29,8 @@ LowerThird::LowerThird(QColor awayColor, QColor homeColor, int screenWidth, QGra
     homeStatGradient.setFinalStop(0, 120);
     awayStatGradient.setStart(0, 47);
     awayStatGradient.setFinalStop(0, 120);
+    labelGradient.setStart(0, -47);
+    labelGradient.setFinalStop(0,0);
     prepareColors();
     statistics.append("");
     statNames.append("");
@@ -69,6 +71,39 @@ LowerThird::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
             painter->drawText(rectWidth * i, 47, rectWidth, 72, Qt::AlignCenter | Qt::TextWordWrap, statistics.at(i));
         }
 
+    }
+
+    else if (showComp) {
+        //painter->drawPixmap(0, 0, this->pixmap());
+        painter->fillRect(-372, 0, 372 + 800, 60, awayNameGradient);
+        painter->fillRect(-372, 60, 372 + 800, 60, homeNameGradient);
+        painter->fillRect(0, -47, 800, 47, labelGradient);
+        painter->fillRect(0, 0, 800, 120, QColor(0, 0, 0, 60));
+
+        painter->setFont(nameFont);
+        painter->setPen(QColor(255,255,255));
+
+        painter->drawText(-370, 0, NAME_WIDTH, 60, Qt::AlignVCenter, awayName);
+        painter->drawText(-370, 60, NAME_WIDTH, 60, Qt::AlignVCenter, homeName);
+
+        //painter->drawText(-60, 0, 60, 60, Qt::AlignCenter, number);
+        //painter->drawText(-60, 60, 60, 60, Qt::AlignCenter, year);
+        painter->setFont(statFont);
+
+        int rectWidth = 800/statNames.size();
+        // Stat Labels
+        painter->setPen(QColor(0, 0, 0));
+        for (int i = 0; i< statNames.size(); i++) {
+            painter->drawText(rectWidth * i, -47, rectWidth, 47, Qt::AlignCenter, statNames.at(i));
+        }
+
+        painter->setPen(QColor(255, 255, 255));
+        // Stat numbers
+
+        for (int i = 0; i< statistics.size(); i+=2) {
+            painter->drawText(rectWidth * i, 0, rectWidth, 60, Qt::AlignCenter, statistics.at(i));
+            painter->drawText(rectWidth * i, 60, rectWidth, 60, Qt::AlignCenter, statistics.at(i + 1));
+        }
     }
 }
 
@@ -125,6 +160,18 @@ void LowerThird::prepareForCustomLt(QString name, QString number,
     showLt();
 }
 
+void LowerThird::prepareForCompLt(QString awayName, QString homeName, QList<QString> statLabels, QList<QString> statValues)
+{
+   this->awayName = awayName;
+    this->homeName = homeName;
+    statNames = statLabels;
+    statistics = statValues;
+    // To ensure font size is returned to normal in the event that
+    // a custom text LT was used.
+    statFont.setPointSize(statFontPointSize);
+    showCompLt();
+}
+
 void LowerThird::prepareColors() {
     int red, green, blue;
     red = -1*homeTeamMain.red() *NAME_GRADIENT_LEVEL + homeTeamMain.red();
@@ -163,6 +210,11 @@ void LowerThird::prepareColors() {
     awayStatGradient.setColorAt(.5, awayTeamMain);
     awayStatGradient.setColorAt(1, end);
     awayStatGradient.setColorAt(0, end);
+
+    labelGradient.setColorAt(0, QColor(255,255,255));
+    labelGradient.setColorAt(1, QColor(255,255,255));
+    labelGradient.setColorAt(.45, QColor(180,180,180));
+    labelGradient.setColorAt(.55, QColor(180,180,180));
 }
 
 void
@@ -208,6 +260,13 @@ void
 LowerThird::showLt() {
     show = true;
     showComp = false;
+    scene()->update();
+}
+
+void LowerThird::showCompLt()
+{
+    show = false;
+    showComp = true;
     scene()->update();
 }
 

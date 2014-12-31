@@ -95,6 +95,12 @@ public slots:
     void gatherShootingLt(bool home,int index);
     void gatherFreethrowLt(bool home,int index);
     void gatherFgFoulLt(bool home,int index);
+    void gatherFgComp();
+    void gatherAssistTurnoverComp();
+    void gatherReboundComp();
+    void gatherFtComp();
+    void gatherSpecialPtsComp();
+    void gatherLeadsTiesComp();
     void makeFinal();
     void flipPossArrow();
     void showPossArrow();
