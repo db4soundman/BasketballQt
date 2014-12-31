@@ -100,9 +100,9 @@ LowerThird::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         painter->setPen(QColor(255, 255, 255));
         // Stat numbers
 
-        for (int i = 0; i< statistics.size(); i+=2) {
-            painter->drawText(rectWidth * i, 0, rectWidth, 60, Qt::AlignCenter, statistics.at(i));
-            painter->drawText(rectWidth * i, 60, rectWidth, 60, Qt::AlignCenter, statistics.at(i + 1));
+        for (int i = 0, j = 0; j < statistics.size(); j+=2, i++) {
+            painter->drawText(rectWidth * i, 0, rectWidth, 60, Qt::AlignCenter, statistics.at(j));
+            painter->drawText(rectWidth * i, 60, rectWidth, 60, Qt::AlignCenter, statistics.at(j + 1));
         }
     }
 }
