@@ -37,6 +37,7 @@ bool InGameXml::startElement(const QString& namespaceURI, const QString& localNa
         currPlayer->setAst(atts.value("ast").toInt());
         currPlayer->setOreb(atts.value("oreb").toInt());
         currPlayer->setDreb(atts.value("dreb").toInt());
+        currPlayer->setTreb(atts.value("treb").toInt());
         //currPlayer->setFouls(atts.value("pf").toInt());
         currPlayer->setTo(atts.value("to").toInt());
     }
@@ -85,6 +86,7 @@ bool InGameXml::startElement(const QString& namespaceURI, const QString& localNa
         currPlayer->setAst(atts.value("ast").toInt());
         currPlayer->setOreb(atts.value("oreb").toInt());
         currPlayer->setDreb(atts.value("dreb").toInt());
+        currPlayer->setTreb(atts.value("treb").toInt());
         currPlayer->setFouls(atts.value("pf").toInt());
         currPlayer->setTo(atts.value("to").toInt());
     }
