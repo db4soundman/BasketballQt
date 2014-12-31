@@ -256,7 +256,7 @@ void BasketballGame::gatherReboundComp()
     labels.append("O. REB");
     labels.append("D. REB");
     labels.append("REB");
-    labels.append("2-CH. PTS");
+    labels.append("2CH. PTS");
 
     numbers.append(QString::number(away->getOreb()));
     numbers.append(QString::number(home->getOreb()));
@@ -292,7 +292,7 @@ void BasketballGame::gatherSpecialPtsComp()
     QList<QString> labels, numbers;
 
     labels.append("PTS PAINT");
-    labels.append("PTS FAST BRK");
+    labels.append("PTS FB");
     labels.append("PTS BENCH");
 
     numbers.append(QString::number(awayTeam->getPtsPaint()));
