@@ -3,8 +3,8 @@
 #include "RosterXmlHandler.h"
 
 BasketballGame::BasketballGame(QString awayName, QString homeName, QColor awayColor, QColor homeColor,
-                       QString xmlFile, QString sponsor, QString announcers,
-                       QString awayRank, QString homeRank, int screenWidth) :
+                               QString xmlFile, QString sponsor, QString announcers,
+                               QString awayRank, QString homeRank, int screenWidth) :
     awayName(awayName), homeName(homeName), sponsor(sponsor), announcers(announcers), awayColor(awayColor),
     homeColor(homeColor), awayRank(awayRank), homeRank(homeRank),
     sb(awayColor, homeColor, awayName, homeName, sponsor, &gameClock, awayRank, homeRank),
@@ -138,7 +138,7 @@ void BasketballGame::gatherSummaryLt(bool home, int index)
     numbers.append(QString::number(player->getStl()));
     numbers.append(QString::number(player->getBlk()));
     numbers.append(QString::number(player->getTo()));
-
+    sb.hideBoard();
     lt.prepareForDisplay(player->getName(), player->getUni(), labels, numbers, home);
 }
 
@@ -161,7 +161,7 @@ void BasketballGame::gatherShootingLt(bool home, int index)
     numbers.append(QString::number(player->getPts()));
 
 
-
+    sb.hideBoard();
     lt.prepareForDisplay(player->getName(), player->getUni(),
                          labels, numbers, home);
 }
@@ -176,7 +176,7 @@ void BasketballGame::gatherFreethrowLt(bool home, int index)
 
     numbers.append(QString::number(player->getFtm()) + "-" + QString::number(player->getFta()));
     numbers.append(QString::number(player->getFtPct(),'g', 3) + "%");
-
+    sb.hideBoard();
     lt.prepareForDisplay(player->getName(), player->getUni(),
                          labels, numbers, home);
 }
@@ -199,7 +199,7 @@ void BasketballGame::gatherFgFoulLt(bool home, int index)
         numbers.append(home ? QString::number(homeFouls) : QString::number(awayFouls));
     }
     else numbers.append(QString::number(player->getFouls()));
-
+    sb.hideBoard();
     lt.prepareForDisplay(player->getName(), player->getUni(),
                          labels, numbers, home);
 }
@@ -223,7 +223,7 @@ void BasketballGame::gatherFgComp()
     numbers.append(QString::number(home->getFgm3()) + "-" + QString::number(home->getFga3()));
     numbers.append(QString::number(away->getFg3Pct(), 'g', 3) + "%");
     numbers.append(QString::number(home->getFg3Pct(), 'g', 3) + "%");
-
+    sb.hideBoard();
     lt.prepareForCompLt(awayName, homeName, labels, numbers);
 }
 
@@ -243,7 +243,7 @@ void BasketballGame::gatherAssistTurnoverComp()
     numbers.append(QString::number(home->getTo()));
     numbers.append(QString::number(awayTeam->getPtsTo()));
     numbers.append(QString::number(homeTeam->getPtsTo()));
-
+    sb.hideBoard();
     lt.prepareForCompLt(awayName, homeName, labels, numbers);
 }
 
@@ -266,7 +266,7 @@ void BasketballGame::gatherReboundComp()
     numbers.append(QString::number(home->getTreb()));
     numbers.append(QString::number(awayTeam->getPtsCh2()));
     numbers.append(QString::number(homeTeam->getPtsCh2()));
-
+    sb.hideBoard();
     lt.prepareForCompLt(awayName, homeName, labels, numbers);
 }
 
@@ -283,7 +283,7 @@ void BasketballGame::gatherFtComp()
     numbers.append(QString::number(home->getFtm()) + "-" + QString::number(home->getFta()));
     numbers.append(QString::number(away->getFtPct(),'g', 3) + "%");
     numbers.append(QString::number(home->getFtPct(),'g', 3) + "%");
-
+    sb.hideBoard();
     lt.prepareForCompLt(awayName, homeName, labels, numbers);
 }
 
@@ -301,7 +301,7 @@ void BasketballGame::gatherSpecialPtsComp()
     numbers.append(QString::number(homeTeam->getPtsFb()));
     numbers.append(QString::number(awayTeam->getPtsBench()));
     numbers.append(QString::number(homeTeam->getPtsBench()));
-
+    sb.hideBoard();
     lt.prepareForCompLt(awayName, homeName, labels, numbers);
 
 
@@ -318,7 +318,7 @@ void BasketballGame::gatherLeadsTiesComp()
     numbers.append(QString::number(homeTeam->getLeads()));
     numbers.append(QString::number(awayTeam->getTies()));
     numbers.append(QString::number(homeTeam->getTies()));
-
+    sb.hideBoard();
     lt.prepareForCompLt(awayName, homeName, labels, numbers);
 }
 
