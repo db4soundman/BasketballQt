@@ -5,7 +5,7 @@
 //#define WIDTH 1920/2
 //#define NAME_WIDTH 860
 #define RECT_HEIGHT 120
-#define CENTER_OFFSET 100
+#define CENTER_OFFSET 200
 #define BLACK_BAR_HEIGHT 60
 #define GRADIENT_LEVEL .5
 #define SHOW_CLOCK 0
@@ -17,7 +17,7 @@ CommercialGraphic::CommercialGraphic(BasketballGame* game, int width, QGraphicsI
     hockeyGame = game;
     show = true;
     WIDTH = width / 2;
-    NAME_WIDTH = WIDTH - 100;
+    NAME_WIDTH = WIDTH - CENTER_OFFSET;
     inGame  = false;
     QFont font("Arial", 60, QFont::Bold);
     QFont sponsorFont("Arial", 36, QFont::Bold);
@@ -25,7 +25,7 @@ CommercialGraphic::CommercialGraphic(BasketballGame* game, int width, QGraphicsI
     font.setPointSize(68);
     sponsorFont.setPointSize(44);
 #endif
-
+    setPixmap(QPixmap(":/images/Scoreboard.png"));
     away = new QGraphicsTextItem(game->getAwayName());
     away->setFont(font);
     checkAwayFont();
@@ -155,7 +155,7 @@ void CommercialGraphic::checkAwayFont()
     int fontPointSize = away->font().pointSize();
     int subtraction = 1;
     QFontMetrics fontSize(away->font());
-    while (fontSize.width(away->toPlainText()) > NAME_WIDTH) {
+    while (fontSize.width(away->toPlainText()) > NAME_WIDTH - 5) {
         QFont tempFont("Arial", fontPointSize - subtraction, QFont::Bold);
         subtraction++;
         away->setFont(tempFont);

@@ -46,7 +46,8 @@ SOURCES += main.cpp\
     GUI/PlayerStatControl.cpp \
     RosterXmlHandler.cpp \
     InGameXml.cpp \
-    GUI/TeamComparisonControls.cpp
+    GUI/TeamComparisonControls.cpp \
+    Ticker.cpp
 
 HEADERS  += MainWindow.h \
     Clock.h \
@@ -75,7 +76,8 @@ HEADERS  += MainWindow.h \
     GUI/PlayerStatControl.h \
     RosterXmlHandler.h \
     InGameXml.h \
-    GUI/TeamComparisonControls.h
+    GUI/TeamComparisonControls.h \
+    Ticker.h
 
 RESOURCES += \
     graphics.qrc

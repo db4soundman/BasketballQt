@@ -17,11 +17,12 @@ Scoreboard::Scoreboard(QColor awayCol, QColor homeCol, QString awayTeam, QString
                        QGraphicsItem *parent) :
     QGraphicsPixmapItem(parent), homeColor(homeCol), awayColor(awayCol) {
     QFont font("Arial", 36, QFont::Bold);
+
     QFont sponsorFont("Arial", 24, QFont::Bold);
 #ifdef Q_OS_OSX
     font.setPointSize(40);
     sponsorFont.setPointSize(28);
-    #endif
+#endif
 
     homeTOL = awayTOL = 5;
 
@@ -104,7 +105,7 @@ Scoreboard::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         painter->drawPixmap(310, 38, 170, 32, *ppBar);
         //painter->drawPixmap(34, 4, 66, 50, *networkLogo);
         //Clock - Game time...draw clock first since default color is black
-       painter->setFont(defaultSponsorText);
+        painter->setFont(defaultSponsorText);
         if (showPdAndClock) {
             /*
             painter->drawText(838, 3, 247, 50, Qt::AlignVCenter, period);
@@ -112,23 +113,23 @@ Scoreboard::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                               showClock? clock->toString() : "HALFTIME");
                               */
             if (showShotClock) {
-            painter->drawText(310, 6, 85, 32, Qt::AlignCenter, clock->toString());
+                painter->drawText(310, 6, 85, 32, Qt::AlignCenter, clock->toString());
 
-            // SHOT CLOCK
-            painter->drawText(395, 6, 85, 32, Qt::AlignCenter,"35");
+                // SHOT CLOCK
+                painter->drawText(395, 6, 85, 32, Qt::AlignCenter,"35");
             }
 
             else {
                 painter->drawText(310, 6, 170, 32, Qt::AlignCenter, clock->toString());
             }
 
-//            painter->setPen(QColor(255,255,255));
-//            painter->drawText(310, 38, 170, 32, Qt::AlignCenter, period);
+            //            painter->setPen(QColor(255,255,255));
+            //            painter->drawText(310, 38, 170, 32, Qt::AlignCenter, period);
         }
         painter->setPen(QColor(255,255,255));
         painter->drawText(310, 38, 170, 32, Qt::AlignCenter, showPdAndClock ? period : centeredTimeText);
 
-         painter->setFont(homeName->font());
+        painter->setFont(homeName->font());
         // Away text
         painter->fillRect(6, TEAM_BOX_Y, 75 + TEAM_NAME_WIDTH, 50, awayGradient );
         painter->setFont(awayRank->font());
@@ -239,18 +240,20 @@ void Scoreboard::prepareAwayName()
 
 void
 Scoreboard::updateClock() {
-//    scene()->update(this->x() + 833, this->y() + 3, 242, 50);
-//    if (awayPP) {
-//        scene()->update(this->x() + 112, this->y() + 54, 350, 38);
-//    }
-//    else if (homePP) {
-//        scene()->update(this->x() + 474, this->y() + 54, 350, 38);
-//    }
-    if (showPdAndClock && showShotClock) {
-        scene()->update(this->x() + 310, this->y() + 6, 85, 32);
-    }
-    else if(showPdAndClock && !showShotClock) {
-        scene()->update(this->x() + 310, this->y() + 6, 170, 32);
+    //    scene()->update(this->x() + 833, this->y() + 3, 242, 50);
+    //    if (awayPP) {
+    //        scene()->update(this->x() + 112, this->y() + 54, 350, 38);
+    //    }
+    //    else if (homePP) {
+    //        scene()->update(this->x() + 474, this->y() + 54, 350, 38);
+    //    }
+    if (show) {
+        if (showPdAndClock && showShotClock) {
+            scene()->update(this->x() + 310, this->y() + 6, 85, 32);
+        }
+        else if(showPdAndClock && !showShotClock) {
+            scene()->update(this->x() + 310, this->y() + 6, 170, 32);
+        }
     }
 
 }

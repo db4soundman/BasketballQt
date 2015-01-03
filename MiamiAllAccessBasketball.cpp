@@ -46,11 +46,12 @@ MiamiAllAccessBasketball::exec() {
     announcer = "Steve Baker and Terry Bridge";
     sponsor = "Miami IMG Sports Network";
     homeName = "MIAMI";
-    QDesktopWidget desktop;
-    QRect graphicsScreen = desktop.screenGeometry(1);
+
     SetupWizard wizard(&awayName, &homeName, &sponsor,&announcer, &awayRank, &homeRank,
                        &awayColor, &homeColor, &bg, &statcrewName);
     wizard.exec();
+    QDesktopWidget desktop;
+    QRect graphicsScreen = desktop.screenGeometry(1);
     game = new BasketballGame(awayName, homeName, awayColor, homeColor,
                           statcrewName, sponsor, announcer, awayRank,
                           homeRank, graphicsScreen.width() + 1);
