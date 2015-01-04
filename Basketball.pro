@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui serialport widgets
 QT += xml
 QMAKE_MAC_SDK = macosx10.9
 
@@ -16,7 +16,8 @@ TEMPLATE = app
 DEFINES *= QT_USE_QSTRINGBUILDER
 INCLUDEPATH += GUI \
                Wizard \
-            GameStatEditors
+            GameStatEditors \
+            SerialHandler
 
 SOURCES += main.cpp\
         MainWindow.cpp \
@@ -47,7 +48,10 @@ SOURCES += main.cpp\
     RosterXmlHandler.cpp \
     InGameXml.cpp \
     GUI/TeamComparisonControls.cpp \
-    Ticker.cpp
+    Ticker.cpp \
+    SerialHandler/SerialConsole.cpp \
+    SerialHandler/console.cpp \
+    SerialHandler/settingsdialog.cpp
 
 HEADERS  += MainWindow.h \
     Clock.h \
@@ -77,7 +81,15 @@ HEADERS  += MainWindow.h \
     RosterXmlHandler.h \
     InGameXml.h \
     GUI/TeamComparisonControls.h \
-    Ticker.h
+    Ticker.h \
+    SerialHandler/SerialConsole.h \
+    SerialHandler/console.h \
+    SerialHandler/settingsdialog.h
 
 RESOURCES += \
-    graphics.qrc
+    graphics.qrc \
+    terminal.qrc
+
+FORMS += \
+    SerialHandler/SerialConsole.ui \
+    SerialHandler/settingsdialog.ui
