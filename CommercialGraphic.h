@@ -30,7 +30,7 @@ public slots:
 private:
     QPixmap blackBar;
     QLinearGradient homeTeamGradient, awayTeamGradient;
-    BasketballGame* hockeyGame;
+    BasketballGame* basketballGame;
     bool show, inGame;
     QGraphicsTextItem* away, *home;
     QString homeScore, awayScore, maaText, period, clock;

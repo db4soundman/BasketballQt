@@ -1,5 +1,5 @@
 #include "Clock.h"
-#include <QTime>
+#include <QMessageBox>
 
 Clock::Clock() {
     minutes = 20;
@@ -27,6 +27,21 @@ Clock::setClock(int m, int s, int t) {
         emit clockExpired();
 }
 
+void Clock::setClock(QString serialString)
+{
+    QTime time = serialString.contains(".") ? QTime::fromString(serialString, "m:ss.z") :
+                                              QTime::fromString(serialString, "m:ss");
+//    QMessageBox msg;
+//    msg.setText(time.toString("m:ss"));
+//    msg.exec();
+    if (time != serial) {
+        serial = time;
+
+        emit clockUpdated();
+    }
+    //emit clockUpdated();
+}
+
 int
 Clock::getTimeLeft() {
     return minutes*600 + seconds*10 + tenths;
@@ -34,11 +49,17 @@ Clock::getTimeLeft() {
 
 QString
 Clock::toString() {
-    QTime clock(0, minutes, seconds, tenths);
-    if (minutes > 0)
-        return clock.toString("m:ss");
-    else
-        return clock.toString("s.z");
+    if (useSerial) {
+        return serial.minute() > 0 ? serial.toString("m:ss") :
+                                     serial.toString("ss.z").left(4);
+    }
+    else {
+        QTime clock(0, minutes, seconds, tenths);
+        if (minutes > 0)
+            return clock.toString("m:ss");
+        else
+            return clock.toString("s.z");
+    }
 }
 
 QString
@@ -92,6 +113,16 @@ Clock::resetClock(bool ot) {
     else {
         setClock(otLength, 0, 1);
     }
+}
+
+void Clock::usingSerialClock()
+{
+    useSerial = true;
+}
+
+void Clock::noLongerUsingSerialClock()
+{
+    useSerial = false;
 }
 int Clock::getTenths() const
 {

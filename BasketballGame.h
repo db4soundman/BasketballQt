@@ -8,6 +8,7 @@
 #include "Scoreboard.h"
 #include "LowerThird.h"
 #include "BasketballTeam.h"
+#include "SerialConsole.h"
 
 
 class BasketballGame : public QObject {
@@ -19,6 +20,8 @@ public:
 
     Scoreboard* getSb();
     LowerThird* getLt();
+
+    void connectWithSerialHandler(SerialConsole* console);
 
     QString getSponsor() const;
     void setSponsor(const QString& value);
@@ -104,6 +107,7 @@ public slots:
     void makeFinal();
     void flipPossArrow();
     void showPossArrow();
+    void parseAllSportCG(QByteArray data);
 
 signals:
     void homeScoreChanged(int score);
@@ -116,12 +120,13 @@ signals:
     void awayTOLChanged(int tol);
     void setStatBar(QString text);
     void possArrowChanged(bool home);
+    void shotClockUpdated(QString sc);
 
 private slots:
 
 private:
     QString homeName, awayName, sponsor, announcers, homeRank,
-    awayRank;
+    awayRank, shotClock;
     int awayScore, homeScore, period, homeFouls, awayFouls, homeTOL, awayTOL;
     Clock gameClock;
     //QList<Clock*> awayPenalty, homePenalty;

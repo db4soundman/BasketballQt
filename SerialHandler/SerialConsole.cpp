@@ -11,6 +11,9 @@ SerialConsole::SerialConsole(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::SerialConsole)
 {
+    realData.reserve(65);
+    readTimer.setInterval(50);
+    connect(&readTimer, SIGNAL(timeout()), this, SLOT(readData()));
 //! [0]
     ui->setupUi(this);
     console = new Console;
@@ -32,7 +35,7 @@ SerialConsole::SerialConsole(QWidget *parent) :
             SLOT(handleError(QSerialPort::SerialPortError)));
 
 //! [2]
-    connect(serial, SIGNAL(readyRead()), this, SLOT(readData()));
+    //connect(serial, SIGNAL(readyRead()), this, SLOT(readData()));
 //! [2]
     connect(console, SIGNAL(getData(QByteArray)), this, SLOT(writeData(QByteArray)));
 //! [3]
@@ -64,6 +67,8 @@ void SerialConsole::openSerialPort()
             ui->statusBar->showMessage(tr("Connected to %1 : %2, %3, %4, %5, %6")
                                        .arg(p.name).arg(p.stringBaudRate).arg(p.stringDataBits)
                                        .arg(p.stringParity).arg(p.stringStopBits).arg(p.stringFlowControl));
+            emit serialConnected();
+            readTimer.start();
     } else {
         QMessageBox::critical(this, tr("Error"), serial->errorString());
 
@@ -76,11 +81,13 @@ void SerialConsole::openSerialPort()
 void SerialConsole::closeSerialPort()
 {
     serial->close();
-    console->setEnabled(false);
+    //console->setEnabled(false);
     ui->actionConnect->setEnabled(true);
     ui->actionDisconnect->setEnabled(false);
     ui->actionConfigure->setEnabled(true);
     ui->statusBar->showMessage(tr("Disconnected"));
+    readTimer.stop();
+    emit serialDisconnected();
 }
 //! [5]
 
@@ -102,8 +109,27 @@ void SerialConsole::writeData(const QByteArray &data)
 //! [7]
 void SerialConsole::readData()
 {
-    QByteArray data = serial->readAll();
-    console->putData(data);
+   /* char data[1];
+    int x = serial->read(data, 1);
+    while (x != 0) {
+        serial->read(data, 1);
+    }
+    realData[0] = 1;
+    for (int i = 1; i < 65; i ++) {
+        serial->read(data, 1);
+        realData[i] = data[0];
+    }*/
+    QByteArray rawdata = serial->readAll();
+    if (realData[0] == (char)1) {
+        realData.append(rawdata.left(rawdata.indexOf((char)4) + 1));
+    }
+    else realData = rawdata.mid(rawdata.indexOf((char)1));
+    if (realData.length() > 31) {
+        realData = realData.right(32);
+        //realData.resize(32);
+        emit dataReceived(realData);
+        console->putData(realData);
+    }
 }
 //! [7]
 

@@ -5,7 +5,7 @@
 #include "SetupWizard.h"
 #include <QDesktopWidget>
 #include <QAction>
-#include "SerialConsole.h"
+
 
 MiamiAllAccessBasketball::MiamiAllAccessBasketball(int& argc, char* argv[]) :
     QApplication (argc, argv) {
@@ -89,8 +89,8 @@ MiamiAllAccessBasketball::exec() {
 
     controlPanel = new MainWindow(game, commercial);
     controlPanel->show();
-    SerialConsole con;
-    con.show();
+    game->connectWithSerialHandler(&allSportCgController);
+    allSportCgController.show();
     return QApplication::exec();
 }
 

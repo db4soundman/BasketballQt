@@ -6,7 +6,7 @@
 #include <QMainWindow>
 
 #include <QtSerialPort/QSerialPort>
-
+#include <QTimer>
 QT_BEGIN_NAMESPACE
 
 namespace Ui {
@@ -26,6 +26,11 @@ public:
     explicit SerialConsole(QWidget *parent = 0);
     ~SerialConsole();
 
+signals:
+    void serialConnected();
+    void serialDisconnected();
+    void dataReceived(QByteArray data);
+
 private slots:
     void openSerialPort();
     void closeSerialPort();
@@ -43,6 +48,8 @@ private:
     Console *console;
     SettingsDialog *settings;
     QSerialPort *serial;
+    QByteArray realData;
+    QTimer readTimer;
 };
 
 #endif // MAINWINDOW_H

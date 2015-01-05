@@ -8,6 +8,7 @@
 #include "MainWindow.h"
 #include "CommercialGraphic.h"
 #include "StatCrewScanner.h"
+#include "SerialConsole.h"
 
 class MiamiAllAccessBasketball : public QApplication {
 public:
@@ -34,6 +35,7 @@ private:
     MainWindow* controlPanel;
     CommercialGraphic* commercial;
     StatCrewScanner* stats;
+    SerialConsole allSportCgController;
 };
 
 #endif // MIAMIALLACCESSBASKETBALL_H

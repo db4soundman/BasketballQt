@@ -14,8 +14,8 @@
 
 CommercialGraphic::CommercialGraphic(BasketballGame* game, int width, QGraphicsItem* parent) :
     QGraphicsPixmapItem(parent), blackBar(QPixmap(":/images/ppBar.png")) {
-    hockeyGame = game;
-    show = true;
+    basketballGame = game;
+    show = false;
     WIDTH = width / 2;
     NAME_WIDTH = WIDTH - CENTER_OFFSET;
     inGame  = false;
@@ -75,10 +75,10 @@ void CommercialGraphic::paint(QPainter* painter, const QStyleOptionGraphicsItem*
 
 void CommercialGraphic::prepareAndShow()
 {
-    awayScore = QString::number(hockeyGame->getAwayScore());
-    homeScore = QString::number(hockeyGame->getHomeScore());
+    awayScore = QString::number(basketballGame->getAwayScore());
+    homeScore = QString::number(basketballGame->getHomeScore());
 
-    switch (hockeyGame->getPeriod()) {
+    switch (basketballGame->getPeriod()) {
     case 0:
         inGame = false;
         period = "Starts in";
@@ -90,17 +90,8 @@ void CommercialGraphic::prepareAndShow()
     case 2:
         period = "2nd";
         break;
-    case 3:
-        period = "3rd";
-        break;
-    case 4:
-        period = "OT";
-        break;
-    case 5:
-        period = "SHOOTOUT";
-        break;
     default:
-        period = "";
+        period = "OT";
         break;
     }
     show = true;
@@ -111,7 +102,7 @@ void CommercialGraphic::updateClock()
 {
     if (show) {
         if (clockStatus == SHOW_CLOCK) {
-            clock = hockeyGame->getGameClock()->toString();
+            clock = basketballGame->getGameClock()->toString();
         }
         else if (clockStatus == INTERMISSION) {
             clock = "INT";

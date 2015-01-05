@@ -1,6 +1,7 @@
 #include "BasketballGame.h"
 #include "ClockDialog.h"
 #include "RosterXmlHandler.h"
+#include <QGraphicsScene>
 
 BasketballGame::BasketballGame(QString awayName, QString homeName, QColor awayColor, QColor homeColor,
                                QString xmlFile, QString sponsor, QString announcers,
@@ -20,7 +21,7 @@ BasketballGame::BasketballGame(QString awayName, QString homeName, QColor awayCo
     timer.setTimerType(Qt::PreciseTimer);
     timer.setInterval(100);
     clockRunning = false;
-
+    shotClock = "";
     connect(&gameClock, SIGNAL(clockExpired()),
             this, SLOT(toggleClock()));
     connect(&timer, SIGNAL(timeout()), &gameClock, SLOT(tick()));
@@ -32,6 +33,7 @@ BasketballGame::BasketballGame(QString awayName, QString homeName, QColor awayCo
     connect(this, SIGNAL(awayTOLChanged(int)), &sb, SLOT(updateAwayTOL(int)));
     connect(this, SIGNAL(homeFoulsChanged(int)),&sb, SLOT(checkHomeFouls(int)));
     connect(this, SIGNAL(homeTOLChanged(int)), &sb, SLOT(updateHomeTOL(int)));
+    connect(this, SIGNAL(shotClockUpdated(QString)), &sb, SLOT(updateShotClock(QString)));
 
     // Jump Ball switcher
     possArrow = false;
@@ -383,6 +385,13 @@ LowerThird* BasketballGame::getLt()
     return &lt;
 }
 
+void BasketballGame::connectWithSerialHandler(SerialConsole *console)
+{
+    connect(console, SIGNAL(serialConnected()), this->getGameClock(), SLOT(usingSerialClock()));
+    connect(console, SIGNAL(dataReceived(QByteArray)), this, SLOT(parseAllSportCG(QByteArray)));
+    connect(console, SIGNAL(serialDisconnected()), this->getGameClock(), SLOT(noLongerUsingSerialClock()));
+}
+
 
 Scoreboard* BasketballGame::getSb()
 {
@@ -441,6 +450,57 @@ void BasketballGame::showPossArrow()
 {
     QString text = "POSESSION ARROW: " + (possArrow ? "MIAMI" : getAwayName());
     emit setStatBar(text);
+}
+
+void BasketballGame::parseAllSportCG(QByteArray data)
+{
+    if (data[0] < '0' && data[0] == (char) 1) {
+        return;
+    }
+    QString clock(data.mid(0,7));
+    gameClock.setClock(clock.trimmed());
+    QString nshotClock = data.mid(8, 2);
+    if (nshotClock != shotClock) {
+        shotClock = nshotClock;
+        emit shotClockUpdated(shotClock);
+    }
+    int homeScoreS, awayScoreS, homeFoulS, awayFoulS, awayToS, homeToS;
+    homeScoreS = data.mid(12,3).trimmed().toInt();
+    if (homeScore != homeScoreS) {
+        homeScore = homeScoreS;
+        emit homeScoreChanged(homeScore);
+    }
+    awayScoreS = data.mid(15,3).trimmed().toInt();
+    if (awayScore != awayScoreS) {
+        awayScore = awayScoreS;
+        emit awayScoreChanged(awayScore);
+    }
+    homeFoulS = data.mid(18,2).trimmed().toInt();
+    if (homeFouls != homeFoulS) {
+        homeFouls = homeFoulS;
+        emit homeFoulsChanged(homeFouls);
+    }
+    awayFoulS = data.mid(20,2).trimmed().toInt();
+    if (awayFouls != awayFoulS) {
+        awayFouls = awayFoulS;
+        emit awayFoulsChanged(awayFouls);
+    }
+    homeToS = data.mid(22,1).toInt();
+    if (homeTOL != homeToS) {
+        homeTOL = homeToS;
+        emit homeTOLChanged(homeTOL);
+    }
+    awayToS = data.mid(25,1).toInt();
+    if (awayTOL != awayToS) {
+        awayTOL = awayToS;
+        emit awayTOLChanged(awayTOL);
+    }
+    int newpd = data.mid(28,1).toInt();
+    if (period != newpd) {
+        period = newpd;
+        emit periodChanged(period);
+    }
+    //sb.scene()->update();
 }
 int BasketballGame::getAwayTOL() const
 {
