@@ -137,6 +137,7 @@ private:
     BasketballTeam* awayTeam;
     Scoreboard sb;
     LowerThird lt;
+    int offset;
     // GUI is separate class
     // GraphicsVars
 

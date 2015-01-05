@@ -20,6 +20,7 @@ BasketballGame::BasketballGame(QString awayName, QString homeName, QColor awayCo
     homeTOL = 5;
     timer.setTimerType(Qt::PreciseTimer);
     timer.setInterval(100);
+    offset = 0;
     clockRunning = false;
     shotClock = "";
     connect(&gameClock, SIGNAL(clockExpired()),
@@ -454,52 +455,53 @@ void BasketballGame::showPossArrow()
 
 void BasketballGame::parseAllSportCG(QByteArray data)
 {
-    if (data[0] < '0' && data[0] == (char) 1) {
-        return;
+    if (data[0] == (char) 1) {
+       offset = 1;
     }
-    QString clock(data.mid(0,7));
+    QString clock(data.mid(offset +0,7));
     gameClock.setClock(clock.trimmed());
-    QString nshotClock = data.mid(8, 2);
+    QString nshotClock = data.mid(offset +8, 2);
     if (nshotClock != shotClock) {
         shotClock = nshotClock;
         emit shotClockUpdated(shotClock);
     }
     int homeScoreS, awayScoreS, homeFoulS, awayFoulS, awayToS, homeToS;
-    homeScoreS = data.mid(12,3).trimmed().toInt();
+    homeScoreS = data.mid(offset +12,3).trimmed().toInt();
     if (homeScore != homeScoreS) {
         homeScore = homeScoreS;
         emit homeScoreChanged(homeScore);
     }
-    awayScoreS = data.mid(15,3).trimmed().toInt();
+    awayScoreS = data.mid(offset +15,3).trimmed().toInt();
     if (awayScore != awayScoreS) {
         awayScore = awayScoreS;
         emit awayScoreChanged(awayScore);
     }
-    homeFoulS = data.mid(18,2).trimmed().toInt();
+    homeFoulS = data.mid(offset +18,2).trimmed().toInt();
     if (homeFouls != homeFoulS) {
         homeFouls = homeFoulS;
         emit homeFoulsChanged(homeFouls);
     }
-    awayFoulS = data.mid(20,2).trimmed().toInt();
+    awayFoulS = data.mid(offset +20,2).trimmed().toInt();
     if (awayFouls != awayFoulS) {
         awayFouls = awayFoulS;
         emit awayFoulsChanged(awayFouls);
     }
-    homeToS = data.mid(22,1).toInt();
+    homeToS = data.mid(offset +22,1).toInt();
     if (homeTOL != homeToS) {
         homeTOL = homeToS;
         emit homeTOLChanged(homeTOL);
     }
-    awayToS = data.mid(25,1).toInt();
+    awayToS = data.mid(offset +25,1).toInt();
     if (awayTOL != awayToS) {
         awayTOL = awayToS;
         emit awayTOLChanged(awayTOL);
     }
-    int newpd = data.mid(28,1).toInt();
+    int newpd = data.mid(offset +28,1).toInt();
     if (period != newpd) {
         period = newpd;
         emit periodChanged(period);
     }
+    offset = 0;
     //sb.scene()->update();
 }
 int BasketballGame::getAwayTOL() const
