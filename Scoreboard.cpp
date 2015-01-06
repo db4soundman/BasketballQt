@@ -30,7 +30,7 @@ Scoreboard::Scoreboard(QColor awayCol, QColor homeCol, QString awayTeam, QString
 
     defaultSponsorText = sponsorFont;
     show = false;
-    showShotClock = true;
+    showShotClock = false;
 
     setPixmap(QPixmap(":/images/Scoreboard.png"));
 
@@ -373,6 +373,19 @@ void Scoreboard::updateShotClock(QString sc)
     shotClock = sc;
     scene()->update(x() + 395, y() + 6, 85, 32);
 }
+
+void Scoreboard::showingShotClock()
+{
+    showShotClock = true;
+    scene()->update(x() + 310, y() + 6, 170, 64);
+}
+
+void Scoreboard::hidingShotClock()
+{
+    showShotClock = false;
+    scene()->update(x() + 310, y() + 6, 170, 64);
+}
+
 
 void Scoreboard::checkHomeFouls(int fouls)
 {

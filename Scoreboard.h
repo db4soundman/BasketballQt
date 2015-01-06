@@ -39,6 +39,8 @@ public slots:
      void checkHomeFouls(int fouls);
      void checkAwayFouls(int fouls);
      void updateShotClock(QString sc);
+     void showingShotClock();
+     void hidingShotClock();
 
 private:
      QPixmap* ppBar;

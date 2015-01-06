@@ -389,8 +389,10 @@ LowerThird* BasketballGame::getLt()
 void BasketballGame::connectWithSerialHandler(SerialConsole *console)
 {
     connect(console, SIGNAL(serialConnected()), this->getGameClock(), SLOT(usingSerialClock()));
+    connect(console, SIGNAL(serialConnected()), &sb, SLOT(showingShotClock()));
     connect(console, SIGNAL(dataReceived(QByteArray)), this, SLOT(parseAllSportCG(QByteArray)));
     connect(console, SIGNAL(serialDisconnected()), this->getGameClock(), SLOT(noLongerUsingSerialClock()));
+    connect(console, SIGNAL(serialDisconnected()), &sb, SLOT(hidingShotClock()));
 }
 
 
