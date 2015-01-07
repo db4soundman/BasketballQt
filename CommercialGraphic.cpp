@@ -112,6 +112,11 @@ void CommercialGraphic::updateClock()
         }
 
         scene()->update();
+
+
+
+
+        //basketballGame->takePicture();
     }
 }
 

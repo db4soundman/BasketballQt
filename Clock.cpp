@@ -8,6 +8,7 @@ Clock::Clock() {
     seconds = 0;
     tenths = 1;
     gameClock = true;
+    useSerial = false;
 }
 
 Clock::Clock(int minutes) {

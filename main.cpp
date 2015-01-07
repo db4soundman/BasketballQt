@@ -1,36 +1,26 @@
 #include "MiamiAllAccessBasketball.h"
-
+#include <QLCDNumber>
+#include <QMainWindow>
 int main(int argc, char *argv[]) {
     MiamiAllAccessBasketball a(argc, argv);
-
-//    BasketballTeam team;
-//    QXmlSimpleReader reader;
-//    SeasonXMLHandler handler(&team);
-//    reader.setContentHandler(&handler);
-//    reader.setErrorHandler(&handler);
-//    QFile file (QFileDialog::getOpenFileName());
-//    QXmlInputSource src(&file);
-//    reader.parse(src);
-//    int x = 4+4;
-//    Scoreboard* sb = new Scoreboard(QColor(0,124,252), QColor(192,0,29));
-//    QGraphicsScene* scene = new QGraphicsScene();
-//    scene->addItem(sb);
-//    LowerThird* lt = new LowerThird();
-//    scene->addItem(lt);
-//    lt->setY(740);
-//    lt->setX(337);
-//    QGraphicsView view(scene);
-
-//    view.setFixedSize(1600,900);
-//    view.setBackgroundBrush(QColor(0,120,0));
-//    //view.showFullScreen();
-//    view.setMinimumSize(1600,900);
-//    //sb->setScale(1.68);
-//   // sb->setPos(view.mapToScene(view.width()/2, -200));
-//    sb->setY(80);
-//    MainWindow w(sb);
-//    view.showFullScreen();
-//    w.show();
-
     return a.exec();
+//    QApplication app(argc, argv);
+
+//        QMainWindow *window = new QMainWindow();
+//            window->setAttribute( Qt::WA_TranslucentBackground );
+//            window->setWindowFlags(Qt::FramelessWindowHint);
+//            //window->setFrameShape(QFrame::NoFrame);
+//            window->setWindowTitle(QString::fromUtf8("QMainWindow Transparent Background"));
+//            window->resize(800, 250);
+
+//        QLCDNumber *number = new QLCDNumber();
+//        number->setFixedSize(800, 245);
+//        number->setDigitCount(12);
+//        number->display(QTime::currentTime().toString(QString("hh:mm:ss.zzz")));
+
+
+//        window->setCentralWidget(number);
+//        window->show();
+
+//        return app.exec();
 }

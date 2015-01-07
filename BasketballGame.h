@@ -9,6 +9,7 @@
 #include "LowerThird.h"
 #include "BasketballTeam.h"
 #include "SerialConsole.h"
+#include <QGraphicsView>
 
 
 class BasketballGame : public QObject {
@@ -16,7 +17,7 @@ class BasketballGame : public QObject {
 public:
     BasketballGame(QString awayName, QString homeName, QColor awayColor, QColor homeColor,
                QString xmlFile, QString sponsor, QString announcers,
-               QString awayRank, QString homeRank, int screenWidth);
+               QString awayRank, QString homeRank, int screenWidth, QGraphicsView* screen);
 
     Scoreboard* getSb();
     LowerThird* getLt();
@@ -108,6 +109,7 @@ public slots:
     void flipPossArrow();
     void showPossArrow();
     void parseAllSportCG(QByteArray data);
+    void takePicture();
 
 signals:
     void homeScoreChanged(int score);
@@ -138,6 +140,7 @@ private:
     Scoreboard sb;
     LowerThird lt;
     int offset;
+    QGraphicsView* scene;
     // GUI is separate class
     // GraphicsVars
 

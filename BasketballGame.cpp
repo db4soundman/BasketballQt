@@ -1,11 +1,17 @@
 #include "BasketballGame.h"
 #include "ClockDialog.h"
 #include "RosterXmlHandler.h"
-#include <QGraphicsScene>
+#include <QGraphicsView>
+#include <QImage>
+#include <QPixmap>
+#include <QPainter>
+#include <QMessageBox>
+#include <QColor>
+#include "MiamiAllAccessBasketball.h"
 
 BasketballGame::BasketballGame(QString awayName, QString homeName, QColor awayColor, QColor homeColor,
                                QString xmlFile, QString sponsor, QString announcers,
-                               QString awayRank, QString homeRank, int screenWidth) :
+                               QString awayRank, QString homeRank, int screenWidth, QGraphicsView *screen) :
     awayName(awayName), homeName(homeName), sponsor(sponsor), announcers(announcers), awayColor(awayColor),
     homeColor(homeColor), awayRank(awayRank), homeRank(homeRank),
     sb(awayColor, homeColor, awayName, homeName, sponsor, &gameClock, awayRank, homeRank),
@@ -39,7 +45,7 @@ BasketballGame::BasketballGame(QString awayName, QString homeName, QColor awayCo
     // Jump Ball switcher
     possArrow = false;
 
-
+    scene = screen;
     //connect(this, SIGNAL(checkScoreboardPp()), this, SLOT(determinePpClockForScoreboard()));
     // Make teams...
     homeTeam = new BasketballTeam();
@@ -505,6 +511,19 @@ void BasketballGame::parseAllSportCG(QByteArray data)
     }
     offset = 0;
     //sb.scene()->update();
+}
+
+void BasketballGame::takePicture()
+{
+    QPixmap pix = QPixmap::grabWidget(scene);
+    QImage img = pix.toImage();
+    QMessageBox msg;
+    QColor c = img.pixel(0,0);
+    msg.setText(QString::number(c.alpha()) + "\n" + QString::number(c.red())
+                + "\n" + QString::number(c.green())
+                + "\n" + QString::number(c.blue()));
+  //  msg.setText(QString::number(img.height()));
+    msg.exec();
 }
 int BasketballGame::getAwayTOL() const
 {

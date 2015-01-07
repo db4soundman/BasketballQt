@@ -5,7 +5,7 @@
 #include "SetupWizard.h"
 #include <QDesktopWidget>
 #include <QAction>
-
+#include "TricasterHandler.h"
 
 MiamiAllAccessBasketball::MiamiAllAccessBasketball(int& argc, char* argv[]) :
     QApplication (argc, argv) {
@@ -33,7 +33,7 @@ MiamiAllAccessBasketball::checkAppDirectory() {
 
 int
 MiamiAllAccessBasketball::exec() {
-    //checkAppDirectory();
+    checkAppDirectory();
 
     // Make vars, create wizard.
     scene = new QGraphicsScene();
@@ -43,7 +43,8 @@ MiamiAllAccessBasketball::exec() {
     QColor awayColor, homeColor,  bg;
 
     homeColor.setRgb(226, 24, 54);
-    bg.setRgb(0,120,0);
+    //bg.setRgb(0,120,0);
+    bg.setRgb(0, 120, 0, 255);
     announcer = "Steve Baker and Terry Bridge";
     sponsor = "Miami IMG Sports Network";
     homeName = "MIAMI";
@@ -53,13 +54,14 @@ MiamiAllAccessBasketball::exec() {
     wizard.exec();
     QDesktopWidget desktop;
     QRect graphicsScreen = desktop.screenGeometry(1);
-    game = new BasketballGame(awayName, homeName, awayColor, homeColor,
+   tv = new QGraphicsView(scene);
+   game = new BasketballGame(awayName, homeName, awayColor, homeColor,
                           statcrewName, sponsor, announcer, awayRank,
-                          homeRank, graphicsScreen.width() + 1);
+                          homeRank, graphicsScreen.width() + 1, tv);
 
 
     scene->addItem(game->getSb());
-
+    scene->setBackgroundBrush(QBrush(Qt::transparent));
     scene->addItem(game->getLt());
     commercial = new CommercialGraphic(game, graphicsScreen.width());
     scene->addItem(commercial);
@@ -69,7 +71,7 @@ MiamiAllAccessBasketball::exec() {
     game->getSb()->setX((graphicsScreen.width() / 2) - (790/2));
     commercial->setY(graphicsScreen.height() - 230);
     //commercial->setX(460);
-    tv = new QGraphicsView(scene);
+
 
 
 
@@ -78,10 +80,23 @@ MiamiAllAccessBasketball::exec() {
     tv->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     tv->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     // Get desktop set up and wizard val later...
-    tv->setBackgroundBrush(bg);
-    //tv->setFixedSize(1600,900);
-    //tv->show();
+    /*
+    QPalette p = tv->viewport()->palette();
+    p.setColor(QPalette::Base, Qt::transparent);
+    tv->viewport()->setPalette(p);
+    tv->setWindowFlags(Qt::FramelessWindowHint);
+    tv->setAttribute(Qt::WA_TranslucentBackground);
+    tv->setAttribute(Qt::WA_NoSystemBackground);
+
+    scene->setPalette(p);
+    tv->setStyleSheet("background-color: transparent;");
+
+    scene->setBackgroundBrush(bg);
+    tv->setAutoFillBackground(true);
+
+    */
     tv->setFrameShape(QFrame::NoFrame);
+    tv->setBackgroundBrush(bg);
     tv->showFullScreen();
 
     if (!statcrewName.isEmpty())
@@ -91,6 +106,7 @@ MiamiAllAccessBasketball::exec() {
     controlPanel->show();
     game->connectWithSerialHandler(&allSportCgController);
     allSportCgController.show();
+    TricasterHandler hand(tv, bg);
     return QApplication::exec();
 }
 

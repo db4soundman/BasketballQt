@@ -51,7 +51,8 @@ SOURCES += main.cpp\
     Ticker.cpp \
     SerialHandler/SerialConsole.cpp \
     SerialHandler/console.cpp \
-    SerialHandler/settingsdialog.cpp
+    SerialHandler/settingsdialog.cpp \
+    TricasterHandler.cpp
 
 HEADERS  += MainWindow.h \
     Clock.h \
@@ -84,7 +85,9 @@ HEADERS  += MainWindow.h \
     Ticker.h \
     SerialHandler/SerialConsole.h \
     SerialHandler/console.h \
-    SerialHandler/settingsdialog.h
+    SerialHandler/settingsdialog.h \
+    TricasterHandler.h \
+    AirSend_api.h
 
 RESOURCES += \
     graphics.qrc \
@@ -93,3 +96,9 @@ RESOURCES += \
 FORMS += \
     SerialHandler/SerialConsole.ui \
     SerialHandler/settingsdialog.ui
+
+INCLUDEPATH += $$PWD/
+DEPENDPATH += $$PWD/
+unix|win32: LIBS += -L$$PWD/ -lProcessingAirSendx86
+
+
