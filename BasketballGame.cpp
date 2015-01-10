@@ -457,16 +457,40 @@ void BasketballGame::flipPossArrow()
 
 void BasketballGame::showPossArrow()
 {
-    QString text = "POSESSION ARROW: " + (possArrow ? "MIAMI" : getAwayName());
+    QString text = "POSESSION ARROW: " + (possArrow ? getHomeName() : getAwayName());
     emit setStatBar(text);
 }
 
 void BasketballGame::parseAllSportCG(QByteArray data)
 {
-    if (data[0] == (char) 1) {
-       offset = 1;
+    // --------------------------------------------
+    int colonLoc = data.indexOf(':');
+    int lastColonLoc = data.lastIndexOf(':');
+    int periodLoc = data.indexOf('.');
+    bool special = false;
+    if (colonLoc != lastColonLoc) {
+        if (!data.contains('s')) gameClock.tick();
+        return;
     }
-    QString clock(data.mid(offset +0,7));
+    if (colonLoc <= 4 && colonLoc >= 1) {
+        offset = colonLoc - 2;
+    }
+    else if (colonLoc == -1 && periodLoc != -1 && data[periodLoc - 2] == ' ') {
+        special = true;
+    }
+    else{
+        if (!data.contains('s')) gameClock.tick();
+        return;
+    }
+    QString clock;
+    if (Q_LIKELY (!special)) {
+    clock = offset > -1 ? (data.mid(offset +0,7)) :
+                          (data.mid(0, 7 + offset));
+    }
+    else {
+        clock = data.mid(periodLoc - 1, 3);
+    }
+    // --------------------------------------------
     gameClock.setClock(clock.trimmed());
     QString nshotClock = data.mid(offset +8, 2);
     if (nshotClock != shotClock) {
@@ -484,30 +508,32 @@ void BasketballGame::parseAllSportCG(QByteArray data)
         awayScore = awayScoreS;
         emit awayScoreChanged(awayScore);
     }
-    homeFoulS = data.mid(offset +18,2).trimmed().toInt();
-    if (homeFouls != homeFoulS) {
-        homeFouls = homeFoulS;
-        emit homeFoulsChanged(homeFouls);
-    }
-    awayFoulS = data.mid(offset +20,2).trimmed().toInt();
-    if (awayFouls != awayFoulS) {
-        awayFouls = awayFoulS;
-        emit awayFoulsChanged(awayFouls);
-    }
-    homeToS = data.mid(offset +22,1).toInt();
-    if (homeTOL != homeToS) {
-        homeTOL = homeToS;
-        emit homeTOLChanged(homeTOL);
-    }
-    awayToS = data.mid(offset +25,1).toInt();
-    if (awayTOL != awayToS) {
-        awayTOL = awayToS;
-        emit awayTOLChanged(awayTOL);
-    }
-    int newpd = data.mid(offset +28,1).toInt();
-    if (period != newpd) {
-        period = newpd;
-        emit periodChanged(period);
+    if ((data.contains('.') && data.contains('s')) || !data.contains('.')) {
+        homeFoulS = data.mid(offset +18,2).trimmed().toInt();
+        if (homeFouls != homeFoulS) {
+            homeFouls = homeFoulS;
+            emit homeFoulsChanged(homeFouls);
+        }
+        awayFoulS = data.mid(offset +20,2).trimmed().toInt();
+        if (awayFouls != awayFoulS) {
+            awayFouls = awayFoulS;
+            emit awayFoulsChanged(awayFouls);
+        }
+        homeToS = data.mid(offset +22,1).toInt();
+        if (homeTOL != homeToS) {
+            homeTOL = homeToS;
+            emit homeTOLChanged(homeTOL);
+        }
+        awayToS = data.mid(offset +25,1).toInt();
+        if (awayTOL != awayToS) {
+            awayTOL = awayToS;
+            emit awayTOLChanged(awayTOL);
+        }
+        int newpd = data.mid(offset +28,1).toInt();
+        if (period != newpd) {
+            period = newpd;
+            emit periodChanged(period);
+        }
     }
     offset = 0;
     //sb.scene()->update();

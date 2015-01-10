@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui serialport widgets
+QT       += core gui serialport widgets network
 QT += xml
 QMAKE_MAC_SDK = macosx10.9
 

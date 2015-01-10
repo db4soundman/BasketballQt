@@ -114,7 +114,7 @@ Scoreboard::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                               */
             if (showShotClock) {
                 painter->drawText(310, 6, 85, 32, Qt::AlignCenter, clock->toString());
-
+                painter->setPen(QColor(255,255,255));
                 // SHOT CLOCK
                 painter->drawText(395, 6, 85, 32, Qt::AlignCenter, shotClock);
             }
@@ -215,10 +215,10 @@ Scoreboard::prepareColor() {
     clockGradient.setColorAt(.45, QColor(180,180,180));
     clockGradient.setColorAt(.55, QColor(180,180,180));
 
-    shotClockGradient.setColorAt(0, QColor(100,100,100));
-    shotClockGradient.setColorAt(1, QColor(100,100,100));
-    shotClockGradient.setColorAt(.4, QColor(180,180,180));
-    shotClockGradient.setColorAt(.6, QColor(180,180,180));
+    shotClockGradient.setColorAt(0, QColor(156,0,0));
+    shotClockGradient.setColorAt(1, QColor(156,0,0));
+    shotClockGradient.setColorAt(.4, QColor(180,0,0));
+    shotClockGradient.setColorAt(.6, QColor(180,0,0));
 
 }
 

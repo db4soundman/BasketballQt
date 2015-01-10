@@ -5,6 +5,7 @@
 #include "SetupWizard.h"
 #include <QDesktopWidget>
 #include <QAction>
+#include <QTimer>
 #include "TricasterHandler.h"
 
 MiamiAllAccessBasketball::MiamiAllAccessBasketball(int& argc, char* argv[]) :
@@ -106,7 +107,12 @@ MiamiAllAccessBasketball::exec() {
     controlPanel->show();
     game->connectWithSerialHandler(&allSportCgController);
     allSportCgController.show();
-    TricasterHandler hand(tv, bg);
+//    TricasterHandler hand(tv, bg);
+//    QTimer* mytimer = new QTimer();
+//    mytimer->setInterval(100);
+//    connect(mytimer, SIGNAL(timeout()), &hand, SLOT(start()));
+//    //hand.start();
+//    mytimer->start();
     return QApplication::exec();
 }
 

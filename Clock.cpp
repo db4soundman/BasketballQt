@@ -35,6 +35,9 @@ void Clock::setClock(QString serialString)
 //    QMessageBox msg;
 //    msg.setText(time.toString("m:ss"));
 //    msg.exec();
+    if (!time.isValid()) {
+        time = QTime::fromString(serialString, "s.z");
+    }
     if (time != serial) {
         serial = time;
 
@@ -89,6 +92,10 @@ QString Clock::getTimeSinceOtStarted()
 
 void
 Clock::tick() {
+    if (useSerial) {
+        serial = serial.addMSecs(-100);
+        emit clockUpdated();
+    }
     tenths --;
     if (tenths < 0) {
         tenths = 9;
