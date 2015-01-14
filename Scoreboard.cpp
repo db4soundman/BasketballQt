@@ -250,6 +250,7 @@ Scoreboard::updateClock() {
     if (show) {
         if (showPdAndClock && showShotClock) {
             scene()->update(this->x() + 310, this->y() + 6, 85, 32);
+            emit sceneUpdated(this->x() + 310, this->y() + 6, 85, 32);
         }
         else if(showPdAndClock && !showShotClock) {
             scene()->update(this->x() + 310, this->y() + 6, 170, 32);
@@ -281,12 +282,12 @@ Scoreboard::updatePeriod(int pd) {
     case 2:
         period = "2nd HALF";
         break;
-    case 3:
-        period = "OT";
+    case 0:
+        period = "BEGINS IN";
         showPdAndClock = true;
         break;
     default:
-        period = "";
+        period = "OT";
         break;
     }
     scene()->update(x() + 310, y() + 38, 170, 32);
@@ -372,6 +373,7 @@ void Scoreboard::updateShotClock(QString sc)
 {
     shotClock = sc;
     scene()->update(x() + 395, y() + 6, 85, 32);
+    emit sceneUpdated(x() + 395, y() + 6, 85, 32);
 }
 
 void Scoreboard::showingShotClock()
@@ -409,6 +411,8 @@ void
 Scoreboard::toggleShowBoard() {
     show = !show;
     scene()->update();
+    //for(int i = 0; i < 5; i++)
+        emit sceneUpdated(0,0,1920,1080);
 }
 
 void

@@ -8,7 +8,7 @@
 #include <tchar.h>
 #include <windows.h>
 #include "AirSend_api.h"
-
+#include <QImage>
 
 class TricasterHandler : public QThread
 {
@@ -21,14 +21,16 @@ public:
 signals:
 
 public slots:
-
+    void srun();
+    void ensureUpdate();
+    void updatePortion(int x, int y, int w, int h);
 private:
 
     void* tricaster;
     QGraphicsView* screen;
-    QColor alphaBlack;
-    const QColor alpha;
+    const QColor alphaBlack;
     BYTE* pixels;
+    QImage view;
 };
 
 #endif // TRICASTERHANDLER_H

@@ -113,9 +113,6 @@ void CommercialGraphic::updateClock()
 
         scene()->update();
 
-
-
-
         //basketballGame->takePicture();
     }
 }
@@ -143,6 +140,7 @@ void CommercialGraphic::finalTime()
 void CommercialGraphic::hide()
 {
     show = false;
+    for (int i = 0; i < 5; i++)
     scene()->update();
 }
 

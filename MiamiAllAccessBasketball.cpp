@@ -54,8 +54,9 @@ MiamiAllAccessBasketball::exec() {
                        &awayColor, &homeColor, &bg, &statcrewName);
     wizard.exec();
     QDesktopWidget desktop;
-    QRect graphicsScreen = desktop.screenGeometry(1);
-   tv = new QGraphicsView(scene);
+    //QRect graphicsScreen = desktop.screenGeometry(1);
+    QRect graphicsScreen = QRect(0,0,1920,1080);
+    tv = new QGraphicsView(scene);
    game = new BasketballGame(awayName, homeName, awayColor, homeColor,
                           statcrewName, sponsor, announcer, awayRank,
                           homeRank, graphicsScreen.width() + 1, tv);
@@ -98,7 +99,7 @@ MiamiAllAccessBasketball::exec() {
     */
     tv->setFrameShape(QFrame::NoFrame);
     tv->setBackgroundBrush(bg);
-    tv->showFullScreen();
+    //tv->showFullScreen();
 
     if (!statcrewName.isEmpty())
         stats = new StatCrewScanner(game, statcrewName);
@@ -107,12 +108,15 @@ MiamiAllAccessBasketball::exec() {
     controlPanel->show();
     game->connectWithSerialHandler(&allSportCgController);
     allSportCgController.show();
-//    TricasterHandler hand(tv, bg);
-//    QTimer* mytimer = new QTimer();
-//    mytimer->setInterval(100);
-//    connect(mytimer, SIGNAL(timeout()), &hand, SLOT(start()));
-//    //hand.start();
-//    mytimer->start();
+    TricasterHandler hand(tv, bg);
+    connect(scene, SIGNAL(changed(QList<QRectF>)), &hand, SLOT(srun()));
+    //connect(game->getSb(), SIGNAL(sceneUpdated(int, int, int, int)), &hand, SLOT(updatePortion(int, int, int, int)));
+    /*QTimer* mytimer = new QTimer();
+    mytimer->setSingleShot(true);
+    mytimer->setInterval(100);
+    connect(mytimer, SIGNAL(timeout()), &hand, SLOT(start()));
+    //hand.start();
+    mytimer->start();*/
     return QApplication::exec();
 }
 

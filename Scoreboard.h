@@ -20,7 +20,7 @@ public:
                 const QStyleOptionGraphicsItem * option, QWidget * widget = 0);
 
 signals:
-
+    void sceneUpdated(int x, int y, int w, int h);
 public slots:
      void showPd();
      void final();

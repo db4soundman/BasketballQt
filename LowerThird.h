@@ -19,6 +19,8 @@ public:
                const QStyleOptionGraphicsItem * option, QWidget * widget = 0);
 
 
+signals:
+    void sceneUpdated();
 
 public slots:
     void hideLt();
