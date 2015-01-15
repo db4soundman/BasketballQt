@@ -123,7 +123,8 @@ signals:
     void setStatBar(QString text);
     void possArrowChanged(bool home);
     void shotClockUpdated(QString sc);
-    //void
+    void toggleStatCrew();
+    void statusOfStatCrew(bool status);
 
 private slots:
 

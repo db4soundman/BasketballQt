@@ -9,6 +9,8 @@ StatCrewScanner::StatCrewScanner(BasketballGame* game, QString fileName)
     isActive = false;
     connect(trigger, SIGNAL(timeout()), this, SLOT(updateStats()));
     connect(game, SIGNAL(periodChanged(int)), this, SLOT(toggleScanner(int)));
+    connect(game, SIGNAL(toggleStatCrew()), this, SLOT(toggleScanner()));
+    connect(this, SIGNAL(statCrewStatus(bool)), game, SIGNAL(statusOfStatCrew(bool)));
 }
 
 void StatCrewScanner::toggleScanner() {

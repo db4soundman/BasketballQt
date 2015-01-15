@@ -11,6 +11,7 @@
 #include "ClockControls.h"
 #include "StatDisplayControls.h"
 #include "CommercialGraphic.h"
+#include "CheckboxWidget.h"
 
 
 class ControlPanel : public QWidget {
@@ -26,6 +27,7 @@ private:
     GameInfo hud;
     ClockControls clockControls;
     StatDisplayControls stats;
+    CheckBoxWidget statcrewControl;
 };
 
 #endif // CONTROLPANEL_H

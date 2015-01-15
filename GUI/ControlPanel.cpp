@@ -5,7 +5,7 @@
 
 ControlPanel::ControlPanel(BasketballGame* game, CommercialGraphic* comGraphic) :
     dispControls(game, comGraphic), scores(game), fouls(game),
-    timeouts(game), hud(game), clockControls(game, comGraphic), stats(game) {
+    timeouts(game), hud(game), clockControls(game, comGraphic), stats(game), statcrewControl(game) {
     QHBoxLayout* mainLayout = new QHBoxLayout();
 
     QVBoxLayout* leftColumn = new QVBoxLayout();
@@ -14,6 +14,7 @@ ControlPanel::ControlPanel(BasketballGame* game, CommercialGraphic* comGraphic) 
     grid->addWidget(&scores, 0, 1);
     grid->addWidget(&fouls, 0, 0,Qt::AlignHCenter | Qt::AlignTop);
     grid->addWidget(&timeouts, 1, 1, Qt::AlignHCenter | Qt::AlignTop );
+    grid->addWidget(&statcrewControl, 1, 0, Qt::AlignHCenter | Qt::AlignTop);
 
     leftColumn->addLayout(grid);
     leftColumn->addWidget(&stats);
