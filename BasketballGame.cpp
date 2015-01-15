@@ -494,7 +494,7 @@ void BasketballGame::parseAllSportCG(QByteArray data)
     gameClock.setClock(clock.trimmed());
     QString nshotClock = data.mid(offset +8, 2);
     if (nshotClock != shotClock) {
-        shotClock = nshotClock;
+        shotClock = nshotClock.trimmed();
         emit shotClockUpdated(shotClock);
     }
     int homeScoreS, awayScoreS, homeFoulS, awayFoulS, awayToS, homeToS;
