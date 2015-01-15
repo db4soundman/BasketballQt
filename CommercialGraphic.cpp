@@ -63,8 +63,8 @@ void CommercialGraphic::paint(QPainter* painter, const QStyleOptionGraphicsItem*
 
         painter->drawPixmap(WIDTH - 200, RECT_HEIGHT, WIDTH - (WIDTH- 400), BLACK_BAR_HEIGHT, blackBar);
         painter->setFont(descriptiveFont);
-        if (clockStatus == FINAL) {
-            painter->drawText(WIDTH - 200, RECT_HEIGHT, WIDTH - (WIDTH- 400), BLACK_BAR_HEIGHT, Qt::AlignCenter, "FINAL");
+        if (clockStatus != SHOW_CLOCK) {
+            painter->drawText(WIDTH - 200, RECT_HEIGHT, WIDTH - (WIDTH- 400), BLACK_BAR_HEIGHT, Qt::AlignCenter, clock);
         }
         else {
             painter->drawText(WIDTH- 190, RECT_HEIGHT, WIDTH - (WIDTH- 400), BLACK_BAR_HEIGHT, Qt::AlignLeft, period);
@@ -105,7 +105,7 @@ void CommercialGraphic::updateClock()
             clock = basketballGame->getGameClock()->toString();
         }
         else if (clockStatus == INTERMISSION) {
-            clock = "INT";
+            clock = "HALFTIME";
         }
         else {
             clock = "FINAL";

@@ -52,7 +52,8 @@ SOURCES += main.cpp\
     SerialHandler/SerialConsole.cpp \
     SerialHandler/console.cpp \
     SerialHandler/settingsdialog.cpp \
-    TricasterHandler.cpp
+    TricasterHandler.cpp \
+    GUI/CheckboxWidget.cpp
 
 HEADERS  += MainWindow.h \
     Clock.h \
@@ -87,7 +88,8 @@ HEADERS  += MainWindow.h \
     SerialHandler/console.h \
     SerialHandler/settingsdialog.h \
     TricasterHandler.h \
-    AirSend_api.h
+    AirSend_api.h \
+    GUI/CheckboxWidget.h
 
 RESOURCES += \
     graphics.qrc \

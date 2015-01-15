@@ -4,6 +4,7 @@
 #include <QWizardPage>
 #include <QPushButton>
 #include <QColor>
+#include <QCheckBox>
 #include <QLineEdit>
 
 class SetupPage : public QWizardPage {
@@ -11,7 +12,7 @@ class SetupPage : public QWizardPage {
 public:
     SetupPage(QString* pAwayName, QString* pHomeName,
               QString* pSponsor, QString* pAnnouncer, QString* pAwayRank, QString* pHomeRank,
-              QColor* pAwayColor, QColor* pHomeColor, QColor* pBg, QString* pStatCrew);
+              QColor* pAwayColor, QColor* pHomeColor, QColor* pBg, QString* pStatCrew, bool *pUsingTricaster);
     bool validatePage();
 
 private slots:
@@ -24,7 +25,9 @@ private:
     QString* awayName, *homeName, *awayRank, *homeRank, *homeFile, *awayFile, *sponsor, *announcer, *statCrew;
     QColor* awayColor, *homeColor,  *bg;
     QPushButton chooseHColor, chooseAColor, chooseBg, browseStatCrew;
-    QLineEdit homeNameLine, awayNameLine, awayRankLine, homeRankLine, sponsorLine, announcerLine;
+    QLineEdit homeNameLine, awayNameLine, awayRankLine, homeRankLine, sponsorLine, announcerLine, tricasterIp;
+    QCheckBox* tricasterBox;
+    bool* usingTricaster;
 };
 
 #endif // SETUPPAGE_H

@@ -9,6 +9,7 @@
 #include "CommercialGraphic.h"
 #include "StatCrewScanner.h"
 #include "SerialConsole.h"
+#include "TricasterHandler.h"
 
 class MiamiAllAccessBasketball : public QApplication {
 public:
@@ -36,6 +37,7 @@ private:
     CommercialGraphic* commercial;
     StatCrewScanner* stats;
     SerialConsole allSportCgController;
+    TricasterHandler* tricaster;
 };
 
 #endif // MIAMIALLACCESSBASKETBALL_H
