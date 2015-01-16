@@ -6,8 +6,8 @@
 #include <QMenu>
 #include <QMenuBar>
 
-MainWindow::MainWindow(BasketballGame* game, CommercialGraphic* comGraphic, QWidget *parent)
-    : QMainWindow(parent), panel(game, comGraphic),
+MainWindow::MainWindow(BasketballGame* game, CommercialGraphic* comGraphic, Ticker *ticker, QWidget *parent)
+    : QMainWindow(parent), panel(game, comGraphic, ticker),
     awayPlayerEdit(game, false), homePlayerEdit(game, true), awayEdit(game->getAwayTeam()), homeEdit(game->getHomeTeam()),
     ltCreator(game->getLt()) {
     setCentralWidget(&panel);
@@ -30,7 +30,7 @@ void MainWindow::makeMenu(BasketballGame* game)
     connect(confSb, SIGNAL(triggered()), &nchcGui, SLOT(show()));
     nchcMenu->addAction(confSb);
     menuBar()->addMenu(nchcMenu);
-*/
+
     QMenu* awayMenu = new QMenu(game->getAwayName());
     QAction* awayPlayerEditor = new QAction("Edit Player Stats", this);
     connect(awayPlayerEditor, SIGNAL(triggered()), &awayPlayerEdit, SLOT(updateSpinBoxes()));
@@ -50,7 +50,7 @@ void MainWindow::makeMenu(BasketballGame* game)
     connect(homeTeamEdit, SIGNAL(triggered()), &homeEdit, SLOT(updateSpinBoxes()));
     connect(homeTeamEdit, SIGNAL(triggered()), &homeEdit, SLOT(show()));
     homeMenu->addAction(homeTeamEdit);
-
+    */
     QMenu* lowerThirdMenu = new QMenu("Lower Third");
     QAction* customLtCreator = new QAction("Create custom Lt", this);
     connect(customLtCreator, SIGNAL(triggered()), &ltCreator, SLOT(show()));
@@ -58,8 +58,8 @@ void MainWindow::makeMenu(BasketballGame* game)
     lowerThirdMenu->addAction(customLtCreator);
 
 
-    menuBar()->addMenu(awayMenu);
-    menuBar()->addMenu(homeMenu);
+    //menuBar()->addMenu(awayMenu);
+    //menuBar()->addMenu(homeMenu);
     menuBar()->addMenu(lowerThirdMenu);
 
 

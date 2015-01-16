@@ -63,9 +63,15 @@ public:
     int getFouls() const;
     void setFouls(int value);
 
+    QString toString();
+
+    bool getPlayed() const;
+    void setPlayed(bool value);
+
 private:
     QString name, uni;
     int fgm, fga, fgm3, fga3, ftm, fta, pts, blk, stl, ast, oreb, dreb, treb, to, fouls;
+    bool played;
 };
 
 #endif // HOCKEYPLAYER_H

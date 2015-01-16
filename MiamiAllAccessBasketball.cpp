@@ -104,8 +104,8 @@ MiamiAllAccessBasketball::exec() {
 
     if (!statcrewName.isEmpty())
         stats = new StatCrewScanner(game, statcrewName);
-
-    controlPanel = new MainWindow(game, commercial);
+    ticker = new Ticker(graphicsScreen.width() + 1, game);
+    controlPanel = new MainWindow(game, commercial, ticker);
     controlPanel->show();
     game->connectWithSerialHandler(&allSportCgController);
     allSportCgController.show();

@@ -410,16 +410,18 @@ void Scoreboard::checkHomeFouls(int fouls)
 
 void
 Scoreboard::toggleShowBoard() {
-    show = !show;
+    show = true;
     scene()->update();
     //for(int i = 0; i < 5; i++)
-        emit sceneUpdated(0,0,1920,1080);
+    emit sceneUpdated(0,0,1920,1080);
 }
 
 void
 Scoreboard::hideBoard() {
-    show = false;
-    scene()->update();
+    if (show) {
+        show = false;
+        scene()->update();
+    }
 }
 
 void

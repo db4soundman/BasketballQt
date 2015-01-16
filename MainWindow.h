@@ -9,11 +9,12 @@
 #include "PlayerEditor.h"
 #include "TeamEditor.h"
 #include "LowerThirdCreator.h"
+#include "Ticker.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
 public:
-    MainWindow(BasketballGame* game, CommercialGraphic* comGraphic, QWidget *parent = 0);
+    MainWindow(BasketballGame* game, CommercialGraphic* comGraphic, Ticker* ticker, QWidget *parent = 0);
     ~MainWindow();
 
 private:

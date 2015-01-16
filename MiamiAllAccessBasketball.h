@@ -10,6 +10,7 @@
 #include "StatCrewScanner.h"
 #include "SerialConsole.h"
 #include "TricasterHandler.h"
+#include "Ticker.h"
 
 class MiamiAllAccessBasketball : public QApplication {
 public:
@@ -38,6 +39,7 @@ private:
     StatCrewScanner* stats;
     SerialConsole allSportCgController;
     TricasterHandler* tricaster;
+    Ticker* ticker;
 };
 
 #endif // MIAMIALLACCESSBASKETBALL_H

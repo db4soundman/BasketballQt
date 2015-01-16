@@ -392,6 +392,24 @@ LowerThird* BasketballGame::getLt()
     return &lt;
 }
 
+QList<BasketballPlayer *> BasketballGame::getPlayersForTicker()
+{
+    QList<BasketballPlayer*> players;
+    for (int i = 0 ; i < awayTeam->getRoster().size(); i++) {
+        if (awayTeam->getRoster().at(i)->getPlayed()) {
+            players.append(awayTeam->getRoster().at(i));
+        }
+    }
+    players.append(awayTeam->getTeamPlayer());
+    for (int i = 0 ; i < homeTeam->getRoster().size(); i++) {
+        if (homeTeam->getRoster().at(i)->getPlayed()) {
+            players.append(homeTeam->getRoster().at(i));
+        }
+    }
+    players.append(homeTeam->getTeamPlayer());
+    return players;
+}
+
 void BasketballGame::connectWithSerialHandler(SerialConsole *console)
 {
     connect(console, SIGNAL(serialConnected()), this->getGameClock(), SLOT(usingSerialClock()));

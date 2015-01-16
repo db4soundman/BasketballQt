@@ -2,6 +2,7 @@
 #include <string>
 BasketballPlayer::BasketballPlayer() {
     fgm  = fga  = fgm3  = fga3  = ftm  = fta  = pts  = blk  = stl  = ast  = oreb  = dreb  = treb  = to  = fouls = 0;
+    played = false;
 }
 
 
@@ -180,4 +181,23 @@ void BasketballPlayer::setFouls(int value)
 {
     fouls = value;
 }
+
+QString BasketballPlayer::toString()
+{
+    return  name + " " + QString::number(pts) + " PTS, " + QString::number(getFgPct(), 'g', 3) + "%"
+            + " FG, " + QString::number(getFgPct(), 'g', 3) + "%" + " FT, "
+            + QString::number(ast) + " AST, "
+            + QString::number(to) + " TO, " + QString::number(treb) + " REB, "
+            + QString::number(blk) + " BLK, " + QString::number(stl) + " STL";
+}
+bool BasketballPlayer::getPlayed() const
+{
+    return played;
+}
+
+void BasketballPlayer::setPlayed(bool value)
+{
+    played = value;
+}
+
 

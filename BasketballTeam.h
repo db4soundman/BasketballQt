@@ -42,6 +42,9 @@ public:
     int getPtsPaint() const;
     void setPtsPaint(int value);
 
+    QList<BasketballPlayer *> getRoster() const;
+    void setRoster(const QList<BasketballPlayer *> &value);
+
 signals:
 
 

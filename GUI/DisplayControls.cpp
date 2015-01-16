@@ -2,7 +2,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 
-DisplayControls::DisplayControls(BasketballGame* game, CommercialGraphic* comGraphic) {
+DisplayControls::DisplayControls(BasketballGame* game, CommercialGraphic* comGraphic, Ticker *ticker) {
     sponsorText = game->getSponsor();
     customtext.setReadOnly(false);
     customtext.setText("");
@@ -21,8 +21,8 @@ DisplayControls::DisplayControls(BasketballGame* game, CommercialGraphic* comGra
     main->addLayout(fr);
 
     QHBoxLayout* sr = new QHBoxLayout();
-    standingsButton.setText("Standings");
-    sr->addWidget(&standingsButton);
+    tickerButton.setText("Ticker");
+    sr->addWidget(&tickerButton);
     commericalButton.setText("Commercial");
     sbButton.setText("Scoreboard");
     hideButton.setText("Hide All");
@@ -53,12 +53,15 @@ DisplayControls::DisplayControls(BasketballGame* game, CommercialGraphic* comGra
     connect(&sbButton, SIGNAL(clicked()),
             game->getLt(), SLOT(hideLt()));
 
+    connect(&tickerButton, SIGNAL(clicked()), ticker, SLOT(showTicker()));
+
     connect(&hideLT, SIGNAL(clicked()), game->getLt(), SLOT(hideLt()));
 
     //hide
     connect(&hideButton, SIGNAL(clicked()), game->getSb(), SLOT(hideBoard()));
     connect(&hideButton, SIGNAL(clicked()), game->getLt(), SLOT(hideLt()));
     connect(&hideButton, SIGNAL(clicked()), comGraphic, SLOT(hide()));
+    connect(&hideButton, SIGNAL(clicked()), ticker, SLOT(hideTicker()));
 
 }
 

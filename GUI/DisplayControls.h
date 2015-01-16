@@ -6,11 +6,12 @@
 #include <QLineEdit>
 #include "BasketballGame.h"
 #include "CommercialGraphic.h"
+#include "Ticker.h"
 
 class DisplayControls : public QWidget {
     Q_OBJECT
 public:
-    DisplayControls(BasketballGame* game, CommercialGraphic* comGraphic);
+    DisplayControls(BasketballGame* game, CommercialGraphic* comGraphic, Ticker* ticker);
 
 public slots:
     void prepareCustomText();
@@ -20,7 +21,7 @@ signals:
 
 private:
     QLineEdit customtext;
-    QPushButton customButton, announcersButton, standingsButton, commericalButton, sbButton, hideButton, sponsorButton, hideLT;
+    QPushButton customButton, announcersButton, tickerButton, commericalButton, sbButton, hideButton, sponsorButton, hideLT;
     QString sponsorText;
 };
 

@@ -104,6 +104,16 @@ void BasketballTeam::setPtsPaint(int value)
 {
     ptsPaint = value;
 }
+QList<BasketballPlayer *> BasketballTeam::getRoster() const
+{
+    return roster;
+}
+
+void BasketballTeam::setRoster(const QList<BasketballPlayer *> &value)
+{
+    roster = value;
+}
+
 
 
 

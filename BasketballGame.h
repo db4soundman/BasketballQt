@@ -22,6 +22,8 @@ public:
     Scoreboard* getSb();
     LowerThird* getLt();
 
+    QList<BasketballPlayer*> getPlayersForTicker();
+
     void connectWithSerialHandler(SerialConsole* console);
 
     QString getSponsor() const;

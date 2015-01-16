@@ -89,6 +89,7 @@ bool InGameXml::startElement(const QString& namespaceURI, const QString& localNa
         currPlayer->setTreb(atts.value("treb").toInt());
         currPlayer->setFouls(atts.value("pf").toInt());
         currPlayer->setTo(atts.value("to").toInt());
+        currPlayer->setPlayed(true);
     }
 
     return true;

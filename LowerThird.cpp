@@ -251,9 +251,11 @@ void LowerThird::adjustFont()
 
 void
 LowerThird::hideLt() {
-    show = false;
-    showComp = false;
-    scene()->update();
+    if (show || showComp) {
+        show = false;
+        showComp = false;
+        scene()->update();
+    }
 }
 
 void
