@@ -15,12 +15,17 @@ class Scoreboard : public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
 public:
      Scoreboard(QColor awayCol, QColor homeCol, QString awayTeam, QString homeTeam,
-                 QString sponsorText, Clock* clock, QString pAwayRank, QString pHomeRank, QGraphicsItem* parent = 0);
+                 QString sponsorText, Clock* clock, QString pAwayRank, QString pHomeRank, bool useTransparency = false);
      void paint(QPainter * painter,
                 const QStyleOptionGraphicsItem * option, QWidget * widget = 0);
 
+     bool getUseTransparency() const;
+     void setUseTransparency(bool value);
+
 signals:
-    void sceneUpdated(int x, int y, int w, int h);
+     void sceneUpdated(int x, int y, int w, int h);
+     void transparentField(int x, int y, int w, int h);
+     void removeTransparentField(int x, int y, int w, int h);
 public slots:
      void showPd();
      void final();
@@ -57,7 +62,7 @@ private:
      QString ppDescription, period, centeredTimeText, sponsorText, shotClock;
      QLinearGradient mainGradient, homeGradient, awayGradient, penaltyGradient, clockGradient, shotClockGradient;
      bool awayPP, homePP, neutralPP, penalty, sponsor, homeBonus, homeDblBonus, awayBonus, awayDblBonus,
-     scoreText, showPP, show, showPdAndClock, showClock, showShotClock;
+     scoreText, showPP, show, showPdAndClock, showClock, showShotClock, useTransparency;
 
      void prepareColor();
      void prepareAwayName();

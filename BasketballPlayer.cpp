@@ -185,7 +185,7 @@ void BasketballPlayer::setFouls(int value)
 QString BasketballPlayer::toString()
 {
     return  name + " " + QString::number(pts) + " PTS, " + QString::number(getFgPct(), 'g', 3) + "%"
-            + " FG, " + QString::number(getFgPct(), 'g', 3) + "%" + " FT, "
+            + " FG, " + QString::number(getFtPct(), 'g', 3) + "%" + " FT, "
             + QString::number(ast) + " AST, "
             + QString::number(to) + " TO, " + QString::number(treb) + " REB, "
             + QString::number(blk) + " BLK, " + QString::number(stl) + " STL";

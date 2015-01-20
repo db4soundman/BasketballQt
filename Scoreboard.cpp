@@ -13,9 +13,8 @@
 #define TEAM_BOX_Y 10
 
 Scoreboard::Scoreboard(QColor awayCol, QColor homeCol, QString awayTeam, QString homeTeam,
-                       QString sponsorText, Clock* clock, QString pAwayRank, QString pHomeRank,
-                       QGraphicsItem *parent) :
-    QGraphicsPixmapItem(parent), homeColor(homeCol), awayColor(awayCol) {
+                       QString sponsorText, Clock* clock, QString pAwayRank, QString pHomeRank, bool useTransparency) :
+    homeColor(homeCol), awayColor(awayCol), useTransparency(useTransparency) {
     QFont font("Arial", 36, QFont::Bold);
 
     QFont sponsorFont("Arial", 24, QFont::Bold);
@@ -98,10 +97,10 @@ Scoreboard::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     Q_UNUSED(option);
     Q_UNUSED(widget);
     if (show) {
-        painter->drawPixmap(0,-28, 790, 28, *topBar);
+        if (!useTransparency)
+            painter->drawPixmap(0,-28, 790, 28, *topBar);
         painter->fillRect(0,0, 790, 74, mainGradient);
         painter->fillRect(310, 6, 85, 32, clockGradient);
-        //shot clock..., maybe some if stat
         painter->fillRect(395, 6, 85, 32, showShotClock ? shotClockGradient : clockGradient);
         painter->drawPixmap(310, 38, 170, 32, *ppBar);
         //painter->drawPixmap(34, 4, 66, 50, *networkLogo);
@@ -388,6 +387,16 @@ void Scoreboard::hidingShotClock()
     showShotClock = false;
     scene()->update(x() + 310, y() + 6, 170, 64);
 }
+bool Scoreboard::getUseTransparency() const
+{
+    return useTransparency;
+}
+
+void Scoreboard::setUseTransparency(bool value)
+{
+    useTransparency = value;
+}
+
 
 
 void Scoreboard::checkHomeFouls(int fouls)
@@ -412,6 +421,9 @@ void
 Scoreboard::toggleShowBoard() {
     show = true;
     scene()->update();
+    if (useTransparency) {
+        emit transparentField(x() + 0,y() + -28, 790, 28);
+    }
     //for(int i = 0; i < 5; i++)
     emit sceneUpdated(0,0,1920,1080);
 }
@@ -419,6 +431,7 @@ Scoreboard::toggleShowBoard() {
 void
 Scoreboard::hideBoard() {
     if (show) {
+        emit removeTransparentField(x() + 0,y() + -28, 790, 28);
         show = false;
         scene()->update();
     }

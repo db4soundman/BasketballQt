@@ -72,7 +72,8 @@ MiamiAllAccessBasketball::exec() {
     game->getLt()->setY(graphicsScreen.height() - 160);
     game->getSb()->setY(graphicsScreen.height() - 80 - 74);
     game->getSb()->setX((graphicsScreen.width() / 2) - (790/2));
-    commercial->setY(graphicsScreen.height() - 230);
+    game->getSb()->setUseTransparency(usingTricaster);
+    commercial->setY(graphicsScreen.height() - 320);
     //commercial->setX(460);
 
 
@@ -105,6 +106,8 @@ MiamiAllAccessBasketball::exec() {
     if (!statcrewName.isEmpty())
         stats = new StatCrewScanner(game, statcrewName);
     ticker = new Ticker(graphicsScreen.width() + 1, game);
+    ticker->setY(graphicsScreen.height() + 1 - 74);
+    scene->addItem(ticker);
     controlPanel = new MainWindow(game, commercial, ticker);
     controlPanel->show();
     game->connectWithSerialHandler(&allSportCgController);
@@ -114,7 +117,10 @@ MiamiAllAccessBasketball::exec() {
     }
     else {
         tricaster = new TricasterHandler(tv, bg);
-        connect(scene, SIGNAL(changed(QList<QRectF>)), tricaster, SLOT(srun()));
+        //connect(scene, SIGNAL(changed(QList<QRectF>)), tricaster, SLOT(srun()));
+        connect(scene, SIGNAL(changed(QList<QRectF>)), tricaster, SLOT(updatePortion(QList<QRectF>)));
+        connect(game->getSb(), SIGNAL(transparentField(int,int,int,int)), tricaster, SLOT(addAlphaRect(int,int,int,int)));
+        connect(game->getSb(), SIGNAL(removeTransparentField(int,int,int,int)), tricaster, SLOT(removeAlphaRect(int,int,int,int)));
     }
     return QApplication::exec();
 }

@@ -43,32 +43,32 @@ void CommercialGraphic::paint(QPainter* painter, const QStyleOptionGraphicsItem*
                               QWidget* widget) {
     if (show){
         painter->setPen(QColor(255, 255, 255));
-        painter->drawPixmap(WIDTH/2, -BLACK_BAR_HEIGHT, WIDTH, BLACK_BAR_HEIGHT, blackBar);
-
+        //painter->drawPixmap(WIDTH/2, -BLACK_BAR_HEIGHT, WIDTH, BLACK_BAR_HEIGHT, blackBar);
+        painter->drawPixmap(WIDTH/2,0, WIDTH, BLACK_BAR_HEIGHT, blackBar);
         painter->setFont(descriptiveFont);
-        painter->drawText(WIDTH / 2, -BLACK_BAR_HEIGHT, WIDTH, BLACK_BAR_HEIGHT, Qt::AlignCenter, maaText);
+        painter->drawText(WIDTH / 2, 0, WIDTH, BLACK_BAR_HEIGHT, Qt::AlignCenter, maaText);
 
-        painter->fillRect(0, 0, WIDTH, RECT_HEIGHT, awayTeamGradient);
-        painter->fillRect(WIDTH, 0, WIDTH, RECT_HEIGHT, homeTeamGradient);
+        painter->fillRect(0, BLACK_BAR_HEIGHT, WIDTH, RECT_HEIGHT, awayTeamGradient);
+        painter->fillRect(WIDTH, BLACK_BAR_HEIGHT, WIDTH, RECT_HEIGHT, homeTeamGradient);
         painter->setFont(away->font());
-        painter->drawText(10, 0, NAME_WIDTH, RECT_HEIGHT, Qt::AlignCenter, away->toPlainText());
+        painter->drawText(10, BLACK_BAR_HEIGHT, NAME_WIDTH, RECT_HEIGHT, Qt::AlignCenter, away->toPlainText());
         painter->setFont(home->font());
-        painter->drawText(WIDTH + CENTER_OFFSET, 0, NAME_WIDTH, RECT_HEIGHT, Qt::AlignCenter, home->toPlainText());
+        painter->drawText(WIDTH + CENTER_OFFSET, BLACK_BAR_HEIGHT, NAME_WIDTH, RECT_HEIGHT, Qt::AlignCenter, home->toPlainText());
 
-        painter->fillRect(WIDTH - CENTER_OFFSET, 0, CENTER_OFFSET * 2, RECT_HEIGHT, QColor(0,0,0, 100));
+        painter->fillRect(WIDTH - CENTER_OFFSET, BLACK_BAR_HEIGHT, CENTER_OFFSET * 2, RECT_HEIGHT, QColor(0,0,0, 100));
 
-        painter->drawText(WIDTH - CENTER_OFFSET, 0, CENTER_OFFSET, RECT_HEIGHT, Qt::AlignCenter, awayScore);
-        painter->drawText(WIDTH, 0, CENTER_OFFSET, RECT_HEIGHT, Qt::AlignCenter, homeScore);
+        painter->drawText(WIDTH - CENTER_OFFSET, BLACK_BAR_HEIGHT, CENTER_OFFSET, RECT_HEIGHT, Qt::AlignCenter, awayScore);
+        painter->drawText(WIDTH, BLACK_BAR_HEIGHT, CENTER_OFFSET, RECT_HEIGHT, Qt::AlignCenter, homeScore);
 
 
-        painter->drawPixmap(WIDTH - 200, RECT_HEIGHT, WIDTH - (WIDTH- 400), BLACK_BAR_HEIGHT, blackBar);
+        painter->drawPixmap(WIDTH - 200, RECT_HEIGHT + BLACK_BAR_HEIGHT, WIDTH - (WIDTH- 400), BLACK_BAR_HEIGHT, blackBar);
         painter->setFont(descriptiveFont);
         if (clockStatus != SHOW_CLOCK) {
-            painter->drawText(WIDTH - 200, RECT_HEIGHT, WIDTH - (WIDTH- 400), BLACK_BAR_HEIGHT, Qt::AlignCenter, clock);
+            painter->drawText(WIDTH - 200, RECT_HEIGHT + BLACK_BAR_HEIGHT, WIDTH - (WIDTH- 400), BLACK_BAR_HEIGHT, Qt::AlignCenter, clock);
         }
         else {
-            painter->drawText(WIDTH- 190, RECT_HEIGHT, WIDTH - (WIDTH- 400), BLACK_BAR_HEIGHT, Qt::AlignLeft, period);
-            painter->drawText(WIDTH-200, RECT_HEIGHT, WIDTH - (WIDTH- 390), BLACK_BAR_HEIGHT, Qt::AlignRight, clock);
+            painter->drawText(WIDTH- 190, RECT_HEIGHT + BLACK_BAR_HEIGHT, WIDTH - (WIDTH- 400), BLACK_BAR_HEIGHT, Qt::AlignLeft, period);
+            painter->drawText(WIDTH-200, RECT_HEIGHT + BLACK_BAR_HEIGHT, WIDTH - (WIDTH- 390), BLACK_BAR_HEIGHT, Qt::AlignRight, clock);
         }
     }
 }
@@ -161,10 +161,10 @@ void CommercialGraphic::checkAwayFont()
 
 void CommercialGraphic::prepareGradients(QColor awayColor, QColor homeColor)
 {
-    homeTeamGradient.setStart(0, 0);
-    homeTeamGradient.setFinalStop(0, 120);
-    awayTeamGradient.setStart(0,0);
-    awayTeamGradient.setFinalStop(0, 120);
+    homeTeamGradient.setStart(0, BLACK_BAR_HEIGHT);
+    homeTeamGradient.setFinalStop(0, BLACK_BAR_HEIGHT + RECT_HEIGHT);
+    awayTeamGradient.setStart(0,BLACK_BAR_HEIGHT);
+    awayTeamGradient.setFinalStop(0, BLACK_BAR_HEIGHT + RECT_HEIGHT);
     int red, green, blue;
     red = -1*homeColor.red() *GRADIENT_LEVEL + homeColor.red();
     green = -1*homeColor.green() *GRADIENT_LEVEL + homeColor.green();

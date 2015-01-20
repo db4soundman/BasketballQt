@@ -3,9 +3,11 @@
 Ticker::Ticker(int pwidth, BasketballGame* pgame)
 {
     width = pwidth;
-    timer.setInterval(1000 * 5); // 5 seconds
+    timer.setInterval(1000 * 10); // 5 seconds
     connect(&timer, SIGNAL(timeout()), this, SLOT(advanceTicker()));
     game = pgame;
+    show = false;
+    prepareColor();
 }
 
 void Ticker::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
@@ -13,6 +15,9 @@ void Ticker::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QW
     if (show) {
         painter->fillRect(0,0,width, 74, mainGradient);
         painter->fillRect(100, 2, width - 200, 44, QColor(1,1,1));
+        painter->setFont(resizeText());
+        painter->setPen(QColor(255,255,255));
+        painter->drawText(100, 2, width - 200, 44, Qt::AlignCenter, players.at(index)->toString());
     }
 }
 
