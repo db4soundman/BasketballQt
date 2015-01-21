@@ -108,8 +108,7 @@ void TricasterHandler::updatePortion(QList<QRectF> rects)
                 redrawAlpha = true;
         }
     }
-    // Do any of the rects intersect with the transparent rect?
-    if (transparentRects.size() != 0)
+    if (redrawAlpha)
         drawTransparentRectangle();
     start();
 }

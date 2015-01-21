@@ -39,8 +39,8 @@ MiamiAllAccessBasketball::exec() {
     // Make vars, create wizard.
     scene = new QGraphicsScene();
 
-    QString awayName, homeName, awayRank, homeRank, homeFile, awayFile, sponsor, announcer,
-            statcrewName;
+    QString awayName, homeName, awayRank, homeRank, sponsor, announcer,
+            statcrewName, awayLogo;
     QColor awayColor, homeColor,  bg;
     bool usingTricaster = true;
 
@@ -52,7 +52,7 @@ MiamiAllAccessBasketball::exec() {
     homeName = "MIAMI";
 
     SetupWizard wizard(&awayName, &homeName, &sponsor,&announcer, &awayRank, &homeRank,
-                       &awayColor, &homeColor, &bg, &statcrewName, &usingTricaster);
+                       &awayColor, &homeColor, &bg, &statcrewName, &usingTricaster, &awayLogo);
     wizard.exec();
     QDesktopWidget desktop;
     //QRect graphicsScreen = desktop.screenGeometry(1);
@@ -60,9 +60,10 @@ MiamiAllAccessBasketball::exec() {
     tv = new QGraphicsView(scene);
     game = new BasketballGame(awayName, homeName, awayColor, homeColor,
                               statcrewName, sponsor, announcer, awayRank,
-                              homeRank, graphicsScreen.width() + 1, tv);
+                              homeRank, graphicsScreen.width() + 1, tv, awayLogo);
 
-
+    if (usingTricaster)
+        bg.setRgb(0,0,0);
     scene->addItem(game->getSb());
     scene->setBackgroundBrush(QBrush(Qt::transparent));
     scene->addItem(game->getLt());

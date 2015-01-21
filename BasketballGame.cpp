@@ -11,10 +11,10 @@
 
 BasketballGame::BasketballGame(QString awayName, QString homeName, QColor awayColor, QColor homeColor,
                                QString xmlFile, QString sponsor, QString announcers,
-                               QString awayRank, QString homeRank, int screenWidth, QGraphicsView *screen) :
+                               QString awayRank, QString homeRank, int screenWidth, QGraphicsView *screen, QString awayLogo) :
     awayName(awayName), homeName(homeName), sponsor(sponsor), announcers(announcers), awayColor(awayColor),
     homeColor(homeColor), awayRank(awayRank), homeRank(homeRank),
-    sb(awayColor, homeColor, awayName, homeName, sponsor, &gameClock, awayRank, homeRank),
+    sb(awayColor, homeColor, awayName, homeName, sponsor, &gameClock, awayRank, homeRank, awayLogo),
     lt (awayColor, homeColor, screenWidth) {
     isFinal = false;
     awayScore = 0;

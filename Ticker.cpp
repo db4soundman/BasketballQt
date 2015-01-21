@@ -3,7 +3,7 @@
 Ticker::Ticker(int pwidth, BasketballGame* pgame)
 {
     width = pwidth;
-    timer.setInterval(1000 * 10); // 5 seconds
+    timer.setInterval(1000 * 10); // 10 seconds
     connect(&timer, SIGNAL(timeout()), this, SLOT(advanceTicker()));
     game = pgame;
     show = false;
@@ -47,8 +47,8 @@ void Ticker::prepareColor()
 {
     mainGradient.setStart(0,0);
     mainGradient.setFinalStop(0, 74);
-    mainGradient.setColorAt(0, QColor(0,0,0));
-    mainGradient.setColorAt(1, QColor(0,0,0));
+    mainGradient.setColorAt(0, QColor(1,1,1));
+    mainGradient.setColorAt(1, QColor(1,1,1));
     mainGradient.setColorAt(.4, QColor(156,0,0));
     mainGradient.setColorAt(.6, QColor(156,0,0));
 }

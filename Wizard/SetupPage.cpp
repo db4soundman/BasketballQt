@@ -6,7 +6,7 @@
 
 SetupPage::SetupPage(QString* pAwayName, QString* pHomeName, QString* pSponsor, QString* pAnnouncer,
                      QString* pAwayRank, QString* pHomeRank, QColor* pAwayColor,
-                     QColor* pHomeColor, QColor* pBg, QString* pStatCrew, bool* pUsingTricaster) {
+                     QColor* pHomeColor, QColor* pBg, QString* pStatCrew, bool* pUsingTricaster, QString* awayLogo) {
     chooseAColor.setText("Color");
     chooseHColor.setText("Color");
     chooseBg.setText("Background Color");
@@ -22,10 +22,13 @@ SetupPage::SetupPage(QString* pAwayName, QString* pHomeName, QString* pSponsor, 
     statCrew = pStatCrew;
     bg = pBg;
     usingTricaster = pUsingTricaster;
+    this->awayLogo = awayLogo;
     QGridLayout* mainLayout = new QGridLayout();
     mainLayout->addWidget(new QLabel("Away Team:"), 0, 0);
     mainLayout->addWidget(&awayNameLine, 0, 1);
     mainLayout->addWidget(&chooseAColor, 0, 2);
+    browseLogo.setText("Logo");
+    mainLayout->addWidget(&browseLogo, 0, 3);
 
     mainLayout->addWidget(new QLabel("Home Team:"), 1, 0);
     mainLayout->addWidget(&homeNameLine, 1, 1);
@@ -52,6 +55,7 @@ SetupPage::SetupPage(QString* pAwayName, QString* pHomeName, QString* pSponsor, 
     connect(&chooseHColor, SIGNAL(clicked()), this, SLOT(homeColorDiag()));
     connect(&chooseBg, SIGNAL(clicked()), this, SLOT(bgDiag()));
     connect(&browseStatCrew, SIGNAL(clicked()), this, SLOT(statCrewBrowse()));
+    connect(&browseLogo, SIGNAL(clicked()), this, SLOT(logoBrowse()));
 
     homeNameLine.setText(*homeName);
     announcerLine.setText(*announcer);
@@ -96,4 +100,11 @@ void SetupPage::bgDiag()
     QColor temp = QColorDialog::getColor(*bg, 0, "Background Color");
     if (temp.isValid())
         *bg = temp;
+}
+
+void SetupPage::logoBrowse()
+{
+    QString file = QFileDialog::getOpenFileName(0, "Away Team Logo");
+    if (!file.isEmpty())
+        *awayLogo = file;
 }

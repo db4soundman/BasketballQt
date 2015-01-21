@@ -10,7 +10,7 @@ class SetupWizard : public QWizard {
 public:
     SetupWizard(QString* pAwayName, QString* pHomeName,
                 QString* pSponsor, QString* pAnnouncer, QString* pAwayRank, QString* pHomeRank,
-                QColor* pAwayColor, QColor* pHomeColor, QColor* pBg, QString* statcrewName, bool *pUsingTricaster);
+                QColor* pAwayColor, QColor* pHomeColor, QColor* pBg, QString* statcrewName, bool *pUsingTricaster, QString* awayLogo);
 
 private:
     SetupPage wizpage;

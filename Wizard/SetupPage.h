@@ -12,7 +12,7 @@ class SetupPage : public QWizardPage {
 public:
     SetupPage(QString* pAwayName, QString* pHomeName,
               QString* pSponsor, QString* pAnnouncer, QString* pAwayRank, QString* pHomeRank,
-              QColor* pAwayColor, QColor* pHomeColor, QColor* pBg, QString* pStatCrew, bool *pUsingTricaster);
+              QColor* pAwayColor, QColor* pHomeColor, QColor* pBg, QString* pStatCrew, bool *pUsingTricaster, QString *awayLogo);
     bool validatePage();
 
 private slots:
@@ -20,11 +20,12 @@ private slots:
     void awayColorDiag();
     void homeColorDiag();
     void bgDiag();
+    void logoBrowse();
 
 private:
-    QString* awayName, *homeName, *awayRank, *homeRank, *homeFile, *awayFile, *sponsor, *announcer, *statCrew;
+    QString* awayName, *homeName, *awayRank, *homeRank, *homeFile, *awayFile, *sponsor, *announcer, *statCrew, *awayLogo;
     QColor* awayColor, *homeColor,  *bg;
-    QPushButton chooseHColor, chooseAColor, chooseBg, browseStatCrew;
+    QPushButton chooseHColor, chooseAColor, chooseBg, browseStatCrew, browseLogo;
     QLineEdit homeNameLine, awayNameLine, awayRankLine, homeRankLine, sponsorLine, announcerLine, tricasterIp;
     QCheckBox* tricasterBox;
     bool* usingTricaster;

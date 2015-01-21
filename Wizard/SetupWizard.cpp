@@ -2,8 +2,8 @@
 
 SetupWizard::SetupWizard(QString* pAwayName, QString* pHomeName, QString* pSponsor, QString* pAnnouncer,
                          QString* pAwayRank, QString* pHomeRank, QColor* pAwayColor,
-                         QColor* pHomeColor, QColor* pBg, QString* statcrewName, bool* pUsingTricaster) :
+                         QColor* pHomeColor, QColor* pBg, QString* statcrewName, bool* pUsingTricaster, QString* awayLogo) :
     wizpage(pAwayName, pHomeName, pSponsor, pAnnouncer,
-            pAwayRank, pHomeRank, pAwayColor, pHomeColor, pBg, statcrewName, pUsingTricaster) {
+            pAwayRank, pHomeRank, pAwayColor, pHomeColor, pBg, statcrewName, pUsingTricaster, awayLogo) {
     addPage(&wizpage);
 }
