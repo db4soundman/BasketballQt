@@ -114,8 +114,8 @@ Scoreboard::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         painter->fillRect(0,0, 790 + XDELTA * 2, 74, mainGradient);
         painter->fillRect(310+ XDELTA, 6, 85, 32, clockGradient);
         painter->fillRect(395+ XDELTA, 6, 85, 32, showShotClock ? shotClockGradient : clockGradient);
-        painter->fillRect(310+ XDELTA, 38, 170, 32, periodGradient);
-        //painter->drawPixmap(310, 38, 170, 32, *ppBar);
+        //painter->fillRect(310+ XDELTA, 38, 170, 32, periodGradient);
+        painter->drawPixmap(310+ XDELTA, 38, 170, 32, *ppBar);
         //painter->drawPixmap(34, 4, 66, 50, *networkLogo);
         //Clock - Game time...draw clock first since default color is black
         painter->setFont(defaultSponsorText);
@@ -190,14 +190,16 @@ Scoreboard::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         }
 
         if (homeBonus || homeDblBonus) {
-            painter->fillRect(489+ XDELTA, 74, TEAM_NAME_WIDTH + 75 + XDELTA, 28, bonusGradient);
+            //painter->fillRect(489+ XDELTA, 74, TEAM_NAME_WIDTH + 75 + XDELTA, 28, bonusGradient);
+            painter->drawPixmap(489+ XDELTA, 74, TEAM_NAME_WIDTH + 75 + XDELTA, 28, *ppBar);
             painter->setFont(QFont("Arial", 20, QFont::Bold));
             painter->setPen(QColor(255,255,255));
             painter->drawText(489+ XDELTA, 74, TEAM_NAME_WIDTH + 75+ XDELTA, 28, Qt::AlignCenter, homeBonus ? "BONUS" : "DOUBLE BONUS");
         }
 
         if (awayBonus || awayDblBonus) {
-            painter->fillRect(6, 74, TEAM_NAME_WIDTH + 75 + XDELTA, 28, bonusGradient);
+            //painter->fillRect(6, 74, TEAM_NAME_WIDTH + 75 + XDELTA, 28, bonusGradient);
+            painter->drawPixmap(6, 74, TEAM_NAME_WIDTH + 75 + XDELTA, 28, *ppBar);
             painter->setFont(QFont("Arial", 20, QFont::Bold));
             painter->setPen(QColor(255,255,255));
             painter->drawText(6, 74, TEAM_NAME_WIDTH + 75+ XDELTA, 28, Qt::AlignCenter, awayBonus ? "BONUS" : "DOUBLE BONUS");

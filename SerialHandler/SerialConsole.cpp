@@ -131,7 +131,7 @@ void SerialConsole::readData()
             //if (realData[0] == (char)1 || realData[0] == ' ' || (realData[0] >= '1' && realData[0] <= '6' )) {
             //realData.resize(32);
             emit dataReceived(realData);
-            console->putData(realData);
+            //console->putData(realData);
             //}
         }
     //}
