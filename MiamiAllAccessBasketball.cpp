@@ -67,7 +67,7 @@ MiamiAllAccessBasketball::exec() {
     scene->addItem(game->getSb());
     scene->setBackgroundBrush(QBrush(Qt::transparent));
     scene->addItem(game->getLt());
-    commercial = new CommercialGraphic(game, graphicsScreen.width());
+    commercial = new CommercialGraphic(game, graphicsScreen.width(), awayLogo);
     scene->addItem(commercial);
     game->getLt()->setX((graphicsScreen.width() / 2) - 214);
     game->getLt()->setY(graphicsScreen.height() - 160);

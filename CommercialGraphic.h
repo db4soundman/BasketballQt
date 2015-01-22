@@ -12,7 +12,7 @@
 class CommercialGraphic : public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
 public:
-    CommercialGraphic(BasketballGame* game, int width, QGraphicsItem *parent = 0);
+    CommercialGraphic(BasketballGame* game, int width, QString pawayLogo, QGraphicsItem *parent = 0);
 
     void paint(QPainter * painter,
                const QStyleOptionGraphicsItem * option, QWidget * widget = 0);
@@ -28,7 +28,7 @@ public slots:
     void hide();
 
 private:
-    QPixmap blackBar;
+    QPixmap blackBar, blockText, awayLogo;
     QLinearGradient homeTeamGradient, awayTeamGradient;
     BasketballGame* basketballGame;
     bool show, inGame;

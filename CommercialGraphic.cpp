@@ -12,8 +12,9 @@
 #define INTERMISSION 1
 #define FINAL 2
 
-CommercialGraphic::CommercialGraphic(BasketballGame* game, int width, QGraphicsItem* parent) :
-    QGraphicsPixmapItem(parent), blackBar(QPixmap(":/images/ppBar.png")) {
+CommercialGraphic::CommercialGraphic(BasketballGame* game, int width, QString pawayLogo, QGraphicsItem* parent) :
+    QGraphicsPixmapItem(parent), blackBar(QPixmap(":/images/ppBar.png")), blockText(QPixmap(":/images/MiamiBlock.png")),
+    awayLogo(pawayLogo){
     basketballGame = game;
     show = false;
     WIDTH = width / 2;
@@ -37,6 +38,9 @@ CommercialGraphic::CommercialGraphic(BasketballGame* game, int width, QGraphicsI
     maaText = "Miami All-Access";
     clockStatus = SHOW_CLOCK;
     connect(game->getGameClock(), SIGNAL(clockUpdated()), this, SLOT(updateClock()));
+    if (awayLogo.height() > 120) {
+        awayLogo = awayLogo.scaledToHeight(120, Qt::SmoothTransformation);
+    }
 }
 
 void CommercialGraphic::paint(QPainter* painter, const QStyleOptionGraphicsItem* option,
@@ -51,10 +55,13 @@ void CommercialGraphic::paint(QPainter* painter, const QStyleOptionGraphicsItem*
         painter->fillRect(0, BLACK_BAR_HEIGHT, WIDTH, RECT_HEIGHT, awayTeamGradient);
         painter->fillRect(WIDTH, BLACK_BAR_HEIGHT, WIDTH, RECT_HEIGHT, homeTeamGradient);
         painter->setFont(away->font());
-        painter->drawText(10, BLACK_BAR_HEIGHT, NAME_WIDTH, RECT_HEIGHT, Qt::AlignCenter, away->toPlainText());
+        //painter->drawText(10, BLACK_BAR_HEIGHT, NAME_WIDTH, RECT_HEIGHT, Qt::AlignCenter, away->toPlainText());
         painter->setFont(home->font());
-        painter->drawText(WIDTH + CENTER_OFFSET, BLACK_BAR_HEIGHT, NAME_WIDTH, RECT_HEIGHT, Qt::AlignCenter, home->toPlainText());
-
+        //painter->drawText(WIDTH + CENTER_OFFSET, BLACK_BAR_HEIGHT, NAME_WIDTH, RECT_HEIGHT, Qt::AlignCenter, home->toPlainText());
+        painter->setOpacity(.996);
+        painter->drawPixmap(WIDTH - CENTER_OFFSET - 100 - awayLogo.width(), BLACK_BAR_HEIGHT, awayLogo);
+        painter->drawPixmap(WIDTH + CENTER_OFFSET + 100, BLACK_BAR_HEIGHT + 20, blockText);
+        painter->setOpacity(1);
         painter->fillRect(WIDTH - CENTER_OFFSET, BLACK_BAR_HEIGHT, CENTER_OFFSET * 2, RECT_HEIGHT, QColor(0,0,0, 100));
 
         painter->drawText(WIDTH - CENTER_OFFSET, BLACK_BAR_HEIGHT, CENTER_OFFSET, RECT_HEIGHT, Qt::AlignCenter, awayScore);

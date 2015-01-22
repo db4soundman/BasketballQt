@@ -5,6 +5,7 @@
         <file alias="statbar.png">images/StatBar.png</file>
         <file alias="M.png">images/M.png</file>
         <file alias="LowerThird.png">images/StatsGraphic.png</file>
+        <file alias="MiamiBlock.png">images/MiamiBlock.png</file>
     </qresource>
     <qresource prefix="/resources"/>
 </RCC>
