@@ -40,7 +40,7 @@ MiamiAllAccessBasketball::exec() {
     scene = new QGraphicsScene();
 
     QString awayName, homeName, awayRank, homeRank, sponsor, announcer,
-            statcrewName, awayLogo;
+            statcrewName, awayLogo, tricasterIp;
     QColor awayColor, homeColor,  bg;
     bool usingTricaster = true;
 
@@ -52,7 +52,7 @@ MiamiAllAccessBasketball::exec() {
     homeName = "MIAMI";
 
     SetupWizard wizard(&awayName, &homeName, &sponsor,&announcer, &awayRank, &homeRank,
-                       &awayColor, &homeColor, &bg, &statcrewName, &usingTricaster, &awayLogo);
+                       &awayColor, &homeColor, &bg, &statcrewName, &usingTricaster, &awayLogo, &tricasterIp);
     wizard.exec();
     QDesktopWidget desktop;
     //QRect graphicsScreen = desktop.screenGeometry(1);
@@ -117,7 +117,7 @@ MiamiAllAccessBasketball::exec() {
         tv->showFullScreen();
     }
     else {
-        tricaster = new TricasterHandler(tv, bg);
+        tricaster = new TricasterHandler(tricasterIp, tv, bg);
         //connect(scene, SIGNAL(changed(QList<QRectF>)), tricaster, SLOT(srun()));
         connect(scene, SIGNAL(changed(QList<QRectF>)), tricaster, SLOT(updatePortion(QList<QRectF>)));
         connect(game->getSb(), SIGNAL(transparentField(int,int,int,int)), tricaster, SLOT(addAlphaRect(int,int,int,int)));

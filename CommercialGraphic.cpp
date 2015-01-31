@@ -13,7 +13,7 @@
 #define FINAL 2
 
 CommercialGraphic::CommercialGraphic(BasketballGame* game, int width, QString pawayLogo, QGraphicsItem* parent) :
-    QGraphicsPixmapItem(parent), blackBar(QPixmap(":/images/ppBar.png")), blockText(QPixmap(":/images/MiamiBlock.png")),
+    QGraphicsPixmapItem(parent), blackBar(QPixmap(":/images/ppBar.png")), blockText(QPixmap(":/images/M.png")),
     awayLogo(pawayLogo){
     basketballGame = game;
     show = false;
@@ -41,6 +41,9 @@ CommercialGraphic::CommercialGraphic(BasketballGame* game, int width, QString pa
     if (awayLogo.height() > 120) {
         awayLogo = awayLogo.scaledToHeight(120, Qt::SmoothTransformation);
     }
+    if (blockText.height() > 120) {
+        blockText = blockText.scaledToHeight(120, Qt::SmoothTransformation);
+    }
 }
 
 void CommercialGraphic::paint(QPainter* painter, const QStyleOptionGraphicsItem* option,
@@ -60,7 +63,7 @@ void CommercialGraphic::paint(QPainter* painter, const QStyleOptionGraphicsItem*
         //painter->drawText(WIDTH + CENTER_OFFSET, BLACK_BAR_HEIGHT, NAME_WIDTH, RECT_HEIGHT, Qt::AlignCenter, home->toPlainText());
         painter->setOpacity(.996);
         painter->drawPixmap(WIDTH - CENTER_OFFSET - 100 - awayLogo.width(), BLACK_BAR_HEIGHT, awayLogo);
-        painter->drawPixmap(WIDTH + CENTER_OFFSET + 100, BLACK_BAR_HEIGHT + 20, blockText);
+        painter->drawPixmap(WIDTH + CENTER_OFFSET + 100, BLACK_BAR_HEIGHT, blockText);
         painter->setOpacity(1);
         painter->fillRect(WIDTH - CENTER_OFFSET, BLACK_BAR_HEIGHT, CENTER_OFFSET * 2, RECT_HEIGHT, QColor(0,0,0, 100));
 

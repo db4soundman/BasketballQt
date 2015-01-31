@@ -6,7 +6,8 @@
 
 SetupPage::SetupPage(QString* pAwayName, QString* pHomeName, QString* pSponsor, QString* pAnnouncer,
                      QString* pAwayRank, QString* pHomeRank, QColor* pAwayColor,
-                     QColor* pHomeColor, QColor* pBg, QString* pStatCrew, bool* pUsingTricaster, QString* awayLogo) {
+                     QColor* pHomeColor, QColor* pBg, QString* pStatCrew, bool* pUsingTricaster,
+                     QString* awayLogo, QString* tricasterIp) {
     chooseAColor.setText("Color");
     chooseHColor.setText("Color");
     chooseBg.setText("Background Color");
@@ -23,6 +24,7 @@ SetupPage::SetupPage(QString* pAwayName, QString* pHomeName, QString* pSponsor, 
     bg = pBg;
     usingTricaster = pUsingTricaster;
     this->awayLogo = awayLogo;
+    this->tricasterIp = tricasterIp;
     QGridLayout* mainLayout = new QGridLayout();
     mainLayout->addWidget(new QLabel("Away Team:"), 0, 0);
     mainLayout->addWidget(&awayNameLine, 0, 1);
@@ -48,7 +50,9 @@ SetupPage::SetupPage(QString* pAwayName, QString* pHomeName, QString* pSponsor, 
     mainLayout->addWidget(&browseStatCrew, 7, 1);
     tricasterBox = new QCheckBox("Using Tricaster");
     tricasterBox->setChecked(true);
-    mainLayout->addWidget(tricasterBox, 8, 1);
+    mainLayout->addWidget(tricasterBox, 8, 0);
+    mainLayout->addWidget(&tricasterIpLine, 8, 1);
+
     setLayout(mainLayout);
 
     connect(&chooseAColor, SIGNAL(clicked()), this, SLOT(awayColorDiag()));
@@ -71,6 +75,7 @@ bool SetupPage::validatePage()
     *awayName = awayNameLine.text().toUpper();
     *homeName = homeNameLine.text().toUpper();
     *usingTricaster = tricasterBox->isChecked();
+    *tricasterIp = tricasterIpLine.text();
     return true;
 }
 
